@@ -1,0 +1,76 @@
+.sidebar {
+  width: 250px;
+  background-color: #fff;
+  color: #444050;
+  transition: width 0.3s ease;
+  padding: 15px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.sidebar.collapsed {
+  width: 80px; /* Collapsed width */
+}
+
+.toggleButton {
+  background-color: #f52f36;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.toggleButton:hover {
+  background-color: #d62c1a;
+}
+
+.navLinks {
+  list-style-type: none;
+  font-size: 1.3rem;
+  padding-inline: 1rem;
+}
+
+.navLinks li {
+  margin: 1rem 0;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: #444050;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.navLinks a:hover {
+  background-color: #f52f36;
+  color: white;
+}
+
+/* Separate styles for icons and text */
+.linkLabel {
+  margin-left: 10px; /* Space between icon and text */
+}
+
+/* Hide text in collapsed state */
+.sidebar.collapsed .linkLabel {
+  display: none; /* Completely hide the text element */
+}
+
+/* Optionally, hide footer when collapsed */
+.sidebar.collapsed .footer {
+  display: none; /* Hide footer when sidebar is collapsed */
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  text-align: center;
+}

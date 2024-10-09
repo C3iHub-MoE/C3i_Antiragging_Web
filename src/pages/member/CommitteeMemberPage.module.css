@@ -1,0 +1,34 @@
+/* CommitteeMemberPage.module.css */
+.container {
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.studentTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.studentTable th,
+.studentTable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.approveButton {
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.approveButton:hover {
+    background-color: #218838;
+}

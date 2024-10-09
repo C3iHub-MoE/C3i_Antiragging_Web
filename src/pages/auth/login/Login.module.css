@@ -1,0 +1,113 @@
+/* Container styling for the whole login page */
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    padding: 0 20px;
+  }
+  
+  /* Login box styling */
+  .loginBox {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title styling */
+  .title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Form input group styling */
+  .inputGroup {
+    margin-bottom: 20px;
+  }
+  
+  /* Label styling */
+  .label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 6px;
+  }
+  
+  /* Input field styling */
+  .input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input:focus {
+    border-color: #7367f0;
+    outline: none;
+  }
+  
+  /* Login button styling */
+  .loginButton {
+    width: 100%;
+    padding: 12px;
+    background-color: #f52f36;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .loginButton:hover {
+    background-color: #e22e2e;
+  }
+  .forgotButton {
+    margin-top: 10px; /* Space above the button */
+    background: none; /* No background */
+    border: none; /* No border */
+    color: #7367f0; /* Text color matching primary color */
+    font-size: 14px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    text-decoration: underline; /* Underline text */
+  }
+  .logoPlaceholder {
+    width: 100px;
+    height: 100px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: #555;
+  }
+  /* Responsive styling */
+  @media (max-width: 480px) {
+    .loginBox {
+      padding: 20px;
+    }
+    
+    .title {
+      font-size: 20px;
+    }
+    
+    .input {
+      font-size: 14px;
+    }
+  
+    .loginButton {
+      font-size: 14px;
+    }
+  }
+  
