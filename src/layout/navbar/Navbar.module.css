@@ -1,46 +1,66 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #3f51b5; /* Deep blue color */
-    color: white;
-    padding: 15px 30px; /* Increased padding */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: #4f9ef8; */
+  background: linear-gradient(90deg, #7367f0, #43cea2);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  margin: 1rem;
+}
+/* @keyframes shakeGradient {
+  0% {
+    background: linear-gradient(90deg, #7367f0, #43cea2);
   }
-  
-  .title {
-    font-size: 24px;
-    font-family: 'Arial', sans-serif; /* Modern font */
-    font-weight: bold; /* Bold text */
+  25% {
+    background: linear-gradient(90deg, #ff7e5f, #feb47b);
   }
-  
-  .navLinks {
-    display: flex;
+  50% {
+    background: linear-gradient(90deg, #43cea2, #7367f0);
   }
-  
-  .navLinks a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px; /* Spacing between links */
-    padding: 10px 15px; /* Padding for hover effect */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease; /* Smooth background transition */
+  75% {
+    background: linear-gradient(90deg, #feb47b, #ff7e5f);
   }
-  
-  .navLinks a:hover {
-    background-color: #f52f36; /* Red background on hover */
-    color: white; /* Keep text color white */
+  100% {
+    background: linear-gradient(90deg, #7367f0, #43cea2);
   }
-  
-  .logoPlaceholder {
-    width: 80px;
-    height: 80px;
-    background-color: #e0e0e0;
-    border-radius: 50%;
-    /* margin: 0 auto 20px; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    color: #555;
-  }
+} */
+.logoPlaceholder {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navLinks {
+  display: flex;
+  gap: 30px;
+}
+
+.linkText {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.linkText:hover {
+  color: #ffd700;
+}
+
+.toggleButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding-inline: 13px;
+}
+
+.activeLink {
+  border-bottom: 2px solid #ffd700;
+}

@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column; /* Stack navbar on top */
     height: 100vh; /* Full height of the viewport */
+    background-color: #f7f7f7
   }
   
   .mainContainer {
@@ -14,4 +15,5 @@
     flex: 1; /* Allow content to expand */
     overflow-y: auto; /* Enable scrolling if content overflows */
   }
+  
   

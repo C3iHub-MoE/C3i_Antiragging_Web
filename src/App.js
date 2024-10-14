@@ -6,10 +6,13 @@ import Layout from './layout/Layout';
 import ComplaintDetailsPage from './pages/complaintpage/ComplaintDetailsPage';
 import { useState } from 'react';
 import AntiRaggingDashboard from './pages/dashboard/AntiRaggingDashboard';
-import Register from './pages/auth/register/Register';
+import CommitteeMemberRegister from './pages/auth/register/CommitteeMemberRegister';
+import StudentRegister from './pages/auth/register/StudentRegister';
 import CommitteeMemberPage from './pages/member/CommitteeMemberPage';
-// import AdminDashboard from './pages/AdminDashboard';
-// import CommitteeDashboard from './pages/CommitteeDashboard';
+import Error from './pages/error/Error';
+import MemberForm from './pages/main_admin/memberform/MembersForm';
+import MembersPage from './pages/main_admin/memberpage/MembersPage';
+
 
 const initialComplaintsData = [
   { ComplaintID: 1, Description: "Bullying in the classroom.", DateFiled: "2024-09-20", Status: "Pending", StudentID: "S12345", CollegeID: "C001", EscalationLevel: 1, StudentName: "John Doe", CollegeName: "ABC College", ResolvedDate: null },
@@ -35,29 +38,39 @@ const initialComplaintsData = [
 ];
 
 function App() {
-  const [complaintsData, setComplaintsData] = useState(initialComplaintsData)
+  const [complaintsData, setComplaintsData] = useState(initialComplaintsData);
+  
   return (
     <Layout>
-    <Routes>
-      
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/" element={<AntiRaggingDashboard />} />
+      <Routes>
 
-      <Route path="/reset-password" element={<ResetPassword />} />
-      <Route path="/complaints" element={<ComplaintsPage />} />
-      <Route path="/student-approval" element={<CommitteeMemberPage />} />
-      <Route
+        <Route path="*" element={<Error />} />
+        <Route path="/login" element={<Login />} />
+        {/* <Route path="/register" element={<Register />} /> */}
+        <Route path="/member-registration" element={<CommitteeMemberRegister />} />
+
+        <Route path="/student-registration" element={<StudentRegister />} />
+
+        <Route path="/" element={<AntiRaggingDashboard />} />
+
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/complaints" element={<ComplaintsPage />} />
+        <Route path="/student-approval" element={<CommitteeMemberPage />} />
+        <Route
           path="/complaint/:complaintID"
           element={<ComplaintDetailsPage complaintsData={complaintsData} setComplaintsData={setComplaintsData} />}
         />
+        <Route path='/member_page' element={<MembersPage />} />
+        <Route path='/member-form' element={<MemberForm/>}/>
+        
 
-      {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
-      {/* <Route path="/committee-dashboard" element={<CommitteeDashboard />} /> 
+
+        {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
+        {/* <Route path="/committee-dashboard" element={<CommitteeDashboard />} /> 
       {/* Redirect to login if no role is matched */}
-      {/* <Route path="*" element={<Navigate to="/login" />} /> */}
-      
-    </Routes>
+        {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+
+      </Routes>
     </Layout>
   );
 }

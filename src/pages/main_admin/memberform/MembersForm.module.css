@@ -1,0 +1,32 @@
+/* src/pages/MemberForm.module.css */
+
+.formContainer {
+    margin: 1rem 0;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .formContainer h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .formContainer label {
+    margin-bottom: 0.5rem;
+  }
+  
+  .formContainer input,
+  .formContainer select {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .formActions {
+    display: flex;
+    justify-content: space-between;
+  }
+  

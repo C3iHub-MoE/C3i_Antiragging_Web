@@ -34,3 +34,39 @@
     background-color: #5b5ad8;
   }
   
+
+  /* src/pages/ComplaintsPage.module.css */
+
+
+
+.title {
+  font-size: 2rem; /* Title font size */
+  margin-bottom: 1.5rem; /* Space below title */
+  text-align: center; /* Center align title */
+}
+
+.filterContainer {
+  display: flex; /* Display filter dropdowns in a row */
+  justify-content: space-between; /* Space out dropdowns */
+  margin-bottom: 2rem; /* Space below filter section */
+}
+
+.select {
+  padding: 0.75rem; /* Increased padding for better touch target */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  font-size: 1rem; /* Font size */
+  cursor: pointer; /* Pointer cursor */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus */
+  width: 30%; /* Set a width for consistency */
+}
+
+.select:hover {
+  border-color: #007bff; /* Change border color on hover */
+}
+
+.select:focus {
+  border-color: #007bff; /* Blue border on focus */
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow on focus */
+}

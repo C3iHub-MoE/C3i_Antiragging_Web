@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.customSvgIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.customSvgIcon:hover {
+  fill: red; /* Change the SVG color on hover */
+}

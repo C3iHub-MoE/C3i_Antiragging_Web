@@ -1,0 +1,163 @@
+[
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "phone": "555-1234",
+      "password": "password123",
+      "memberType": "Admin"
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "email": "bob.smith@example.com",
+      "phone": "555-5678",
+      "password": "password123",
+      "memberType": "User"
+    },
+    {
+      "id": 3,
+      "name": "Charlie Brown",
+      "email": "charlie.brown@example.com",
+      "phone": "555-8765",
+      "password": "password123",
+      "memberType": "User"
+    },
+    {
+      "id": 4,
+      "name": "Diana Prince",
+      "email": "diana.prince@example.com",
+      "phone": "555-4321",
+      "password": "password123",
+      "memberType": "Admin"
+    },
+    {
+      "id": 5,
+      "name": "Ethan Hunt",
+      "email": "ethan.hunt@example.com",
+      "phone": "555-1357",
+      "password": "password123",
+      "memberType": "User"
+    },
+    {
+      "id": 6,
+      "name": "Fiona Gallagher",
+      "email": "fiona.gallagher@example.com",
+      "phone": "555-2468",
+      "password": "password123",
+      "memberType": "User"
+    },
+    {
+      "id": 7,
+      "name": "George Clooney",
+      "email": "george.clooney@example.com",
+      "phone": "555-9753",
+      "password": "password123",
+      "memberType": "Admin"
+    },
+    {
+      "id": 8,
+      "name": "Hannah Montana",
+      "email": "hannah.montana@example.com",
+      "phone": "555-8642",
+      "password": "password123",
+      "memberType": "User"
+    },
+    {
+      "id": 9,
+      "name": "Isabella Swan",
+      "email": "isabella.swan@example.com",
+      "phone": "555-7531",
+      "password": "password123",
+      "memberType": "User"
+    },
+    {
+      "id": 10,
+      "name": "Jack Sparrow",
+      "email": "jack.sparrow@example.com",
+      "phone": "555-6543",
+      "password": "password123",
+      "memberType": "Admin"
+    },
+    {
+      "id": 11,
+      "name": "Kevin Hart",
+      "email": "kevin.hart@example.com",
+      "phone": "555-3210",
+      "password": "password123",
+      "memberType": "User"
+    },
+    {
+      "id": 12,
+      "name": "Lucy Liu",
+      "email": "lucy.liu@example.com",
+      "phone": "555-8901",
+      "password": "password123",
+      "memberType": "User"
+    },
+    {
+      "id": 13,
+      "name": "Michael Scott",
+      "email": "michael.scott@example.com",
+      "phone": "555-4567",
+      "password": "password123",
+      "memberType": "Admin"
+    },
+    {
+      "id": 14,
+      "name": "Natalie Portman",
+      "email": "natalie.portman@example.com",
+      "phone": "555-2109",
+      "password": "password123",
+      "memberType": "User"
+    },
+    {
+      "id": 15,
+      "name": "Oscar Isaac",
+      "email": "oscar.isaac@example.com",
+      "phone": "555-6789",
+      "password": "password123",
+      "memberType": "User"
+    },
+    {
+      "id": 16,
+      "name": "Paul Rudd",
+      "email": "paul.rudd@example.com",
+      "phone": "555-7890",
+      "password": "password123",
+      "memberType": "Admin"
+    },
+    {
+      "id": 17,
+      "name": "Quinn Fabray",
+      "email": "quinn.fabray@example.com",
+      "phone": "555-8902",
+      "password": "password123",
+      "memberType": "User"
+    },
+    {
+      "id": 18,
+      "name": "Ryan Reynolds",
+      "email": "ryan.reynolds@example.com",
+      "phone": "555-2345",
+      "password": "password123",
+      "memberType": "User"
+    },
+    {
+      "id": 19,
+      "name": "Sophie Turner",
+      "email": "sophie.turner@example.com",
+      "phone": "555-6781",
+      "password": "password123",
+      "memberType": "Admin"
+    },
+    {
+      "id": 20,
+      "name": "Tom Hardy",
+      "email": "tom.hardy@example.com",
+      "phone": "555-8763",
+      "password": "password123",
+      "memberType": "User"
+    }
+  ]
+  
