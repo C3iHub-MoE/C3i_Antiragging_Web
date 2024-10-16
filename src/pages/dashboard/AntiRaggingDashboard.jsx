@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   // Navigate to Students Page
   const handleStudents = () => {
-    navigate('/student-approval');
+    navigate('/students');
   };
 
   // Navigate to Members Page

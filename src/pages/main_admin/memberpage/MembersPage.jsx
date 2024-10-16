@@ -11,7 +11,7 @@ const MembersPage = () => {
     const [membersPerPage] = useState(5);
     const [membersData, setMembersData] = useState(initialMembersData);
     const [totalPages, setTotalPages] = useState(Math.ceil(initialMembersData.length / membersPerPage));
-  const navigate = useNavigate();
+    const navigate = useNavigate();
     const indexOfLastMember = currentPage * membersPerPage;
     const indexOfFirstMember = indexOfLastMember - membersPerPage;
 
@@ -34,8 +34,12 @@ const MembersPage = () => {
         ...member,
         Actions: (
             <div>
-                <Button label="Delete" type="danger" onClick={() => deleteMember(member.id)} />
-                <Button label="Update" type="primary" onClick={() => console.log(`Update member ${member.id}`)} />
+                <Button label="Delete" type="primary" backgroundColor="#28a745" textColor="#ffffff"
+                    borderColor="#28a745" onClick={() => deleteMember(member.id)} />
+                <Button label="Update"
+                    type="secondary"
+                    backgroundColor="#007bff"
+                    textColor="#fff" onClick={() => console.log(`Update member ${member.id}`)} />
             </div>
         ),
     }));

@@ -7,7 +7,7 @@ const Sidebar = ({ collapsed }) => {
 
 
   return (
-    <div className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}>
+    <div className={`${styles.sidebar} ${styles.sidemenu} ${collapsed ? styles.collapsed : ''}`}>
 
 
       <ul className={styles.navLinks}>
@@ -54,40 +54,3 @@ const Sidebar = ({ collapsed }) => {
 };
 
 export default Sidebar;
-
-
-// import React from 'react';
-// import { NavLink } from 'react-router-dom';
-// import styles from './Sidebar.module.css'; // Import your styles
-
-// const Sidebar = ({ collapsed }) => {
-//   return (
-//     <div className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}>
-//       <div className={styles.logoPlaceholder}>
-        
-//       </div>
-//       <ul className={styles.navLinks}>
-//         <li>
-//           <NavLink to="/" className={styles.linkText} activeClassName={styles.activeLink}>
-//             <span role="img" aria-label="Home">🏠</span>
-//             {!collapsed && <span className={styles.linkLabel}>Dashboard</span>}
-//           </NavLink>
-//         </li>
-//         <li>
-//           <NavLink to="/products" className={styles.linkText} activeClassName={styles.activeLink}>
-//             <span role="img" aria-label="Products">📦</span>
-//             {!collapsed && <span className={styles.linkLabel}>Products</span>}
-//           </NavLink>
-//         </li>
-//         <li>
-//           <NavLink to="/customers" className={styles.linkText} activeClassName={styles.activeLink}>
-//             <span role="img" aria-label="Customers">👥</span>
-//             {!collapsed && <span className={styles.linkLabel}>Customers</span>}
-//           </NavLink>
-//         </li>
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default Sidebar;

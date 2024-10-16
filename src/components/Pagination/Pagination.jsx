@@ -42,7 +42,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         <div className={styles.paginationContainer}>
             <button
                 onClick={handlePrevious}
-                className={styles.pageButton}
+                className={`${styles.pageButton} ${styles.navButton}`}
                 disabled={currentPage === 1}
             >
                 Previous
@@ -50,7 +50,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             {renderPageNumbers()}
             <button
                 onClick={handleNext}
-                className={styles.pageButton}
+                className={`${styles.pageButton} ${styles.navButton}`}
                 disabled={currentPage === totalPages}
             >
                 Next

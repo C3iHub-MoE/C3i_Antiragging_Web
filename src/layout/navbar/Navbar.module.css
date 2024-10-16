@@ -3,7 +3,8 @@
   justify-content: space-between;
   align-items: center;
   /* background-color: #4f9ef8; */
-  background: linear-gradient(90deg, #7367f0, #43cea2);
+  background: white;
+  /* background: linear-gradient(90deg, #7367f0, #43cea2); */
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -42,20 +43,17 @@
 
 .linkText {
   text-decoration: none;
-  color: white;
+  color: black;
   font-size: 16px;
-  font-weight: bold;
   transition: color 0.3s;
 }
 
-.linkText:hover {
-  color: #ffd700;
-}
+
 
 .toggleButton {
   background: none;
   border: none;
-  color: white;
+  color: black;
   font-size: 24px;
   cursor: pointer;
   padding-inline: 13px;

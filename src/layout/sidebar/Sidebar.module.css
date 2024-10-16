@@ -7,10 +7,11 @@
   justify-content: space-between;
   border-right: none;
   border-left: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   margin-left: 1rem;
-  /* background-color: #4f9ef8; */
-  background: linear-gradient(#7367f0, #43cea2);
+  background-color: white;
+  /* background: linear-gradient(#7367f0, #43cea2); */
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 
@@ -20,40 +21,26 @@
   width: 80px;
 }
 
-.toggleButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  margin: 10px;
-  align-self: flex-end;
-  padding: 16px;
-}
-
 .navLinks {
   list-style: none;
-  padding: 0;
-  margin: 0;
+  padding-inline: 1rem;
 }
 
 .navLinks li {
-  margin: 20px 0;
-  padding: 16px;
+  /* margin: 20px 0;
+  padding: 16px; */
 }
 
 .linkText {
   display: flex;
   align-items: center;
   padding: 10px;
-  color: white;
-  font-weight: bold;
+  color: black;
+ 
   text-decoration: none;
   transition: color 0.3s; 
 }
 
-.linkText:hover {
-  color: #ffd700;
-}
 
 .activeLink {
   background-color: #dee2e6;
@@ -71,8 +58,7 @@
 .footer {
   padding: 20px;
   text-align: center;
-  color: white;
-  font-weight: bold;
+  color: black;
 }
 
 .collapsed .linkLabel {
@@ -86,4 +72,26 @@
 .sidebar:hover .collapsed .linkLabel {
   display: inline-block;
   margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+
+
+.sidemenu .linkLabel {
+  display: none;
+}
+
+.sidemenu .icon {
+  margin-right: 0;
+}
+
+.sidebar:hover .sidemenu .linkLabel {
+  display: inline-block;
+  margin-left: 10px;
+}
+.sidemenu {
+  width: 80px;
+}
+
+  
 }

@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import studentsData from '../jsonfile/students.json'; // Import the students JSON data
-import styles from './CommitteeMemberPage.module.css'; // Import CSS module
+import styles from './PendingStudentsPage.module.css'; // Import CSS module
 import Table from '../../components/table/Table'; // Import your Table component
 import Pagination from '../../components/Pagination/Pagination';
+import Button from '../../components/button/Button'; // Import your Button component
 
-const CommitteeMemberPage = () => {
+const PendingStudentsPage = () => {
     const [students, setStudents] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [studentsPerPage] = useState(5); // Display 10 students per page
+    const [studentsPerPage] = useState(5); // Display 5 students per page
 
     useEffect(() => {
         // Load student data (simulating API call)
-        setStudents(studentsData);
-        console.log(studentsData); // Check if data is loaded correctly
+        const pendingStudents = studentsData.filter(student => student.status === 'Pending');
+        setStudents(pendingStudents);
+        console.log(pendingStudents); // Check if data is loaded correctly
     }, []);
 
     const handleApprove = (id) => {
-        const updatedStudents = students.map((student) =>
-            student.id === id ? { ...student, status: 'Approved' } : student
-        );
-        setStudents(updatedStudents);
+        // Logic to approve the student
         console.log(`Student with ID ${id} approved`);
     };
 
@@ -33,18 +32,14 @@ const CommitteeMemberPage = () => {
         setCurrentPage(pageNumber);
     };
 
-    // Prepare data with actions for the table
     const dataWithActions = currentStudents.map((student) => ({
         ...student,
-        Action: student.status === 'Pending' ? (
-            <button
-                className={styles.approveButton}
-                onClick={() => handleApprove(student.id)}
-            >
-                Approve
-            </button>
-        ) : (
-            <span>Approved</span>
+        Action: (
+            <Button label="Approve" 
+            type="secondary"
+            backgroundColor="#007bff"
+            textColor="#fff"
+            onClick={() => handleApprove(student.id)} />
         ),
     }));
 
@@ -60,7 +55,7 @@ const CommitteeMemberPage = () => {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.title}>Committee Member Dashboard</h2>
+            <h2 className={styles.title}>Pending Students</h2>
             <Table columns={columns} data={dataWithActions} />
             <Pagination
                 currentPage={currentPage}
@@ -71,4 +66,4 @@ const CommitteeMemberPage = () => {
     );
 };
 
-export default CommitteeMemberPage;
+export default PendingStudentsPage;

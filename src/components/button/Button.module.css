@@ -1,28 +1,42 @@
 /* Button.module.css */
 .button {
     padding: 10px 20px;
-    border: none;
+    border: 2px solid transparent;
     border-radius: 5px;
-    cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
+/* Primary button style */
 .primary {
-    background-color: #7367F0; /* Your primary color */
-    color: white;
+    background-color: #7367f0; /* Default primary background */
+    color: #fff; /* White text for primary */
 }
 
+.primary:hover {
+    background-color: #5a54c7; /* Darker shade on hover */
+}
+
+/* Secondary button style */
 .secondary {
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: #ff7f50; /* Coral secondary color */
+    color: #fff; /* White text for secondary */
 }
 
-.danger {
-    background-color: #f52f36; /* Your danger color */
-    color: white;
+.secondary:hover {
+    background-color: #e56d43; /* Darker shade on hover */
 }
 
-.button:hover {
-    opacity: 0.8;
+/* Add more default button styles as needed */
+
+/* Button focus/active states */
+.button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.button:active {
+    transform: scale(0.98); /* Slight scaling effect on click */
 }

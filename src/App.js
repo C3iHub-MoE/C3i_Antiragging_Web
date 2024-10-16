@@ -8,10 +8,11 @@ import { useState } from 'react';
 import AntiRaggingDashboard from './pages/dashboard/AntiRaggingDashboard';
 import CommitteeMemberRegister from './pages/auth/register/CommitteeMemberRegister';
 import StudentRegister from './pages/auth/register/StudentRegister';
-import CommitteeMemberPage from './pages/member/CommitteeMemberPage';
+import CommitteeMemberPage from './pages/students__commettiee_member/StudentsData';
 import Error from './pages/error/Error';
 import MemberForm from './pages/main_admin/memberform/MembersForm';
 import MembersPage from './pages/main_admin/memberpage/MembersPage';
+import PendingStudentsPage from './pages/students__commettiee_member/PendingStudentPage';
 
 
 const initialComplaintsData = [
@@ -50,12 +51,13 @@ function App() {
         <Route path="/member-registration" element={<CommitteeMemberRegister />} />
 
         <Route path="/student-registration" element={<StudentRegister />} />
+        <Route path='/pending-students'  element={<PendingStudentsPage />}/>
 
         <Route path="/" element={<AntiRaggingDashboard />} />
 
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/complaints" element={<ComplaintsPage />} />
-        <Route path="/student-approval" element={<CommitteeMemberPage />} />
+        <Route path="/students" element={<CommitteeMemberPage />} />
         <Route
           path="/complaint/:complaintID"
           element={<ComplaintDetailsPage complaintsData={complaintsData} setComplaintsData={setComplaintsData} />}
