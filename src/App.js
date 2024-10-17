@@ -6,8 +6,7 @@ import Layout from './layout/Layout';
 import ComplaintDetailsPage from './pages/complaintpage/ComplaintDetailsPage';
 import { useState } from 'react';
 import AntiRaggingDashboard from './pages/dashboard/AntiRaggingDashboard';
-import CommitteeMemberRegister from './pages/auth/register/CommitteeMemberRegister';
-import StudentRegister from './pages/auth/register/StudentRegister';
+import StudentRegister from './pages/auth/register/Registration';
 import CommitteeMemberPage from './pages/students__commettiee_member/StudentsData';
 import Error from './pages/error/Error';
 import MemberForm from './pages/main_admin/memberform/MembersForm';
@@ -48,9 +47,8 @@ function App() {
         <Route path="*" element={<Error />} />
         <Route path="/login" element={<Login />} />
         {/* <Route path="/register" element={<Register />} /> */}
-        <Route path="/member-registration" element={<CommitteeMemberRegister />} />
 
-        <Route path="/student-registration" element={<StudentRegister />} />
+        <Route path="/registration" element={<StudentRegister />} />
         <Route path='/pending-students'  element={<PendingStudentsPage />}/>
 
         <Route path="/" element={<AntiRaggingDashboard />} />

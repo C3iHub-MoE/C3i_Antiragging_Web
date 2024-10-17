@@ -5,12 +5,28 @@ import styles from './Login.module.css'; // Import CSS module
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+
   const navigate = useNavigate();
+
+  const isEmailValid = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setEmailError('');
+
+    // Validate email format
+    if (!isEmailValid(email)) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+
+    // Proceed with login logic (e.g., API call)
     console.log('Email:', email);
     console.log('Password:', password);
+
+    // After successful login, you can navigate to another page if needed
+    // navigate('/dashboard');
   };
 
   const handleForgotPassword = () => {
@@ -33,6 +49,7 @@ const Login = () => {
               placeholder="Enter your email"
               required
             />
+            {emailError && <span className={styles.error}>{emailError}</span>}
           </div>
           <div className={styles.inputGroup}>
             <label className={styles.label}>Password</label>
