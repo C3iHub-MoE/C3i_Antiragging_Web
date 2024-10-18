@@ -1,42 +1,97 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for routing
-import studentsData from '../jsonfile/students.json'; // Import the students JSON data
-import styles from './StudentsData.module.css'; // Import CSS module
-import Table from '../../components/table/Table'; // Import your Table component
+import { useNavigate } from 'react-router-dom';
+import studentsData from '../jsonfile/students.json';
+import styles from './StudentsData.module.css';
+import Table from '../../components/table/Table';
 import Pagination from '../../components/Pagination/Pagination';
-import Button from '../../components/button/Button'; // Import your Button component
+import Button from '../../components/button/Button';
+import Swal from 'sweetalert2';
 
-const CommitteeMemberPage = () => {
+const StudentsPage = () => {
     const [students, setStudents] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [studentsPerPage] = useState(5); // Display 5 students per page
+    const [studentsPerPage] = useState(5);
 
-    const navigate = useNavigate(); // Initialize useNavigate for routing
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Load student data (simulating API call)
         setStudents(studentsData);
     }, []);
 
-    const handleApprove = (id) => {
+    const handleApprove = async (id) => {
+        await Swal.fire({
+            title: 'Approved!',
+            text: `Student with ID ${id} has been approved.`,
+            icon: 'success',
+        });
+
         const updatedStudents = students.map((student) =>
             student.id === id ? { ...student, status: 'Approved' } : student
         );
         setStudents(updatedStudents);
-        console.log(`Student with ID ${id} approved`);
     };
 
-    const handleDeactivate = (id) => {
+    const handleDeactivate = async (id) => {
+        await Swal.fire({
+            title: 'Deactivated!',
+            text: `Student with ID ${id} has been deactivated.`,
+            icon: 'warning',
+        });
+
         const updatedStudents = students.map((student) =>
             student.id === id ? { ...student, status: 'Deactivated' } : student
         );
         setStudents(updatedStudents);
-        console.log(`Student with ID ${id} deactivated`);
     };
 
-    // Move handleEdit here, before dataWithActions
-    const handleEdit = (id) => {
-        console.log(`Editing student with ID ${id}`);
+    const handleEdit = async (id) => {
+        const studentToEdit = students.find((student) => student.id === id);
+        
+        // Open a modal or prompt to edit multiple fields
+        const { value: formValues } = await Swal.fire({
+            title: 'Edit Student',
+            html:
+                `<input id="name" class="swal2-input" placeholder="Name" value="${studentToEdit.name}">` +
+                `<input id="college" class="swal2-input" placeholder="College" value="${studentToEdit.college}">` +
+                `<input id="district" class="swal2-input" placeholder="District" value="${studentToEdit.district}">` +
+                `<input id="state" class="swal2-input" placeholder="State" value="${studentToEdit.state}">` +
+                `<input id="status" class="swal2-input" placeholder="Status" value="${studentToEdit.status}">`,
+            focusConfirm: false,
+            preConfirm: () => {
+                return {
+                    name: document.getElementById('name').value,
+                    college: document.getElementById('college').value,
+                    district: document.getElementById('district').value,
+                    state: document.getElementById('state').value,
+                    status: document.getElementById('status').value,
+                };
+            },
+        });
+
+        if (formValues) {
+            const updatedStudents = students.map((student) =>
+                student.id === id ? { ...student, ...formValues } : student
+            );
+            setStudents(updatedStudents);
+            Swal.fire('Updated!', `Student with ID ${id} has been updated.`, 'success');
+        }
+    };
+
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const updatedStudents = students.filter((student) => student.id !== id);
+                setStudents(updatedStudents);
+                Swal.fire('Deleted!', `Student with ID ${id} has been deleted.`, 'success');
+            }
+        });
     };
 
     const indexOfLastStudent = currentPage * studentsPerPage;
@@ -54,9 +109,9 @@ const CommitteeMemberPage = () => {
         Action: (
             <ActionMenu
                 student={student}
-                handleApprove={handleApprove}
                 handleDeactivate={handleDeactivate}
-                handleEdit={handleEdit} // Now it's defined before being passed here
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
             />
         ),
     }));
@@ -75,12 +130,20 @@ const CommitteeMemberPage = () => {
         <div className={styles.container}>
             <h2 className={styles.title}>Committee Member Dashboard</h2>
             <div className={styles.buttonContainer}>
-                <Button label="View Pending Students"
-                
-                type="secondary"
-                backgroundColor="#007bff"  // Custom blue background
-                textColor="#fff" 
-                onClick={() => navigate('/pending-students')} />
+                <Button
+                    label="Create Student"
+                    type="primary"
+                    backgroundColor="#7367f0"
+                    textColor="#fff"
+                    onClick={() => navigate('/create-student')}
+                />
+                <Button
+                    label="View Pending Students"
+                    type="secondary"
+                    backgroundColor="#7367f0"
+                    textColor="#fff"
+                    onClick={() => navigate('/pending-students')}
+                />
             </div>
             <Table columns={columns} data={dataWithActions} />
             <Pagination
@@ -92,7 +155,7 @@ const CommitteeMemberPage = () => {
     );
 };
 
-const ActionMenu = ({ student, handleApprove, handleDeactivate, handleEdit }) => {
+const ActionMenu = ({ student, handleDeactivate, handleEdit, handleDelete }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null);
 
@@ -102,7 +165,7 @@ const ActionMenu = ({ student, handleApprove, handleDeactivate, handleEdit }) =>
 
     const handleClickOutside = (event) => {
         if (menuRef.current && !menuRef.current.contains(event.target)) {
-            setMenuOpen(false); // Close menu
+            setMenuOpen(false);
         }
     };
 
@@ -115,19 +178,17 @@ const ActionMenu = ({ student, handleApprove, handleDeactivate, handleEdit }) =>
 
     return (
         <div className={styles.actionMenu} ref={menuRef}>
-            {/* Three dots icon */}
             <div className={styles.threeDots} onClick={toggleMenu}>
                 &#x22EE; {/* Three dots character */}
             </div>
 
-            {/* Dropdown menu with buttons */}
             {menuOpen && (
                 <div className={styles.menu}>
                     <button
                         className={styles.menuButton}
                         onClick={() => {
                             handleEdit(student.id);
-                            toggleMenu(); // Close menu after action
+                            toggleMenu();
                         }}
                     >
                         Edit
@@ -136,7 +197,7 @@ const ActionMenu = ({ student, handleApprove, handleDeactivate, handleEdit }) =>
                         className={styles.menuButton}
                         onClick={() => {
                             handleDeactivate(student.id);
-                            toggleMenu(); // Close menu after action
+                            toggleMenu();
                         }}
                     >
                         Deactivate
@@ -144,11 +205,11 @@ const ActionMenu = ({ student, handleApprove, handleDeactivate, handleEdit }) =>
                     <button
                         className={styles.menuButton}
                         onClick={() => {
-                            handleApprove(student.id);
-                            toggleMenu(); // Close menu after action
+                            handleDelete(student.id);
+                            toggleMenu();
                         }}
                     >
-                        Approve
+                        Delete
                     </button>
                 </div>
             )}
@@ -156,4 +217,4 @@ const ActionMenu = ({ student, handleApprove, handleDeactivate, handleEdit }) =>
     );
 };
 
-export default CommitteeMemberPage;
+export default StudentsPage;

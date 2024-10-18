@@ -6,6 +6,18 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
   overflow-x: auto; /* Make table scrollable horizontally on smaller screens */
+  scrollbar-width: thin; /* Improve scrollbar width */
+  scrollbar-color: #7367f0 #f1f1f1; /* Customize scrollbar color */
+}
+
+.customTable::-webkit-scrollbar {
+  height: 6px; /* Set scrollbar height */
+}
+
+.customTable::-webkit-scrollbar-thumb {
+  background-color: #7367f0; /* Set scrollbar thumb color */
+  border-radius: 10px;
+  height: 10px;
 }
 
 .customTable thead {
@@ -14,6 +26,9 @@
   font-size: 14px;
   text-align: left;
   text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .customTable th, .customTable td {
@@ -31,7 +46,8 @@
 }
 
 .customTable tbody tr:hover {
-  background-color: #f1f1f1;
+  background-color: #e9f3ff; /* Light blue on hover */
+  cursor: pointer;
 }
 
 .customTable td {

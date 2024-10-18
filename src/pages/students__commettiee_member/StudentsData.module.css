@@ -13,6 +13,9 @@
     width: 100%;
     border-collapse: collapse;
 }
+.buttonContainer{
+    gap: 1rem;
+}
 
 .studentTable th,
 .studentTable td {

@@ -56,7 +56,7 @@ const MembersPage = () => {
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Members List</h1>
-            <Button label="Create New Member" type="primary" onClick={() => navigate("/member-form")} />
+            <Button label="Create New Member" type="primary" onClick={() => navigate("/registration")} />
 
             <Table columns={columns} data={dataWithActions} />
             <Pagination

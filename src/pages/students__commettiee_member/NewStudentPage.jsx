@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
-import styles from './Student.module.css';
+import styles from '../auth/register/Student.module.css';
+
 import Swal from 'sweetalert2'; // Import SweetAlert
 
-const StudentRegister = () => {
+const NewStudentRegister = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -15,7 +16,6 @@ const StudentRegister = () => {
     const [district, setDistrict] = useState('');
     const [states, setStates] = useState([]); // New state for states
     const [colleges, setColleges] = useState([]);
-    const [role, setRole] = useState('student'); // New state for role
 
 
     const [selectedState, setSelectedState] = useState(''); // Renamed for clarity
@@ -149,13 +149,12 @@ const StudentRegister = () => {
         formData.append('state', selectedState);
         formData.append('district', district);
         formData.append('college_name', collegeName);
-        formData.append('role', role); // Send role
-        if (role === 'student') {
-            formData.append('college_name', collegeName);
-            if (collegeIdProof) {
-                formData.append('college_id_proof', collegeIdProof);
-            }
+
+        formData.append('college_name', collegeName);
+        if (collegeIdProof) {
+            formData.append('college_id_proof', collegeIdProof);
         }
+
 
         try {
             const response = await axios.post('http://172.29.27.254:8000/api/students/register/', formData);
@@ -219,16 +218,14 @@ const StudentRegister = () => {
             setConfirmPasswordError('');
         }
     };
-    const handleRoleChange = (e) => {
-        setRole(e.target.value); // Set role when radio button is selected
-    };
+
 
     return (
         <div className={styles.registerContainer}>
             <div className={styles.registerBox}>
-                <h2 className={styles.title}>User Registration</h2>
+                <h2 className={styles.title}>Student Registration</h2>
                 <form onSubmit={handleRegister} className={styles.form}>
-                    
+
                     <div className={styles.inputGroup}>
                         <label className={styles.label}>Username</label>
                         <input
@@ -321,16 +318,7 @@ const StudentRegister = () => {
                         </select>
                     </div>
 
-                    <div className={styles.inputGroup}>
-                        <label className={styles.label}>Role</label>
-                        <div>
-                            <select value={role} onChange={handleRoleChange} className={styles.input}>
-                                <option value="student">Student</option>
-                                <option value="member">Member</option>
-                            </select>
-                        </div>
-
-                    </div>
+                   
 
                     <div className={styles.inputGroup}>
                         <label className={styles.label}>State</label>
@@ -365,36 +353,34 @@ const StudentRegister = () => {
                         {districtError && <span className={styles.error}>{districtError}</span>}
                     </div>
 
-                    {role === 'student' && (
-                        <>
-                            <div className={styles.inputGroup}>
-                                <label className={styles.label}>College Name</label>
-                                <select
-                                    value={collegeName}
-                                    onChange={(e) => setCollegeName(e.target.value)}
-                                    className={styles.input}
-                                    required
-                                >
-                                    <option value="" disabled>Select your college</option>
-                                    {colleges.map(college => (
-                                        <option key={college.id} value={college.name}>{college.name}</option>
-                                    ))}
-                                </select>
-                                {collegeError && <span className={styles.error}>{collegeError}</span>}
-                            </div>
 
-                            <div className={styles.inputGroup}>
-                                <label className={styles.label}>ID Proof</label>
-                                <input
-                                    type="file"
-                                    onChange={handleFileChange}
-                                    className={styles.input}
-                                    accept=".pdf,.jpg,.jpeg,.png"
-                                    required
-                                />
-                            </div>
-                        </>
-                    )}
+                    <div className={styles.inputGroup}>
+                        <label className={styles.label}>College Name</label>
+                        <select
+                            value={collegeName}
+                            onChange={(e) => setCollegeName(e.target.value)}
+                            className={styles.input}
+                            required
+                        >
+                            <option value="" disabled>Select your college</option>
+                            {colleges.map(college => (
+                                <option key={college.id} value={college.name}>{college.name}</option>
+                            ))}
+                        </select>
+                        {collegeError && <span className={styles.error}>{collegeError}</span>}
+                    </div>
+
+                    <div className={styles.inputGroup}>
+                        <label className={styles.label}>ID Proof</label>
+                        <input
+                            type="file"
+                            onChange={handleFileChange}
+                            className={styles.input}
+                            accept=".pdf,.jpg,.jpeg,.png"
+                            required
+                        />
+                    </div>
+
                     <button type="submit" className={styles.registerButton}>
                         Register
                     </button>
@@ -404,5 +390,5 @@ const StudentRegister = () => {
     );
 };
 
-export default StudentRegister;
+export default NewStudentRegister;
 

@@ -1,19 +1,22 @@
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
 import Login from './pages/auth/login/Login';
 import ResetPassword from './pages/auth/reset-password/ResetPassword';
-import ComplaintsPage from './pages/complaintpage/ComplaintPage';
+
 import Layout from './layout/Layout';
-import ComplaintDetailsPage from './pages/complaintpage/ComplaintDetailsPage';
-import { useState } from 'react';
-import AntiRaggingDashboard from './pages/dashboard/AntiRaggingDashboard';
+import ComplaintDetailsPage from "./pages/complaintPageAdmin/ComplaintDetailsPage";
+import StudentComplaintsPage from "./pages/complaintPageAdmin/StudentsComplaintPage"
+import UserDashboard from './pages/dashboard/UserDashboard';
 import StudentRegister from './pages/auth/register/Registration';
-import CommitteeMemberPage from './pages/students__commettiee_member/StudentsData';
 import Error from './pages/error/Error';
-import MemberForm from './pages/main_admin/memberform/MembersForm';
+import StudentComplaintRegistration from "./pages/complaintRegistration/StudentComplaintRegistration"
 import MembersPage from './pages/main_admin/memberpage/MembersPage';
 import PendingStudentsPage from './pages/students__commettiee_member/PendingStudentPage';
-
-
+import StudentsPage from './pages/students__commettiee_member/StudentsData';
+import NewStudentRegister from './pages/students__commettiee_member/NewStudentPage';
+import StudentComplaintStatus from './pages/studentsComplaintData/StudentComplaintStatus';
+import SOSPage from './pages/sosData/SosPage';
 const initialComplaintsData = [
   { ComplaintID: 1, Description: "Bullying in the classroom.", DateFiled: "2024-09-20", Status: "Pending", StudentID: "S12345", CollegeID: "C001", EscalationLevel: 1, StudentName: "John Doe", CollegeName: "ABC College", ResolvedDate: null },
   { ComplaintID: 2, Description: "Harassment from seniors.", DateFiled: "2024-09-22", Status: "Resolved", StudentID: "S67890", CollegeID: "C001", EscalationLevel: 2, StudentName: "Jane Smith", CollegeName: "ABC College", ResolvedDate: "2024-09-29" },
@@ -39,36 +42,46 @@ const initialComplaintsData = [
 
 function App() {
   const [complaintsData, setComplaintsData] = useState(initialComplaintsData);
-  
+  const user = "member";
+
   return (
     <Layout>
       <Routes>
-
         <Route path="*" element={<Error />} />
-        <Route path="/login" element={<Login />} />
-        {/* <Route path="/register" element={<Register />} /> */}
-
+        <Route path="/" element={<UserDashboard />} />
         <Route path="/registration" element={<StudentRegister />} />
-        <Route path='/pending-students'  element={<PendingStudentsPage />}/>
+        <Route path="/login" element={<Login />} />
+        {user === "student" && (
+          <>
+            <Route path='/register-complaint' element={<StudentComplaintRegistration />} />
+            <Route path='/my-complaints' element={<StudentComplaintStatus />} />
 
-        <Route path="/" element={<AntiRaggingDashboard />} />
+          </>
+        )}
 
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/complaints" element={<ComplaintsPage />} />
-        <Route path="/students" element={<CommitteeMemberPage />} />
-        <Route
-          path="/complaint/:complaintID"
-          element={<ComplaintDetailsPage complaintsData={complaintsData} setComplaintsData={setComplaintsData} />}
-        />
-        <Route path='/member_page' element={<MembersPage />} />
-        <Route path='/member-form' element={<MemberForm/>}/>
-        
+        {user === "member" && (
+          <>
 
 
-        {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
-        {/* <Route path="/committee-dashboard" element={<CommitteeDashboard />} /> 
-      {/* Redirect to login if no role is matched */}
-        {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+            <Route path="/Member-registration" element={<StudentRegister />} />
+            <Route path="/Sos-history" element={<SOSPage />} />
+
+            <Route path='/pending-students' element={<PendingStudentsPage />} />
+
+
+            <Route path="/reset-password" element={<ResetPassword />} />
+
+            <Route path="/complaints" element={<StudentComplaintsPage />} />
+            <Route path="/students" element={<StudentsPage />} />
+            <Route path='/create-student' element={<NewStudentRegister />} />
+            <Route
+              path="/complaint/:complaintID"
+              element={<ComplaintDetailsPage complaintsData={complaintsData} setComplaintsData={setComplaintsData} />}
+            />
+            <Route path='/member_page' element={<MembersPage />} />
+          </>
+        )}
+
 
       </Routes>
     </Layout>

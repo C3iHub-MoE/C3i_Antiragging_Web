@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import Table from '../../components/table/Table';
 import Pagination from '../../components/Pagination/Pagination';
 import initialComplaintsData from '../jsonfile/complaints.json';
-import styles from './ComplaintPgae.module.css'; // Import the CSS module
+import styles from './StudentComplaintPage.module.css'; // Import the CSS module
 import Swal from 'sweetalert2'; // Import SweetAlert
 
-const ComplaintsPage = () => {
+const StudentComplaintsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [complaintsPerPage] = useState(5);
   const [complaintsData, setComplaintsData] = useState(initialComplaintsData);
@@ -130,126 +130,7 @@ const ComplaintsPage = () => {
   );
 };
 
-// const ActionMenu2 = ({ complaint, updateStatus, goToComplaintDetails }) => {
-//   const [menuOpen, setMenuOpen] = useState(false);
-//   const [showStatusDropdown, setShowStatusDropdown] = useState(false);
-//   const [selectedStatus, setSelectedStatus] = useState(complaint.Status);
-//   const menuRef = useRef(null);
 
-//   const toggleMenu = () => {
-//     setMenuOpen(!menuOpen);
-//   };
-
-//   const handleStatusChange = (e) => {
-//     const newStatus = e.target.value;
-//     setSelectedStatus(newStatus);
-//     updateStatus(complaint.ComplaintID, newStatus); // Update the status in the state
-//     setShowStatusDropdown(false); // Close dropdown after selection
-//   };
-
-//   // Handle Deactivate action
-//   const handleDeactivate = () => {
-//     Swal.fire({
-//       title: 'Are you sure?',
-//       text: "You won't be able to revert this!",
-//       icon: 'warning',
-//       showCancelButton: true,
-//       confirmButtonColor: '#3085d6',
-//       cancelButtonColor: '#d33',
-//       confirmButtonText: 'Yes, deactivate it!',
-//     }).then((result) => {
-//       if (result.isConfirmed) {
-//         // Add logic to deactivate the complaint
-//         Swal.fire('Deactivated!', 'The complaint has been deactivated.', 'success');
-//       }
-//     });
-//   };
-
-//   // Handle Edit action
-//   const handleEdit = () => {
-//     Swal.fire({
-//       title: 'Edit Complaint',
-//       html: `<input id="swal-input1" class="swal2-input" placeholder="Student Name" value="${complaint.StudentName}" />
-//               <input id="swal-input2" class="swal2-input" placeholder="Description" value="${complaint.Description}" />`,
-//       focusConfirm: false,
-//       preConfirm: () => {
-//         const studentName = document.getElementById('swal-input1').value;
-//         const description = document.getElementById('swal-input2').value;
-        
-//         // Logic to update complaint details
-//         // You might want to update state here or make an API call
-//         updateStatus(complaint.ComplaintID, selectedStatus); // Example to show updating status
-
-//         Swal.fire(`Edited!`, `Student Name: ${studentName}, Description: ${description}`, 'success');
-//       },
-//       showCancelButton: true,
-//     });
-//   };
-
-//   // Close the menu if clicking outside
-//   const handleClickOutside = (event) => {
-//     if (menuRef.current && !menuRef.current.contains(event.target)) {
-//       setMenuOpen(false); // Close menu
-//     }
-//   };
-
-//   useEffect(() => {
-//     document.addEventListener('mousedown', handleClickOutside);
-//     return () => {
-//       document.removeEventListener('mousedown', handleClickOutside);
-//     };
-//   }, []);
-
-//   return (
-//     <div className={styles.actionMenu} ref={menuRef}>
-//       {/* Three dots icon */}
-//       <div className={styles.threeDots} onClick={toggleMenu}>
-//         &#x22EE; {/* Three dots character */}
-//       </div>
-
-//       {/* Dropdown menu with buttons */}
-//       {menuOpen && (
-//         <div className={styles.menu}>
-//           <button
-//             className={styles.menuButton}
-//             onClick={() => {
-//               setShowStatusDropdown(true);
-//               setMenuOpen(false); // Close the main menu to show status dropdown
-//             }}
-//           >
-//             Update Status
-//           </button>
-//           <button
-//             className={styles.menuButton}
-//             onClick={handleEdit} // Open edit dialog
-//           >
-//             Edit
-//           </button>
-//           <button
-//             className={styles.menuButton}
-//             onClick={handleDeactivate} // Confirm deactivate action
-//           >
-//             Deactivate
-//           </button>
-//           <button
-//             className={styles.menuButton}
-//             onClick={() => goToComplaintDetails(complaint.ComplaintID)} // Go to complaint details
-//           >
-//             View Details
-//           </button>
-//           {showStatusDropdown && (
-//             <select value={selectedStatus} onChange={handleStatusChange}>
-//               <option value="Open">Open</option>
-//               <option value="In Progress">In Progress</option>
-//               <option value="Resolved">Resolved</option>
-//               <option value="Closed">Closed</option>
-//             </select>
-//           )}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
 
 const ActionMenu = ({ complaint, updateStatus, goToComplaintDetails }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -272,6 +153,7 @@ const ActionMenu = ({ complaint, updateStatus, goToComplaintDetails }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         // Logic to deactivate the complaint
+        
         Swal.fire('Deactivated!', 'The complaint has been deactivated.', 'success');
       }
     });
@@ -377,4 +259,4 @@ const ActionMenu = ({ complaint, updateStatus, goToComplaintDetails }) => {
 };
 
 
-export default ComplaintsPage;
+export default StudentComplaintsPage;

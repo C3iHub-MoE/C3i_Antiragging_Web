@@ -4,6 +4,7 @@ import styles from './PendingStudentsPage.module.css'; // Import CSS module
 import Table from '../../components/table/Table'; // Import your Table component
 import Pagination from '../../components/Pagination/Pagination';
 import Button from '../../components/button/Button'; // Import your Button component
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const PendingStudentsPage = () => {
     const [students, setStudents] = useState([]);
@@ -17,9 +18,33 @@ const PendingStudentsPage = () => {
         console.log(pendingStudents); // Check if data is loaded correctly
     }, []);
 
-    const handleApprove = (id) => {
-        // Logic to approve the student
-        console.log(`Student with ID ${id} approved`);
+    const handleApprove = async (id) => {
+        // Show confirmation dialog
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You are about to approve this student!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, approve it!',
+            cancelButtonText: 'No, cancel!',
+        });
+
+        if (result.isConfirmed) {
+            // Call your API to approve the student here
+            // Example: await api.approveStudent(id);
+
+            // Simulating API approval success
+            const updatedStudents = students.map((student) =>
+                student.id === id ? { ...student, status: 'Approved' } : student
+            );
+            setStudents(updatedStudents);
+
+            Swal.fire(
+                'Approved!',
+                `Student with ID ${id} has been approved.`,
+                'success'
+            );
+        }
     };
 
     const indexOfLastStudent = currentPage * studentsPerPage;
@@ -35,11 +60,13 @@ const PendingStudentsPage = () => {
     const dataWithActions = currentStudents.map((student) => ({
         ...student,
         Action: (
-            <Button label="Approve" 
-            type="secondary"
-            backgroundColor="#007bff"
-            textColor="#fff"
-            onClick={() => handleApprove(student.id)} />
+            <Button 
+                label="Approve" 
+                type="secondary"
+                backgroundColor="#007bff"
+                textColor="#fff"
+                onClick={() => handleApprove(student.id)} 
+            />
         ),
     }));
 

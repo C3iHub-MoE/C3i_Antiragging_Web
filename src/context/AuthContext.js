@@ -1,19 +1,17 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
-// Create Authentication Context
+// Create an AuthContext
 const AuthContext = createContext();
 
-export const useAuth = () => useContext(AuthContext);
-
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Assuming 'false' means the user is not logged in
 
   const login = () => {
-    setIsAuthenticated(true);
+    setIsAuthenticated(true); // Simulate a login
   };
 
   const logout = () => {
-    setIsAuthenticated(false);
+    setIsAuthenticated(false); // Simulate a logout
   };
 
   return (
@@ -21,4 +19,9 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+// Custom hook to use the AuthContext
+export const useAuth = () => {
+  return useContext(AuthContext);
 };
