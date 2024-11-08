@@ -46,7 +46,7 @@ const StudentsPage = () => {
 
     const handleEdit = async (id) => {
         const studentToEdit = students.find((student) => student.id === id);
-        
+
         // Open a modal or prompt to edit multiple fields
         const { value: formValues } = await Swal.fire({
             title: 'Edit Student',
@@ -128,23 +128,8 @@ const StudentsPage = () => {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.title}>Committee Member Dashboard</h2>
-            <div className={styles.buttonContainer}>
-                <Button
-                    label="Create Student"
-                    type="primary"
-                    backgroundColor="#7367f0"
-                    textColor="#fff"
-                    onClick={() => navigate('/create-student')}
-                />
-                <Button
-                    label="View Pending Students"
-                    type="secondary"
-                    backgroundColor="#7367f0"
-                    textColor="#fff"
-                    onClick={() => navigate('/pending-students')}
-                />
-            </div>
+            <h2 className={styles.title}>All Registered student</h2>
+
             <Table columns={columns} data={dataWithActions} />
             <Pagination
                 currentPage={currentPage}

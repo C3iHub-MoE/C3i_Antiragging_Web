@@ -1,23 +1,25 @@
-// Button.js
-import React from 'react';
-import styles from './Button.module.css'; // Adjust the path based on your project structure
+import React from "react";
+import Style from "./Button.module.css";
 
-const Button = ({ label, type = 'primary', onClick, backgroundColor, textColor, borderColor }) => {
-    // Inline styles for custom colors
-    const customStyles = {
-        backgroundColor: backgroundColor || 'transparent',  // Use provided color or default
-        color: textColor || '#fff', // Default text color is white
-        borderColor: borderColor || 'transparent' // Use provided color or no border
-    };
-
+const Button = ({ type = 'button', title, trigger, active = false, icon = null, variant = "primary", size = "medium", disabled = false, loading = false }) => {
     return (
-        <button
-            className={`${styles.button} ${styles[type]}`} 
-            onClick={onClick} 
-            style={customStyles} // Apply custom styles
-        >
-            {label}
-        </button>
+        <div className={Style.buttonContainer}>
+            <button
+                type={type}
+                className={`${Style.button} ${Style[variant]} ${Style[size]} ${active ? Style.activeTab : ""} ${disabled ? Style.disabled : ""} ${loading ? Style.loading : ""}`}
+                onClick={trigger}
+                disabled={disabled || loading}
+            >
+                {loading ? (
+                    <div className={Style.loader}></div>
+                ) : (
+                    <>
+                        {icon && <span className={Style.icon}>{icon}</span>}
+                        <span>{title}</span>
+                    </>
+                )}
+            </button>
+        </div>
     );
 };
 

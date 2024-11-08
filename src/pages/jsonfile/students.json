@@ -3,6 +3,8 @@
       "id": 1,
       "name": "John Doe",
       "college": "ABC College",
+      "university": "ABC university",
+
       "district": "District 1",
       "state": "State 1",
       "status": "Pending"

@@ -1,23 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './ComplaintDetailsPage.module.css'; // Import CSS module
 
 const ComplaintDetailsPage = ({ complaintsData, setComplaintsData }) => {
+  
   const { complaintID } = useParams();
+  console.log(complaintID)
   const complaint = complaintsData.find(c => c.ComplaintID === parseInt(complaintID));
+
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [escalationLevel, setEscalationLevel] = useState('');
+  const [remarks, setRemarks] = useState('');
 
   if (!complaint) {
     return <div className={styles.error}>Complaint not found</div>;
   }
 
-  // Function to escalate the complaint
-  const escalateComplaint = () => {
+  // Function to escalate the complaint with selected options
+  const handleEscalation = () => {
     setComplaintsData(prevData =>
-      prevData.map(c => c.ComplaintID === complaint.ComplaintID 
-        ? { ...c, EscalationLevel: c.EscalationLevel + 1 }
+      prevData.map(c => 
+        c.ComplaintID === complaint.ComplaintID 
+        ? { ...c, EscalationLevel: escalationLevel, Remarks: remarks }
         : c
       )
     );
+    setIsModalOpen(false); // Close modal after submission
   };
 
   return (
@@ -49,13 +58,54 @@ const ComplaintDetailsPage = ({ complaintsData, setComplaintsData }) => {
       </div>
 
       <div className={styles.actions}>
-        <button className={styles.escalateButton} onClick={escalateComplaint}>
+        <button className={styles.escalateButton} onClick={() => setIsModalOpen(true)}>
           Escalate Complaint
         </button>
         <button className={styles.backButton} onClick={() => window.history.back()}>
           Back to Complaints
         </button>
       </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <h2>Escalate Complaint</h2>
+
+            <div className={styles.modalRow}>
+              <label>Select Escalation Level:</label>
+              <select 
+                value={escalationLevel}
+                onChange={e => setEscalationLevel(e.target.value)}
+              >
+                <option value="">-- Select --</option>
+                <option value="University">University</option>
+                <option value="District">District</option>
+                <option value="State">State</option>
+                <option value="UGC">UGC Member</option>
+              </select>
+            </div>
+
+            <div className={styles.modalRow}>
+              <label>Remarks:</label>
+              <textarea 
+                value={remarks}
+                onChange={e => setRemarks(e.target.value)}
+                placeholder="Enter remarks here..."
+              />
+            </div>
+
+            <div className={styles.modalActions}>
+              <button className={styles.submitButton} onClick={handleEscalation}>
+                Submit
+              </button>
+              <button className={styles.cancelButton} onClick={() => setIsModalOpen(false)}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

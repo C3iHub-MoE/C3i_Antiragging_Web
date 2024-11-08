@@ -61,10 +61,9 @@ const PendingStudentsPage = () => {
         ...student,
         Action: (
             <Button 
-                label="Approve" 
+                title="Approve" 
                 type="secondary"
-                backgroundColor="#007bff"
-                textColor="#fff"
+               
                 onClick={() => handleApprove(student.id)} 
             />
         ),
@@ -74,6 +73,7 @@ const PendingStudentsPage = () => {
         'id',
         'name',
         'college',
+        'university',
         'district',
         'state',
         'status',
@@ -82,7 +82,6 @@ const PendingStudentsPage = () => {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.title}>Pending Students</h2>
             <Table columns={columns} data={dataWithActions} />
             <Pagination
                 currentPage={currentPage}

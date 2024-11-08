@@ -1,90 +1,124 @@
-import React from 'react';
-import styles from './AntiRaggingDashboard.module.css'; // CSS module
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Layout, Card, Select, DatePicker, Row, Col } from 'antd';
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, PieChart, Pie, Cell } from 'recharts';
+// import 'antd/dist/antd.css';
+import 'antd/dist/reset.css'; // For recent Ant Design versions (v5 and above)
 
-// Mock user data (this would come from your authentication state)
-const currentUser = {
-  role: 'institutionalCommittee', // Example: Change this to test different roles
-};
+const { Header, Content } = Layout;
+const { Option } = Select;
 
-// Mock Data
-const mockData = {
-  totalStudents: 500,
-  totalMembers: 30,
-  totalComplaints: 75,
-  resolvedComplaints: 50,
-};
+// Mock data
+const dataTrends = [
+  { name: 'May 2023', MTTA: 2.8, MTTR: 13.5 },
+  { name: 'Jun 2023', MTTA: 2.6, MTTR: 12.8 },
+  // Add more data as needed
+];
+const pieData = [
+  { name: 'Not Reopened', value: 75 },
+  { name: 'Reopened', value: 25 },
+];
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-
-  // Navigate to Students Page
-  const handleStudents = () => {
-    navigate('/students');
-  };
-
-  // Navigate to Members Page
-  const handleMembers = () => {
-    navigate('/member_page');
-  };
-
-  // Navigate to Complaints Page
-  const handleComplaints = () => {
-    navigate('/complaints');
-  };
+  const [institute, setInstitute] = useState('All');
+  const [state, setState] = useState('All');
 
   return (
-    <div className={styles.dashboardContainer}>
-      <h1 className={styles.pageTitle}>Anti-Ragging Analytics Dashboard</h1>
+    <Layout>
+        {/* <Header style={{ background: '#001529', color: 'white', textAlign: 'center' }}>
+          <h1>Anti-Ragging Management Dashboard</h1>
+        </Header> */}
+      <Content style={{ padding: '20px' }}>
+        <Card>
+          <Row gutter={[16, 16]}>
+            <Col span={8}>
+              <Select
+                style={{ width: '100%' }}
+                value={institute}
+                onChange={setInstitute}
+                placeholder="Select Institute"
+              >
+                <Option value="All">All</Option>
+                <Option value="Institute 1">Institute 1</Option>
+                {/* Add more institutes */}
+              </Select>
+            </Col>
+            <Col span={8}>
+              <Select
+                style={{ width: '100%' }}
+                value={state}
+                onChange={setState}
+                placeholder="Select State"
+              >
+                <Option value="All">All</Option>
+                <Option value="State 1">State 1</Option>
+                {/* Add more states */}
+              </Select>
+            </Col>
+            <Col span={8}>
+              <DatePicker.RangePicker style={{ width: '100%' }} />
+            </Col>
+          </Row>
+        </Card>
+        
+        <Row gutter={[16, 16]} style={{ marginTop: '20px' }}>
+          <Col span={6}>
+            <Card title="Total Students">
+              <h2>500</h2>
+            </Card>
+          </Col>
+          <Col span={6}>
+            <Card title="Pending Complaints">
+              <h2>30</h2>
+            </Card>
+          </Col>
+          <Col span={6}>
+            <Card title="Total Members">
+              <h2>150</h2>
+            </Card>
+          </Col>
+          <Col span={6}>
+            <Card title="Resolved Complaints">
+              <h2>120</h2>
+            </Card>
+          </Col>
+        </Row>
 
-      {/* Grid Layout for Analytics Cards */}
-      <div className={styles.gridContainer}>
-
-        {/* Students Card */}
-        <div className={styles.analyticsCard} onClick={handleStudents}>
-          <div className={styles.cardIcon}>
-            <i className="fas fa-user-graduate"></i> {/* FontAwesome icon */}
-          </div>
-          <div className={styles.cardContent}>
-            <h2>Total Students</h2>
-            <p>{mockData.totalStudents}</p>
-          </div>
-        </div>
-
-        {/* Members Card */}
-        <div className={styles.analyticsCard} onClick={handleMembers}>
-          <div className={styles.cardIcon}>
-            <i className="fas fa-users"></i> {/* FontAwesome icon */}
-          </div>
-          <div className={styles.cardContent}>
-            <h2>Total Members</h2>
-            <p>{mockData.totalMembers}</p>
-          </div>
-        </div>
-
-        {/* Complaints Card */}
-        <div className={styles.analyticsCard} onClick={handleComplaints}>
-          <div className={styles.cardIcon}>
-            <i className="fas fa-exclamation-triangle"></i> {/* FontAwesome icon */}
-          </div>
-          <div className={styles.cardContent}>
-            <h2>Total Complaints</h2>
-            <p>{mockData.totalComplaints}</p>
-          </div>
-        </div>
-
-        {/* Resolved Complaints Card */}
-        <div className={styles.analyticsCard}>
-          <div className={styles.cardIcon}>
-            <i className="fas fa-check-circle"></i> {/* FontAwesome icon */}
-          </div>
-          <div className={styles.cardContent}>
-            <h2>Resolved Complaints</h2>
-            <p>{mockData.resolvedComplaints}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+        <Row gutter={[16, 16]} style={{ marginTop: '20px' }}>
+          <Col span={12}>
+            <Card title="MTTA and MTTR Trends">
+              <LineChart width={500} height={300} data={dataTrends}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="MTTA" stroke="#8884d8" />
+                <Line type="monotone" dataKey="MTTR" stroke="#82ca9d" />
+              </LineChart>
+            </Card>
+          </Col>
+          <Col span={12}>
+            <Card title="Complaints Reopen Rate">
+              <PieChart width={400} height={300}>
+                <Pie
+                  data={pieData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={100}
+                  fill="#82ca9d"
+                >
+                  <Cell key="Not Reopened" fill="#8884d8" />
+                  <Cell key="Reopened" fill="#ffc658" />
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </Card>
+          </Col>
+        </Row>
+      </Content>
+    </Layout>
   );
 };
 

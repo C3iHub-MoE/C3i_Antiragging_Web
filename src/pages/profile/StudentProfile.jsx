@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import Table from '../../components/table/Table'; // Import your Table component
-import Pagination from '../../components/Pagination/Pagination';
-const SOSPage = () => {
-    const [sosData, setSosData] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [sosPerPage] = useState(10);
-    const columns = ['Student Id', 'Student Name', 'College', 'State', 'District', 'Location'];
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-    // Static JSON data for SOS alerts (replace this with your API later)
-    const mockSosData = [
+const StudentProfile = () => {
+    const { id } = useParams(); // Get student ID from the URL
+    const [studentData, setStudentData] = useState(null);
+
+    // Mock data for the student profiles (you can replace this with an API call)
+    const mockStudentProfiles = [
         {
           studentId: 1,
           studentName: 'John Doe',
@@ -171,46 +168,33 @@ const SOSPage = () => {
           location: '39.7684° N, 86.1581° W',
         },
       ];
-      
-    const indexOfLastSos = currentPage * sosPerPage;
-    const indexOfFirstSos = indexOfLastSos - sosPerPage;
-    const currentSos = sosData.slice(indexOfFirstSos, indexOfLastSos);
-
-
 
     useEffect(() => {
-        // Use static JSON data instead of API
-        setSosData(mockSosData);
-    }, []);
+        // Fetch the student profile by ID (replace this with an actual API call if needed)
+        const fetchStudentProfile = () => {
+            const student = mockStudentProfiles[id];
+            if (student) {
+                setStudentData(student);
+            }
+        };
 
-    // Map the data for the table
-    const formattedData = currentSos.map((sos) => ({
-        'Student Id': sos.studentId,
-        'Student Name': (
-            <NavLink to={`/student/${sos.studentId}`}>
-                {sos.studentName}
-            </NavLink>
-        ),
-        'College': sos.college,
-        'State': sos.state,
-        'District': sos.district,
-        'Location': sos.location,
-    }));
+        fetchStudentProfile();
+    }, [id]);
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    if (!studentData) {
+        return <p>Loading student data...</p>;
+    }
+
     return (
         <div>
-            <h1>SOS Alerts</h1>
-            <Table columns={columns} data={formattedData} />
-
-              {/* Pagination */}
-              <Pagination
-                currentPage={currentPage}
-                totalPages={Math.ceil(sosData.length / sosPerPage)}
-                onPageChange={paginate}
-            />
+            <h1>Student Profile</h1>
+            <p><strong>Student Name:</strong> {studentData.studentName}</p>
+            <p><strong>College:</strong> {studentData.college}</p>
+            <p><strong>State:</strong> {studentData.state}</p>
+            <p><strong>District:</strong> {studentData.district}</p>
+            <p><strong>Location:</strong> {studentData.location}</p>
         </div>
     );
 };
 
-export default SOSPage;
+export default StudentProfile;

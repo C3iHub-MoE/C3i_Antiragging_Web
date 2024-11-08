@@ -3,8 +3,9 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import styles from './Student.module.css';
 import Swal from 'sweetalert2'; // Import SweetAlert
+import Button from '../../../components/button/Button';
 
-const StudentRegister = () => {
+const UserRegister = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -23,6 +24,7 @@ const StudentRegister = () => {
 
 
     const [collegeName, setCollegeName] = useState('');
+    const [university, setUniversity] = useState('')
     const [collegeIdProof, setCollegeIdProof] = useState(null);
 
     // Validation messages for each field
@@ -228,7 +230,7 @@ const StudentRegister = () => {
             <div className={styles.registerBox}>
                 <h2 className={styles.title}>User Registration</h2>
                 <form onSubmit={handleRegister} className={styles.form}>
-                    
+
                     <div className={styles.inputGroup}>
                         <label className={styles.label}>Username</label>
                         <input
@@ -327,6 +329,7 @@ const StudentRegister = () => {
                             <select value={role} onChange={handleRoleChange} className={styles.input}>
                                 <option value="student">Student</option>
                                 <option value="member">Member</option>
+                                <option value="district member">District Member</option>
                             </select>
                         </div>
 
@@ -334,7 +337,7 @@ const StudentRegister = () => {
 
                     <div className={styles.inputGroup}>
                         <label className={styles.label}>State</label>
-                        <select
+                        {/* <select
                             value={selectedState}
                             onChange={handleStateChange}
                             className={styles.input}
@@ -344,13 +347,22 @@ const StudentRegister = () => {
                             {states.map(state => (
                                 <option key={state.id} value={state.name}>{state.name}</option>
                             ))}
-                        </select>
+                        </select> */}
+
+                        <input
+                            type="text"
+                            value={selectedState}
+                            onChange={(e) => setSelectedState(e.target.value)}
+                            className={styles.input}
+                            placeholder="Enter your state"
+                            required
+                        />
                         {stateError && <span className={styles.error}>{stateError}</span>}
                     </div>
 
                     <div className={styles.inputGroup}>
                         <label className={styles.label}>District</label>
-                        <select
+                        {/* <select
                             value={district}
                             onChange={(e) => setDistrict(e.target.value)}
                             className={styles.input}
@@ -361,12 +373,68 @@ const StudentRegister = () => {
                             {districts.map(district => (
                                 <option key={district.id} value={district.name}>{district.name}</option>
                             ))}
-                        </select>
+                        </select> */}
+                        <input
+                            type="text"
+                            value={district}
+                            onChange={(e) => setDistrict(e.target.value)}
+                            className={styles.input}
+                            placeholder="Enter your district"
+                            required
+                        />
                         {districtError && <span className={styles.error}>{districtError}</span>}
                     </div>
 
+                    {/* <div className={styles.inputGroup}>
+                        <label className={styles.label}>University Name</label>
+                        <select
+                            value={university}
+                            onChange={(e) => setUniversity(e.target.value)}
+                            className={styles.input}
+                            required
+                        >
+                            <option value="" disabled>Select your University</option>
+                            {colleges.map(college => (
+                                <option key={college.id} value={college.name}>{college.name}</option>
+                            ))}
+                        </select>
+                        {collegeError && <span className={styles.error}>{collegeError}</span>}
+                    </div> */}
+
+                    {/* <div className={styles.inputGroup}>
+                        <label className={styles.label}>College Name</label>
+                        <select
+                            value={collegeName}
+                            onChange={(e) => setCollegeName(e.target.value)}
+                            className={styles.input}
+                            required
+                        >
+                            <option value="" disabled>Select your college</option>
+                            {colleges.map(college => (
+                                <option key={college.id} value={college.name}>{college.name}</option>
+                            ))}
+                        </select>
+                        {collegeError && <span className={styles.error}>{collegeError}</span>}
+                    </div> */}
+
                     {role === 'student' && (
                         <>
+
+                            <div className={styles.inputGroup}>
+                                <label className={styles.label}>University Name</label>
+                                <select
+                                    value={university}
+                                    onChange={(e) => setUniversity(e.target.value)}
+                                    className={styles.input}
+                                    required
+                                >
+                                    <option value="" disabled>Select your University</option>
+                                    {colleges.map(college => (
+                                        <option key={college.id} value={college.name}>{college.name}</option>
+                                    ))}
+                                </select>
+                                {collegeError && <span className={styles.error}>{collegeError}</span>}
+                            </div>
                             <div className={styles.inputGroup}>
                                 <label className={styles.label}>College Name</label>
                                 <select
@@ -395,14 +463,52 @@ const StudentRegister = () => {
                             </div>
                         </>
                     )}
-                    <button type="submit" className={styles.registerButton}>
-                        Register
-                    </button>
+
+                    {role === "member" && (
+                        <>
+                            <div className={styles.inputGroup}>
+                                <label className={styles.label}>University Name</label>
+                                <select
+                                    value={university}
+                                    onChange={(e) => setUniversity(e.target.value)}
+                                    className={styles.input}
+                                    required
+                                >
+                                    <option value="" disabled>Select your University</option>
+                                    {colleges.map(college => (
+                                        <option key={college.id} value={college.name}>{college.name}</option>
+                                    ))}
+                                </select>
+                                {collegeError && <span className={styles.error}>{collegeError}</span>}
+                            </div>
+
+                            <div className={styles.inputGroup}>
+                                <label className={styles.label}>College Name</label>
+                                <select
+                                    value={collegeName}
+                                    onChange={(e) => setCollegeName(e.target.value)}
+                                    className={styles.input}
+                                    required
+                                >
+                                    <option value="" disabled>Select your college</option>
+                                    {colleges.map(college => (
+                                        <option key={college.id} value={college.name}>{college.name}</option>
+                                    ))}
+                                </select>
+                                {collegeError && <span className={styles.error}>{collegeError}</span>}
+                            </div>
+
+                        </>
+                    )}
+
+
+
+                    <Button type='submit' variant="secondary" title="Register" />
                 </form>
             </div>
         </div>
     );
 };
 
-export default StudentRegister;
+export default UserRegister;
 

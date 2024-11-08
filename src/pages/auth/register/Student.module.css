@@ -62,12 +62,11 @@
 }
 
 .input:focus {
-    border-color: #8a6efb;
+    /* border-color: #8a6efb; */
     outline: none;
 }
 
 .registerButton {
-    background-color: #8a6efb;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -81,7 +80,7 @@
 }
 
 .registerButton:hover {
-    background-color: #7358cc;
+    /* background-color: #7358cc; */
 }
 
 button[type="submit"] {

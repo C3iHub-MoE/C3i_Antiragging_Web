@@ -37,7 +37,7 @@ const Sidebar = ({ collapsed }) => {
           <>
             <li>
               <NavLink to="/students" className={styles.linkText} activeClassName={styles.activeLink}>
-                <span className={styles.icon} role="img" aria-label="Analytics">{ICONS.USER}</span>
+                <span className={styles.icon} role="img" aria-label="Analytics">{ICONS.STUDENTS}</span>
                 {!collapsed && <span className={styles.linkLabel}>Students</span>}
               </NavLink>
             </li>
@@ -50,7 +50,7 @@ const Sidebar = ({ collapsed }) => {
             </li>
             <li>
               <NavLink to="/member_page" className={styles.linkText} activeClassName={styles.activeLink}>
-                <span className={styles.icon} role="img" aria-label="About">{ICONS.USER}</span>
+                <span className={styles.icon} role="img" aria-label="About">{ICONS.MEMBERS}</span>
                 {!collapsed && <span className={styles.linkLabel}>Members</span>}
               </NavLink>
             </li>

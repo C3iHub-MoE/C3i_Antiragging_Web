@@ -1,42 +1,108 @@
-/* Button.module.css */
-.button {
-    padding: 10px 20px;
-    border: 2px solid transparent;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-/* Primary button style */
-.primary {
-    background-color: #7367f0; /* Default primary background */
-    color: #fff; /* White text for primary */
-}
-
-.primary:hover {
-    background-color: #5a54c7; /* Darker shade on hover */
-}
-
-/* Secondary button style */
-.secondary {
-    background-color: #ff7f50; /* Coral secondary color */
-    color: #fff; /* White text for secondary */
-}
-
-.secondary:hover {
-    background-color: #e56d43; /* Darker shade on hover */
-}
-
-/* Add more default button styles as needed */
-
-/* Button focus/active states */
-.button:focus {
+.buttonContainer button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    gap: 0.3rem;
+    padding-inline: 0.8rem;
+    padding-block: 0.45rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 6px var(--primary-box-shadow);
+    color: var(--text-active-color);
     outline: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    vertical-align: middle;
 }
 
-.button:active {
-    transform: scale(0.98); /* Slight scaling effect on click */
+.buttonContainer button span:nth-child(2) {
+    margin-top: -0.12rem;
+}
+
+.buttonContainer button:hover:not(.disabled):not(.loading) {
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+.buttonContainer .primary {
+    background-color: var(--primary-color);
+    color: var(--text-white);
+    box-shadow: 0 2px 6px var(--primary-box-shadow);
+}
+.buttonContainer .primary:hover:not(.disabled):not(.loading) {
+    box-shadow: 0 10px 10px rgba(252, 124, 129, 0.5);
+}
+
+.buttonContainer .secondary {
+    background-color: var(--violet-color);
+    color: var(--text-white);
+    box-shadow: 0 2px 6px rgba(115, 103, 240, 50%);
+}
+
+.buttonContainer .secondary:hover:not(.disabled):not(.loading) {
+    /* background-color: rgba(115, 103, 240, 80%); */
+    box-shadow: 0 10px 10px rgba(107, 95, 247, 0.5);
+}
+
+.buttonContainer .danger {
+    background-color: var(--red-color);
+    color: var(--text-white);
+}
+
+.buttonContainer .success {
+    background-color: var(--green-color);
+    color: var(--text-white);
+    box-shadow: 0 2px 6px rgba(40, 199, 111, 30%);
+}
+
+.buttonContainer .success:hover:not(.disabled):not(.loading) {
+    /* background-color: rgba(40, 199, 111, 80%); */
+    box-shadow: 0 10px 10px rgba(20, 240, 119, 0.3);
+}
+
+.buttonContainer .small {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.875rem;
+}
+
+.buttonContainer .medium {
+    padding-inline: 0.8rem;
+    padding-block: 0.45rem;
+    font-size: 0.95rem;
+}
+
+.buttonContainer .large {
+    padding: 0.7rem 1.5rem;
+    font-size: 1.125rem;
+}
+
+.buttonContainer .disabled {
+    cursor: not-allowed;
+    background-color: var(--disabled-bg-color);
+    color: var(--disabled-text-color);
+}
+
+.buttonContainer .loading {
+    cursor: progress;
+}
+
+.buttonContainer .loading .loader {
+    width: 22px;
+    height: 22px;
+    border: 3px solid rgba(currentColor, 0.3);
+    border-top: 3px solid var(--text-white);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
