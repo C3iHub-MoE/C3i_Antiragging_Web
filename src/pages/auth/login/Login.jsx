@@ -1,32 +1,37 @@
+// src/components/Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './Login.module.css'; // Import CSS module
+import { useAuth } from '../../../context/AuthContext';
+import styles from './Login.module.css'; // Assume this CSS module contains your styles
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-
+  const [mobileError, setMobileError] = useState('');
+  const { login, loading, error, user } = useAuth(); // Use the login logic from context
   const navigate = useNavigate();
 
-  const isEmailValid = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isMobileValid = (mobileNumber) => /^[0-9]{10}$/.test(mobileNumber); // Simple mobile number validation
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setEmailError('');
+    setMobileError('');
 
-    // Validate email format
-    if (!isEmailValid(email)) {
-      setEmailError("Please enter a valid email address.");
+    // Validate mobile number format
+    if (!isMobileValid(mobileNumber)) {
+      setMobileError('Please enter a valid mobile number.');
       return;
     }
 
-    // Proceed with login logic (e.g., API call)
-    console.log('Email:', email);
-    console.log('Password:', password);
+    try {
+      await login(mobileNumber, password); // Perform login using the context
 
-    // After successful login, you can navigate to another page if needed
-    // navigate('/dashboard');
+      if (user) {
+        navigate('/'); // Redirect to the dashboard on successful login
+      }
+    } catch (err) {
+      console.error('Login failed:', err); // Log error if login fails
+    }
   };
 
   const handleForgotPassword = () => {
@@ -36,20 +41,20 @@ const Login = () => {
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginBox}>
-        <h2 className={styles.title}>Anti-Ragging Login</h2>
+        <h2 className={styles.title}>Welcome to Anti-Ragging App</h2>
         <div className={styles.logoPlaceholder}>LOGO</div>
         <form onSubmit={handleLogin} className={styles.form}>
           <div className={styles.inputGroup}>
-            <label className={styles.label}>Email</label>
+            <label className={styles.label}>Mobile Number</label>
             <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              value={mobileNumber}
+              onChange={(e) => setMobileNumber(e.target.value)}
               className={styles.input}
-              placeholder="Enter your email"
+              placeholder="Enter your mobile number"
               required
             />
-            {emailError && <span className={styles.error}>{emailError}</span>}
+            {mobileError && <span className={styles.error}>{mobileError}</span>}
           </div>
           <div className={styles.inputGroup}>
             <label className={styles.label}>Password</label>
@@ -62,10 +67,11 @@ const Login = () => {
               required
             />
           </div>
-          <button type="submit" className={styles.loginButton}>
-            Login
+          <button type="submit" className={styles.loginButton} disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
+        {error && <p className={styles.error}>{error}</p>}
         <button onClick={handleForgotPassword} className={styles.forgotButton}>
           Forgot Password?
         </button>

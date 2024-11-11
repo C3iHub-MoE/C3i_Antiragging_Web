@@ -18,7 +18,7 @@ const Navbar = ({ toggleSidebar }) => {
         <NavLink to="/Sos-history" className={styles.linkText} activeClassName={styles.activeLink}>
           Sos Alerts
         </NavLink>
-        <NavLink to="/about" className={styles.linkText} activeClassName={styles.activeLink}>
+        <NavLink to="/logout" className={styles.linkText} activeClassName={styles.activeLink}>
           Logout
         </NavLink>
         <NavLink to="/profile" className={styles.linkText} activeClassName={styles.activeLink}>

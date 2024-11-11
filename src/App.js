@@ -20,6 +20,9 @@ import SOSPage from './pages/sosData/SosPage';
 import StudentProfile from './pages/profile/StudentProfile';
 import AnalyticsPage from './pages/analyticspage/Analytics';
 import ProfilePage from './pages/UserProfile/UserProfile';
+import ProtectedRoute from './components/protectedRoute/protectedRoute';
+import PublicRoute from './components/publicRoute/publicRoute';
+import Logout from './pages/auth/logout/Logout';
 const initialComplaintsData = [
   { ComplaintID: 1, Description: "Bullying in the classroom.", DateFiled: "2024-09-20", Status: "Pending", StudentID: "S12345", CollegeID: "C001", EscalationLevel: 1, StudentName: "John Doe", CollegeName: "ABC College", ResolvedDate: null },
   { ComplaintID: 2, Description: "Harassment from seniors.", DateFiled: "2024-09-22", Status: "Resolved", StudentID: "S67890", CollegeID: "C001", EscalationLevel: 2, StudentName: "Jane Smith", CollegeName: "ABC College", ResolvedDate: "2024-09-29" },
@@ -50,34 +53,30 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="*" element={<Error />} />
+
+        <Route path="/" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
         <Route path='/profile' element={<ProfilePage />} />
-        <Route path="/" element={<UserDashboard />} />
-        <Route path="/registration" element={<UserRegister />} />
-        <Route path="/login" element={<Login />} />
         <Route path='/analytic' element={<AnalyticsPage />} />
-        <Route path="/Member-registration" element={<UserRegister />} />
         <Route path="/invitation-mail" element={<InvitationForm />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+        <Route path='/logout' element={<ProtectedRoute><Logout /></ProtectedRoute>} />
+        <Route path="/Member-registration" element={<UserRegister />} />
         <Route path="/Sos-history" element={<SOSPage />} />
         <Route path="/student/:id" element={<StudentProfile />} />
-
         <Route path='/pending-students' element={<PendingStudentsPage />} />
-
-
-        <Route path="/reset-password" element={<ResetPassword />} />
-
         <Route path="/complaints" element={<StudentComplaintsPage />} />
         <Route path="/students" element={<StudentsPage />} />
         <Route path='/create-student' element={<NewStudentRegister />} />
-        <Route
-          path="/complaints/:complaintID"
+        <Route path="/complaints/:complaintID"
           element={<ComplaintDetailsPage complaintsData={complaintsData} setComplaintsData={setComplaintsData} />}
         />
         <Route path='/member_page' element={<MembersPage />} />
-        <Route path='/invite' element={<InvitationForm />} />
+        <Route path="*" element={<Error />} />
 
 
-    </Routes>
+
+      </Routes>
     </Layout >
   );
 }

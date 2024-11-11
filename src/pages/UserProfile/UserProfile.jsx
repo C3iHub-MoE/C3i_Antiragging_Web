@@ -268,10 +268,12 @@ import React, { useState } from 'react';
 import styles from './UserProfile.module.css';
 import { ICONS } from "../utils/icons"
 import Button from '../../components/button/Button';
+import { useAuth } from '../../context/AuthContext';
 
 const ProfilePage = () => {
     const [activeTab, setActiveTab] = useState('account');
-
+    const { user } = useAuth();
+    console.log(user)
     const handleTabChange = (tab) => {
         setActiveTab(tab);
     };
@@ -301,12 +303,12 @@ const ProfilePage = () => {
             [id]: value
         }));
 
-        if (id === 'new' ) {
+        if (id === 'new') {
             setPasswordValidations((prevValidations) => ({
                 ...prevValidations,
-                minLength: passwords.new.length >= 8,  
-                lowercase: /[a-z]/.test(passwords.new), 
-                numberSymbol: /[0-9\s\W]/.test(passwords.new) 
+                minLength: passwords.new.length >= 8,
+                lowercase: /[a-z]/.test(passwords.new),
+                numberSymbol: /[0-9\s\W]/.test(passwords.new)
             }));
         }
     };
@@ -458,7 +460,7 @@ const ProfilePage = () => {
                                             onChange={handlePasswordChange}
                                         />
 
-                                      
+
                                         <span
                                             className={styles.eyeIcon}
                                             onClick={() => togglePasswordVisibility('current')}
@@ -533,7 +535,7 @@ const ProfilePage = () => {
                                         At least one number, symbol, or whitespace character
                                     </li>
                                     <li
-                                        className={passwords.confirm !="" && passwords.new!=="" && passwords.confirm === passwords.new ? styles.valid : styles.invalid}
+                                        className={passwords.confirm != "" && passwords.new !== "" && passwords.confirm === passwords.new ? styles.valid : styles.invalid}
                                     >
                                         Confirm password matches the new password
                                     </li>
