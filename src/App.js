@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import Login from './pages/auth/login/Login';
@@ -23,6 +23,12 @@ import ProfilePage from './pages/UserProfile/UserProfile';
 import ProtectedRoute from './components/protectedRoute/protectedRoute';
 import PublicRoute from './components/publicRoute/publicRoute';
 import Logout from './pages/auth/logout/Logout';
+
+import { generateToken, messaging } from './notification/firebase';
+import { getMessaging, onMessage } from 'firebase/messaging';
+
+
+
 const initialComplaintsData = [
   { ComplaintID: 1, Description: "Bullying in the classroom.", DateFiled: "2024-09-20", Status: "Pending", StudentID: "S12345", CollegeID: "C001", EscalationLevel: 1, StudentName: "John Doe", CollegeName: "ABC College", ResolvedDate: null },
   { ComplaintID: 2, Description: "Harassment from seniors.", DateFiled: "2024-09-22", Status: "Resolved", StudentID: "S67890", CollegeID: "C001", EscalationLevel: 2, StudentName: "Jane Smith", CollegeName: "ABC College", ResolvedDate: "2024-09-29" },
@@ -49,6 +55,13 @@ const initialComplaintsData = [
 function App() {
   const [complaintsData, setComplaintsData] = useState(initialComplaintsData);
   const user = "member";
+
+  useEffect(() => {
+    generateToken();
+    onMessage(messaging, (payload) => {
+      console.log("firebase Payload = :", payload)
+    })
+  }, [])
 
   return (
     <Layout>
