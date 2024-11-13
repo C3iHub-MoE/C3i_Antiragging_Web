@@ -72,7 +72,7 @@ const Sidebar = ({ collapsed }) => {
 
       {!collapsed && (
         <div className={styles.footer}>
-          © 2024 Your Company
+          © 2024 C3IHUB
         </div>
       )}
     </div>

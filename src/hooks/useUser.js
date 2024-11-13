@@ -1,11 +1,20 @@
 // src/hooks/useLogin.js
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { loginUser } from '../api/user'; // Import your login function
 
 export const useClient = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem('authToken');
+        const storedUser = localStorage.getItem('user'); // Or you can use cookies if preferred
+
+        if (token && storedUser) {
+            setUser({ token, user: JSON.parse(storedUser) });
+        }
+    }, []);
 
     const login = async (mobile_number, password) => {
         setLoading(true);
@@ -19,24 +28,18 @@ export const useClient = () => {
 
             const data = await loginUser(payload, controller.signal);
 
-            console.log(data);
+            console.log("test data",data);
 
             // If the login is successful, store the Bearer token and user data
-            const { token, user: loggedInUser } = data;
 
             // Store the token in localStorage (or sessionStorage, depending on your preference)
-            localStorage.setItem('authToken', token);
-
-            const userData = {
-                token: token,
-                user: loggedInUser
+            if(data.token){
+                localStorage.setItem('authToken', data?.token);
+                localStorage.setItem('user',JSON.stringify(data));
+                setUser(data)
+            }else{
+                console.log("data not found")
             }
-            setUser(userData)
-
-
-            // Store user data (if needed)
-            //   setUser({ token, user:loggedInUser});
-            //   console.log("user",loggedInUser)
 
 
 
@@ -51,11 +54,10 @@ export const useClient = () => {
         }
     };
 
-    //   const User = () => {
-
-    //   }
+   
     const LogOutUser = () => {
-        localStorage.removeItem("authToken");
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user')
         setUser(null)
     }
 

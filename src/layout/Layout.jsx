@@ -5,6 +5,7 @@ import Navbar from './navbar/Navbar';
 import styles from './Layout.module.css'; // Import CSS module for layout styling
 import { ColorModeContext, useMode } from '../theme';
 
+
 const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
 
