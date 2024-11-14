@@ -68,6 +68,7 @@ function App() {
       <Routes>
 
         <Route path="/" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
+        {/* <Route path="/" element={<UserDashboard />} /> */}
         <Route path='/profile' element={<ProfilePage />} />
         <Route path='/analytic' element={<AnalyticsPage />} />
         <Route path="/invitation-mail" element={<InvitationForm />} />
