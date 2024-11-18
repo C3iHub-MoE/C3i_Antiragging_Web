@@ -24,8 +24,8 @@ import ProtectedRoute from './components/protectedRoute/protectedRoute';
 import PublicRoute from './components/publicRoute/publicRoute';
 import Logout from './pages/auth/logout/Logout';
 
-import { generateToken, messaging } from './notification/firebase';
-import { getMessaging, onMessage } from 'firebase/messaging';
+// import { generateToken, messaging } from './notification/firebase';
+// import { getMessaging, onMessage } from 'firebase/messaging';
 
 
 
@@ -56,19 +56,20 @@ function App() {
   const [complaintsData, setComplaintsData] = useState(initialComplaintsData);
   const user = "member";
 
-  useEffect(() => {
-    generateToken();
-    onMessage(messaging, (payload) => {
-      console.log("firebase Payload = :", payload)
-    })
-  }, [])
+  // useEffect(() => {
+  //   generateToken();
+  //   onMessage(messaging, (payload) => {
+  //     console.log("firebase Payload = :", payload)
+  //   })
+  // }, [])
 
   return (
     <Layout>
+  
       <Routes>
 
-        <Route path="/" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
-        {/* <Route path="/" element={<UserDashboard />} /> */}
+        {/* <Route path="/" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} /> */}
+        <Route path="/" element={<UserDashboard />} />
         <Route path='/profile' element={<ProfilePage />} />
         <Route path='/analytic' element={<AnalyticsPage />} />
         <Route path="/invitation-mail" element={<InvitationForm />} />

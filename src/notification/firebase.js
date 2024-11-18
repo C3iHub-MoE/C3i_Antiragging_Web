@@ -35,8 +35,9 @@ export const generateToken = async () => {
         const token = await getToken(messaging, {
             vapidKey: "BP8hxLoytTg4Aj_9BczP5uJiyXID9k6JhmXrZRSzturDTWCsTmH43M75MzihL4W3aWaSk_gSzzLK23CwldprI5w"
         })
-        console.log(token)
+        console.log("new token",token)
+        return token;
     }
 
-
+    return null;
 }
