@@ -240,11 +240,11 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <Header style={{ background: 'white', color: 'white' }}>
+      {/* <Header style={{ background: 'white', color: 'white' }}>
         <Title level={2} style={{ color: 'black', textAlign: 'center' }}>
           Anti-Ragging Management Dashboard
         </Title>
-      </Header>
+      </Header> */}
       <Content style={{ padding: '20px' }}>
         <Card>
           <Row gutter={[16, 16]}>
