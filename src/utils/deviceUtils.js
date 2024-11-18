@@ -4,7 +4,7 @@
 export const getPlatform = () => {
     // If the user is on the web, return "Web"
     if (typeof window !== 'undefined' && typeof window.document !== 'undefined') {
-      return 'Web';
+      return 'WEB';
     }
   
     // Otherwise, use the navigator.platform to get platform details

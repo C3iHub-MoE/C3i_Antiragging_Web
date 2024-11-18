@@ -16,7 +16,7 @@ const Login = () => {
   const navigate = useNavigate();
   const fcm_token = fcmToken;
 
-  const isMobileValid = (mobileNumber) => /^[0-9]{11}$/.test(mobileNumber); // Simple mobile number validation
+  const isMobileValid = (mobileNumber) => /^[0-9]{10}$/.test(mobileNumber); // Simple mobile number validation
   const handleLogin = async (e) => {
     e.preventDefault();
     setMobileError('');
@@ -36,9 +36,9 @@ const Login = () => {
     const device_id = getDeviceId();  
 
     const loginPayload = {
-      mobileNumber,
+      mobile_number : mobileNumber, 
       password,
-      // fcm_token, // Add FCM token here
+      fcm_token, // Add FCM token here
       device_id,
       platform,
     };
