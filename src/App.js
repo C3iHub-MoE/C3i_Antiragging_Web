@@ -64,35 +64,50 @@ function App() {
   // }, [])
 
   return (
-    <Layout>
-  
-      <Routes>
-
-        <Route path="/" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
-        {/* <Route path="/" element={<UserDashboard />} /> */}
-        <Route path='/profile' element={<ProfilePage />} />
-        {/* <Route path='/analytic' element={<AnalyticsPage />} /> */}
-        <Route path="/invitation-mail" element={<InvitationForm />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-        <Route path='/logout' element={<ProtectedRoute><Logout /></ProtectedRoute>} />
-        <Route path="/Member-registration" element={<UserRegister />} />
-        <Route path="/Sos-history" element={<SOSPage />} />
-        <Route path="/student/:id" element={<StudentProfile />} />
-        <Route path='/pending-students' element={<PendingStudentsPage />} />
-        <Route path="/complaints" element={<StudentComplaintsPage />} />
-        <Route path="/students" element={<StudentsPage />} />
-        <Route path='/create-student' element={<NewStudentRegister />} />
-        <Route path="/complaints/:complaintID"
-          element={<ComplaintDetailsPage complaintsData={complaintsData} setComplaintsData={setComplaintsData} />}
-        />
-        <Route path='/member_page' element={<MembersPage />} />
-        <Route path="*" element={<Error />} />
 
 
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+      <Route path="/logout" element={<ProtectedRoute><Logout /></ProtectedRoute>} />
+      <Route path="/reset-password" element={<PublicRoute><ResetPassword /></PublicRoute>} />
+      <Route
+        path="*"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Routes>
+                <Route index element={<UserDashboard />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/invitation-mail" element={<InvitationForm />} />
+                <Route path="/member-registration" element={<UserRegister />} />
+                <Route path="/sos-history" element={<SOSPage />} />
+                <Route path="/student/:id" element={<StudentProfile />} />
+                <Route path="/pending-students" element={<PendingStudentsPage />} />
+                <Route path="/complaints" element={<StudentComplaintsPage />} />
+                <Route path="/students" element={<StudentsPage />} />
+                <Route path="/create-student" element={<NewStudentRegister />} />
+                <Route path="/member_page" element={<MembersPage />} />
+                <Route
+                  path="/complaints/:complaintID"
+                  element={
+                    <ComplaintDetailsPage
+                      complaintsData={complaintsData}
+                      setComplaintsData={setComplaintsData}
+                    />
 
-      </Routes>
-    </Layout >
+                  }
+                />
+              </Routes>
+            </Layout>
+          </ProtectedRoute>
+        }
+      >
+        {/* Routes under Layout */}
+
+      </Route>
+      <Route path="*" element={<Error />} />
+    </Routes>
   );
 }
 

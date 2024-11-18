@@ -138,6 +138,8 @@ export const useClient = () => {
     const LogOutUser = () => {
         localStorage.removeItem('authToken');
         localStorage.removeItem('user')
+        localStorage.removeItem('deviceid')
+
         setUser(null)
     }
 
