@@ -18,7 +18,7 @@ import NewStudentRegister from './pages/students__commettiee_member/NewStudentPa
 import StudentComplaintStatus from './pages/studentsComplaintData/StudentComplaintStatus';
 import SOSPage from './pages/sosData/SosPage';
 import StudentProfile from './pages/profile/StudentProfile';
-import AnalyticsPage from './pages/analyticspage/Analytics';
+// import AnalyticsPage from './pages/analyticspage/Analytics';
 import ProfilePage from './pages/UserProfile/UserProfile';
 import ProtectedRoute from './components/protectedRoute/protectedRoute';
 import PublicRoute from './components/publicRoute/publicRoute';
@@ -70,7 +70,7 @@ function App() {
         <Route path="/" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
         {/* <Route path="/" element={<UserDashboard />} /> */}
         <Route path='/profile' element={<ProfilePage />} />
-        <Route path='/analytic' element={<AnalyticsPage />} />
+        {/* <Route path='/analytic' element={<AnalyticsPage />} /> */}
         <Route path="/invitation-mail" element={<InvitationForm />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
