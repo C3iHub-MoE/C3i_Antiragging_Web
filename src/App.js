@@ -98,6 +98,7 @@ function App() {
 
                   }
                 />
+                <Route path="*" element={<Error />} />
               </Routes>
             </Layout>
           </ProtectedRoute>
@@ -106,7 +107,7 @@ function App() {
         {/* Routes under Layout */}
 
       </Route>
-      <Route path="*" element={<Error />} />
+      
     </Routes>
   );
 }

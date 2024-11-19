@@ -55,7 +55,7 @@ const Sidebar = ({ collapsed }) => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/" className={styles.linkText} activeClassName={styles.activeLink}>
+              <NavLink to="*" className={styles.linkText} activeClassName={styles.activeLink}>
                 <span className={styles.icon} role="img" aria-label="Contact">{ICONS.CONTACT}</span>
                 {!collapsed && <span className={styles.linkLabel}>Contact</span>}
               </NavLink>
