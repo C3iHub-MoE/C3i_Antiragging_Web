@@ -1,76 +1,95 @@
+/* Sidebar */
 .sidebar {
   width: 250px;
-  background-color: #fff;
-  color: #444050;
   transition: width 0.3s ease;
-  padding: 15px;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
-  position: relative;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-left: 1rem;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 20px;
+  gap: 1rem;
 }
 
 .sidebar.collapsed {
-  width: 80px; /* Collapsed width */
+  width: 80px;
+  transition: width 0.3s ease;
 }
 
-.toggleButton {
-  background-color: #f52f36;
-  color: white;
-  font-size: 1.2rem;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  width: 100%;
-  transition: background-color 0.3s ease;
-}
-
-.toggleButton:hover {
-  background-color: #d62c1a;
-}
-
-.navLinks {
-  list-style-type: none;
-  font-size: 1.3rem;
-  padding-inline: 1rem;
-}
-
-.navLinks li {
-  margin: 1rem 0;
-}
-
-.navLinks a {
-  text-decoration: none;
-  color: #444050;
-  padding: 10px;
-  border-radius: 5px;
+/* Logo Section */
+.logoContainer {
   display: flex;
   align-items: center;
-  transition: background-color 0.3s ease;
+  justify-content: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.navLinks a:hover {
-  background-color: #f52f36;
+.logo {
+  height: 40px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.logo:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+}
+
+.logoText {
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  margin-left: 10px;
+  transition: opacity 0.3s ease;
+}
+
+.collapsed .logoText {
+  opacity: 0;
+}
+
+/* Navigation Links */
+.navLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.linkText {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  color: black;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.linkText:hover {
+  background: linear-gradient(90deg, #f0f0f0, #e8e8e8);
+  color: #2c3e50;
+  transform: translateX(4px); /* Smooth slide effect */
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.linkText:hover .icon {
+  transform: scale(1.2); /* Icon zoom effect */
+}
+
+.activeLink {
+  background-color: #1abc9c;
   color: white;
+  box-shadow: 0px 4px 8px rgba(26, 188, 156, 0.2);
 }
 
-/* Separate styles for icons and text */
-.linkLabel {
-  margin-left: 10px; /* Space between icon and text */
+.icon {
+  font-size: 20px;
+  margin-right: 10px;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* Hide text in collapsed state */
-.sidebar.collapsed .linkLabel {
-  display: none; /* Completely hide the text element */
-}
-
-/* Optionally, hide footer when collapsed */
-.sidebar.collapsed .footer {
-  display: none; /* Hide footer when sidebar is collapsed */
-}
-
-.footer {
-  margin-top: 20px;
-  font-size: 0.8rem;
-  text-align: center;
+.collapsed .linkLabel {
+  display: none;
 }

@@ -1,0 +1,89 @@
+.registerComplaintContainer {
+    /* max-width: 800px; */
+    /* margin: 50px auto; */
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .headerText {
+    text-align: center;
+    color: #ff3f34;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .complaintForm {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formGroup {
+    margin-bottom: 20px;
+  }
+  
+  .formGroupRow {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .formGroup label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  .formGroup input,
+  .formGroup select,
+  .formGroup textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  .formGroup input:focus,
+  .formGroup select:focus,
+  .formGroup textarea:focus {
+    outline: none;
+    border-color: #7367f0;
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  .evidenceInfo {
+    font-size: 14px;
+    color: #333;
+    margin-top: 20px;
+  }
+  
+  .evidenceInfo a {
+    color: #ff3f34;
+    text-decoration: none;
+  }
+  
+  .submitBtn {
+    background-color: #ff3f34;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .submitBtn:hover {
+    background-color: #e33328;
+  }
+  

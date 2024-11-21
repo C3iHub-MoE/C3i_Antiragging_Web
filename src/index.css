@@ -1,3 +1,31 @@
+
+:root {
+  --backgrounColor: #f7f7f7;
+  --primary-color: #f52f36;
+  --primary-hover-color: rgb(253 185 186 / 20%);
+  --primary-active-color: #ff4c51;
+  --primary-box-shadow: #ff4c514d;
+  --text-color: #444050;
+  --text-secondary-color: #5a5a5a9c;
+  --text-active-color: white;
+  --bg-warning-color: #ff9f43;
+  --primary-font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --text-white: white;
+  --text-muted: #6d6b77;
+  --violet-color: rgb(115, 103, 240);
+  --violet-light-color: rgb(233, 231, 253);
+  --red-color: #ff4c51;
+  --red-light-color: #ffe2e3;
+  --green-color: #28c76f;
+  --green-light-color: #ddf6e8;
+  --blue-color: #00bad1;
+  --blue-light-color: #d6f4f8;
+  --orange-color: #ff9f43;
+  --orange-text-color: #f77f10;
+  --orange-light-color: #fff0e1;
+  --disabled-bg-color: #d3d3d3;
+  --disabled-text-color: #a0a0a0;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +38,27 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.customSvgIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.customSvgIcon:hover {
+  fill: red; /* Change the SVG color on hover */
+}
+
+.btnWarning {
+  border-radius: 0.375rem;
+  box-shadow: 0 0.125rem 0.375rem 0 rgba(255, 159, 67, 0.3);
+  color: var(--text-white);
+  background-color: var(--primary-color);
+  border-color: var(--bg-warning-color);
+}
+
+.btnRed {
+  border-radius: 0.375rem;
+  box-shadow: 0 0.125rem 0.375rem 0 rgba(255, 99, 71, 0.3);
+  color: var(--text-white);
+  background-color: var(--primary-color);
 }

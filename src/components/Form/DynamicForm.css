@@ -1,0 +1,34 @@
+.add-row svg {
+    width: 15px;
+}
+
+.add-row {
+    padding: 0.6rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: #d9ffda;
+    padding-inline: 1rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0.5rem;
+    margin-left: auto;
+    margin-right: 3rem;
+    font-size: 0.9rem;
+}
+
+.upload_file {
+    background-color: aqua;
+    width: 15%;
+    border: 1px dashed #017cee;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #e9f0ff;
+    color: #017cee !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1 !important;
+}

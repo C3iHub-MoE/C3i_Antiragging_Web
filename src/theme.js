@@ -119,17 +119,19 @@ export const tokens = (mode) => ({
         }),
 });
 
-export const ColorModeContext = createContext({
-    toggleColorMode: () => {},
+export const ThemeContext = createContext({
+    toggleTheme: () => { },
+    theme: {},
 });
 
-export const useMode = () => {
+export const useTheme = () => {
     const [mode, setMode] = useState("dark");
 
-    const colorMode = useMemo(() => ({
-        toggleColorMode: () => setMode(prev => (prev === "light" ? "dark" : "light")),
-    }), []);
+    const theme = useMemo(() => tokens(mode), [mode]);
 
-    const theme = tokens(mode); // Use tokens to get current color palette
-    return [theme, colorMode];
+    const toggleTheme = () => {
+        setMode((prev) => (prev === "light" ? "dark" : "light"));
+    };
+
+    return { theme, toggleTheme };
 };

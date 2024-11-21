@@ -1,15 +1,34 @@
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
 import Login from './pages/auth/login/Login';
 import ResetPassword from './pages/auth/reset-password/ResetPassword';
-import ComplaintsPage from './pages/complaintpage/ComplaintPage';
+import InvitationForm from './pages/invitationForm/InvitationForm';
 import Layout from './layout/Layout';
-import ComplaintDetailsPage from './pages/complaintpage/ComplaintDetailsPage';
-import { useState } from 'react';
-import AntiRaggingDashboard from './pages/dashboard/AntiRaggingDashboard';
-import Register from './pages/auth/register/Register';
-import CommitteeMemberPage from './pages/member/CommitteeMemberPage';
-// import AdminDashboard from './pages/AdminDashboard';
-// import CommitteeDashboard from './pages/CommitteeDashboard';
+import ComplaintDetailsPage from "./pages/complaintPageAdmin/ComplaintDetailsPage";
+import StudentComplaintsPage from "./pages/complaintPageAdmin/StudentsComplaintPage"
+import UserDashboard from './pages/dashboard/UserDashboard';
+import UserRegister from './pages/auth/register/Registration';
+import Error from './pages/error/Error';
+import StudentComplaintRegistration from "./pages/complaintRegistration/StudentComplaintRegistration"
+import MembersPage from './pages/main_admin/memberpage/MembersPage';
+import PendingStudentsPage from './pages/students__commettiee_member/PendingStudentPage';
+import StudentsPage from './pages/students__commettiee_member/StudentsData';
+import NewStudentRegister from './pages/students__commettiee_member/NewStudentPage';
+import StudentComplaintStatus from './pages/studentsComplaintData/StudentComplaintStatus';
+import SOSPage from './pages/sosData/SosPage';
+import StudentProfile from './pages/profile/StudentProfile';
+// import AnalyticsPage from './pages/analyticspage/Analytics';
+import ProfilePage from './pages/UserProfile/UserProfile';
+import ProtectedRoute from './components/protectedRoute/protectedRoute';
+import PublicRoute from './components/publicRoute/publicRoute';
+import Logout from './pages/auth/logout/Logout';
+import ContactUs from './pages/contactus/ContactUS';
+
+// import { generateToken, messaging } from './notification/firebase';
+// import { getMessaging, onMessage } from 'firebase/messaging';
+
+
 
 const initialComplaintsData = [
   { ComplaintID: 1, Description: "Bullying in the classroom.", DateFiled: "2024-09-20", Status: "Pending", StudentID: "S12345", CollegeID: "C001", EscalationLevel: 1, StudentName: "John Doe", CollegeName: "ABC College", ResolvedDate: null },
@@ -35,30 +54,66 @@ const initialComplaintsData = [
 ];
 
 function App() {
-  const [complaintsData, setComplaintsData] = useState(initialComplaintsData)
+  const [complaintsData, setComplaintsData] = useState(initialComplaintsData);
+  const user = "member";
+
+  // useEffect(() => {
+  //   generateToken();
+  //   onMessage(messaging, (payload) => {
+  //     console.log("firebase Payload = :", payload)
+  //   })
+  // }, [])
+
   return (
-    <Layout>
+
+
     <Routes>
-      
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/" element={<AntiRaggingDashboard />} />
-
-      <Route path="/reset-password" element={<ResetPassword />} />
-      <Route path="/complaints" element={<ComplaintsPage />} />
-      <Route path="/student-approval" element={<CommitteeMemberPage />} />
+      {/* Public Routes */}
+      <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+      <Route path="/logout" element={<ProtectedRoute><Logout /></ProtectedRoute>} />
+      <Route path="/reset-password" element={<PublicRoute><ResetPassword /></PublicRoute>} />
       <Route
-          path="/complaint/:complaintID"
-          element={<ComplaintDetailsPage complaintsData={complaintsData} setComplaintsData={setComplaintsData} />}
-        />
+        path="*"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Routes>
+                <Route index element={<UserDashboard />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/invitation-mail" element={<InvitationForm />} />
+                <Route path="/member-registration" element={<UserRegister />} />
+                <Route path="/sos-history" element={<SOSPage />} />
+                <Route path="/student/:id" element={<StudentProfile />} />
+                <Route path="/pending-students" element={<PendingStudentsPage />} />
+                <Route path="/complaints" element={<StudentComplaintsPage />} />
+                <Route path="/students" element={<StudentsPage />} />
+                <Route path="/create-student" element={<NewStudentRegister />} />
+                <Route path="/member_page" element={<MembersPage />} />
+                <Route path="/contact" element={<ContactUs />} />
+                <Route path="/invite" element={<InvitationForm />} />
 
-      {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
-      {/* <Route path="/committee-dashboard" element={<CommitteeDashboard />} /> 
-      {/* Redirect to login if no role is matched */}
-      {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+
+                <Route
+                  path="/complaints/:complaintID"
+                  element={
+                    <ComplaintDetailsPage
+                      complaintsData={complaintsData}
+                      setComplaintsData={setComplaintsData}
+                    />
+
+                  }
+                />
+                <Route path="*" element={<Error />} />
+              </Routes>
+            </Layout>
+          </ProtectedRoute>
+        }
+      >
+        {/* Routes under Layout */}
+
+      </Route>
       
     </Routes>
-    </Layout>
   );
 }
 

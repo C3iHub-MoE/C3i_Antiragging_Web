@@ -1,0 +1,95 @@
+.container {
+    /* padding: 20px; */
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    /* max-width: 900px; */
+    /* margin: 0 auto; */
+  }
+  
+  h2 {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .complaintTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .complaintTable th, .complaintTable td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .complaintTable th {
+    background-color: #7367f0;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .viewButton {
+    background-color: #7367f0;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .viewButton:hover {
+    background-color: #5a55d0;
+  }
+  
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .modalContent h3 {
+    margin-bottom: 15px;
+    font-size: 1.6rem;
+    color: #333;
+  }
+  
+  .modalContent p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .closeButton {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  
+  .closeButton:hover {
+    background-color: #c0392b;
+  }
+  

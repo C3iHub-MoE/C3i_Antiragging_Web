@@ -1,0 +1,117 @@
+/* src/pages/MembersPage.module.css */
+
+.container {
+    padding: 2rem;
+    border-radius: 8px; /* Rounded corners */
+  }
+  
+  .title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #333; /* Dark text color */
+  }
+  
+  .button {
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 1rem;
+    background-color: #007bff; /* Primary color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #007bff; /* Header color */
+    /* color: white; */
+  }
+  
+  .actions {
+    display: flex;
+    gap: 0.5rem; /* Space between action buttons */
+  }
+  
+  .formContainer {
+    margin: 1rem 0; /* Space around the form */
+    padding: 1.5rem;
+    background-color: #fff; /* White background for the form */
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .formContainer h2 {
+    margin-bottom: 1rem; /* Space below the title */
+  }
+  
+  .formContainer label {
+    margin-bottom: 0.5rem; /* Space below each label */
+  }
+  
+  .formContainer input,
+  .formContainer select {
+    padding: 0.5rem;
+    margin-bottom: 1rem; /* Space below each input/select */
+    width: 100%; /* Full width inputs */
+    border: 1px solid #ddd; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+  .formActions {
+    display: flex;
+    justify-content: space-between; /* Space between buttons */
+  }
+
+  .ActionDiv {
+    display: flex;
+  }
+  
+
+  .container {
+    padding: 20px;
+}
+
+.dotsButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.actionContainer {
+    position: relative;
+}
+
+.actionMenu {
+    position: absolute;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ActionDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
