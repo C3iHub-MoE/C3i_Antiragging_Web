@@ -62,3 +62,55 @@ code {
   color: var(--text-white);
   background-color: var(--primary-color);
 }
+
+.dashboard {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.filters select, .date-range input {
+  margin: 5px;
+  padding: 10px;
+  width: 200px;
+}
+
+.date-range input {
+  width: 100px;
+}
+
+.statistics {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.stat-card {
+  background: #f4f4f4;
+  padding: 20px;
+  text-align: center;
+  width: 23%;
+  border-radius: 8px;
+}
+
+.chart-card {
+  margin-top: 20px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 30px;
+}
+
+.charts {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.chart-card {
+  width: 48%;
+}
+
+select {
+  width: 150px;
+}

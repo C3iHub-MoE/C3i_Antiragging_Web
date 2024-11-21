@@ -3,7 +3,7 @@ export const constants = {
 
     API_URLS: {
         USER_LOGIN: `/login/`,
-        USER_RESET_PASSWORD: `/resetPassword/resendOtp/`,
+        USER_RESEND_OTP: `/resetPassword/resendOtp/`,
         USER_SEND_OTP: `/resetPassword/sendOtp/`,
         USER_VERIFY_OTP: `/resetPassword/verifyOtp/`
     }

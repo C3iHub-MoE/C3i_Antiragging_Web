@@ -8,8 +8,8 @@ export const loginUser = async (payload, signal) => {
 
 
 // Function to handle password reset (change password)
-export const resetPassword = async (payload, signal) => {
-    const response = await apiClient.post(constants.API_URLS.USER_RESET_PASSWORD, payload, { signal });
+export const resendOtp = async (payload, signal) => {
+    const response = await apiClient.post(constants.API_URLS.USER_RESEND_OTP, payload, { signal });
     return response.data?.data;
 }
 

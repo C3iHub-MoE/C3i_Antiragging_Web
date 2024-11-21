@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import styles from './ResetPassword.module.css'; // Import CSS module
-import { resetPassword, verifyOtp } from '../../../api/user'; // Assuming you've created API constants
+import styles from './ResetPassword.module.css';
+import { getDeviceId } from '../../../utils/deviceUtils';
+import { sendOtp, verifyOtp, resendOtp } from '../../../api/user'; // Assuming you have these APIs
 
 const ResetPassword = () => {
   const [mobile_number, setMobileNumber] = useState('');
+  const [trxId, setTrxId] = useState('');
   const [otp, setOtp] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [isOtpVerified, setIsOtpVerified] = useState(false);
-  const [timer, setTimer] = useState(120); // 2 minutes timer
+  const [timer, setTimer] = useState(120);
   const [error, setError] = useState('');
-
+  const device_id = getDeviceId();
   useEffect(() => {
     let interval;
-    if (timer > 0 && isOtpSent) {
+    if (isOtpSent && timer > 0) {
       interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
     } else if (timer === 0) {
       clearInterval(interval);
@@ -22,57 +24,82 @@ const ResetPassword = () => {
     return () => clearInterval(interval);
   }, [timer, isOtpSent]);
 
-  const handleMobileSubmit = async (e) => {
+  const handleSendOtp = async (e) => {
     e.preventDefault();
     try {
-      await resetPassword(mobile_number); // API call to send OTP
+      const response = await sendOtp({
+        mobile_number,
+        device_id,
+      });
       setIsOtpSent(true);
-      setTimer(120); // Reset the timer for 2 minutes
-    } catch (error) {
+      setTimer(120);
+      setTrxId(response.trxId); // Assuming the API returns a transaction ID
+    } catch (err) {
       setError('Failed to send OTP. Please try again.');
     }
   };
 
-  const handleOtpVerification = async (e) => {
+  const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      await verifyOtp(mobile_number, otp); // API call to verify OTP
+      await verifyOtp({
+        mobile_number,
+        otp,
+        trxId,
+        device_id,
+        newPassword,
+      });
       setIsOtpVerified(true);
-    } catch (error) {
+      setError('');
+    } catch (err) {
       setError('Invalid OTP. Please try again.');
+    }
+  };
+
+  const handleResendOtp = async () => {
+    try {
+      setError('');
+      setTimer(120);
+      await resendOtp({
+        mobile_number,
+        device_id,
+        trxId,
+      });
+    } catch (err) {
+      setError('Failed to resend OTP. Please try again.');
     }
   };
 
   const handlePasswordReset = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      setError('Passwords do not match');
+      setError('Passwords do not match.');
       return;
     }
-
     try {
-      await resetPassword(mobile_number, newPassword); // API call to reset password
+      await verifyOtp({
+        mobile_number,
+        otp,
+        trxId,
+        device_id,
+        newPassword,
+      });
       setError('Password reset successfully!');
-    } catch (error) {
+    } catch (err) {
       setError('Failed to reset password. Please try again.');
     }
   };
 
-  const handleResendOtp = () => {
-    setOtp(''); // Clear previous OTP input
-    setTimer(120); // Reset timer
-    setError(''); // Reset error message
-    handleMobileSubmit(); // Resend OTP
-  };
-
   return (
     <div className={styles.resetContainer}>
+      <div className={styles.logo}> {/* Placeholder for Logo */}
+        <img src="/path/to/logo.png" alt="Logo" className={styles.logoImage} />
+      </div>
       <div className={styles.resetBox}>
         <h2 className={styles.title}>Reset Password</h2>
 
-        {/* Mobile Number Input Section */}
         {!isOtpSent ? (
-          <form onSubmit={handleMobileSubmit} className={styles.form}>
+          <form onSubmit={handleSendOtp} className={styles.form}>
             <div className={styles.inputGroup}>
               <label className={styles.label}>Mobile Number</label>
               <input
@@ -84,11 +111,13 @@ const ResetPassword = () => {
                 required
               />
             </div>
-            <button type="submit" className={styles.resetButton}>Send OTP</button>
+            <button type="submit" className={styles.resetButton}>
+              Send OTP
+            </button>
             {error && <p className={styles.error}>{error}</p>}
           </form>
         ) : !isOtpVerified ? (
-          <form onSubmit={handleOtpVerification} className={styles.form}>
+          <form onSubmit={handleVerifyOtp} className={styles.form}>
             <div className={styles.inputGroup}>
               <label className={styles.label}>Enter OTP</label>
               <input
@@ -100,12 +129,18 @@ const ResetPassword = () => {
                 required
               />
             </div>
-            <button type="submit" className={styles.resetButton}>Verify OTP</button>
-            <p className={styles.timer}>Resend OTP in: {timer}s</p>
-
-            {/* Resend OTP Button */}
-            {timer === 0 && !isOtpVerified && (
-              <button type="button" onClick={handleResendOtp} className={styles.resendButton}>
+            <button type="submit" className={styles.resetButton}>
+              Verify OTP
+            </button>
+            <p className={styles.timer}>
+              Resend OTP in: {timer}s
+            </p>
+            {timer === 0 && (
+              <button
+                type="button"
+                onClick={handleResendOtp}
+                className={styles.resendButton}
+              >
                 Resend OTP
               </button>
             )}
@@ -135,7 +170,9 @@ const ResetPassword = () => {
                 required
               />
             </div>
-            <button type="submit" className={styles.resetButton}>Reset Password</button>
+            <button type="submit" className={styles.resetButton}>
+              Reset Password
+            </button>
             {error && <p className={styles.error}>{error}</p>}
           </form>
         )}
