@@ -8,10 +8,10 @@ const ProfilePage = () => {
     const [activeTab, setActiveTab] = useState('account');
     const [isEditing, setIsEditing] = useState()
     const { user } = useAuth();
-    console.log("user profile", user);  
+    console.log("user profile", user);
 
     // Edit mode state
-       const [showPassword, setShowPassword] = useState({
+    const [showPassword, setShowPassword] = useState({
         current: false,
         new: false,
         confirm: false
@@ -33,7 +33,7 @@ const ProfilePage = () => {
         const { id, value } = e.target;
         setPasswords((prevPasswords) => ({
             ...prevPasswords,
-            [id]: value 
+            [id]: value
         }));
 
         if (id === 'new') {
@@ -65,7 +65,8 @@ const ProfilePage = () => {
         email: user?.user?.email || '',
         phoneNumber: user?.user?.mobile_number || '',
         state: user?.user?.state || '',
-        zipCode: user?.user?.zipCode || '',
+        address: user?.user?.address || '',
+
         country: user?.user?.country || '',
         language: user?.user?.language || '',
         timezone: user?.user?.timezone || '',
@@ -100,7 +101,7 @@ const ProfilePage = () => {
             email: user?.user?.email || '',
             phoneNumber: user?.user?.phoneNumber || '',
             state: user?.user?.state || '',
-            zipCode: user?.user?.zipCode || '',
+            address: user?.user?.address || '',
             country: user?.user?.country || '',
             language: user?.user?.language || '',
             timezone: user?.user?.timezone || '',
@@ -130,7 +131,7 @@ const ProfilePage = () => {
                     <div className={styles.profileContainer}>
                         <div className={styles.profileInfo}>
                             <div className={styles.row}>
-                            <div className={styles.field}>
+                                <div className={styles.field}>
                                     <label>ID</label>
                                     <input
                                         type="text"
@@ -153,7 +154,7 @@ const ProfilePage = () => {
                                         disabled={!isEditing}
                                     />
                                 </div>
-                                
+
                             </div>
                             <div className={styles.row}>
                                 <div className={styles.field}>
@@ -192,18 +193,18 @@ const ProfilePage = () => {
                                     />
                                 </div>
                                 <div className={styles.field}>
-                                    <label>Zip Code</label>
+                                    <label>Address</label>
                                     <input
                                         type="text"
-                                        id="zipCode"
-                                        value={profileData.zipCode}
+                                        id="address"
+                                        value={profileData.address}
                                         onChange={handleChange}
-                                        placeholder="231465"
+                                        placeholder="block abc"
                                         disabled={!isEditing}
                                     />
                                 </div>
                             </div>
-                            <div className={styles.row}>
+                            {/* <div className={styles.row}>
                                 <div className={styles.field}>
                                     <label>Country</label>
                                     <select
@@ -226,8 +227,8 @@ const ProfilePage = () => {
                                         <option value="">Select Language</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div className={styles.row}>
+                            </div> */}
+                            {/* <div className={styles.row}>
                                 <div className={styles.field}>
                                     <label>Timezone</label>
                                     <select
@@ -250,7 +251,7 @@ const ProfilePage = () => {
                                         <option value="">Select Currency</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className={styles.buttonRow}>
                                 {!isEditing ? (
                                     <Button
@@ -278,109 +279,109 @@ const ProfilePage = () => {
                 )}
 
                 {activeTab === 'security' && (
-                     <div className={styles.passwordForm}>
-                                             <h3>Change Password</h3>
-                                             <form>
-                                                 <div className={styles.inputRow}>
-                                                     <div className={styles.inputGroup}>
-                                                         <label htmlFor="current-password">Current Password</label>
-                                                         <div className={styles.passwordField}>
-                                                             <input
-                                                                 type={showPassword.current ? "text" : "password"}
-                                                                 id="current"
-                                                                 placeholder="Enter current password"
-                                                                 value={passwords.current}
-                                                                 onChange={handlePasswordChange}
-                                                             />
-                     
-                     
-                                                             <span
-                                                                 className={styles.eyeIcon}
-                                                                 onClick={() => togglePasswordVisibility('current')}
-                                                             >
-                                                                 {showPassword.current ? '👁️' : '🙈'}
-                                                             </span>
-                                                         </div>
-                                                     </div>
-                     
-                                                     {/* New Password */}
-                                                     <div className={styles.inputGroup}>
-                                                         <label htmlFor="new-password">New Password</label>
-                                                         <div className={styles.passwordField}>
-                                                             <input
-                                                                 type={showPassword.new ? "text" : "password"}
-                                                                 id="new"
-                                                                 placeholder="Enter new password"
-                                                                 value={passwords.new}
-                                                                 onChange={handlePasswordChange}
-                                                             />
-                                                             <span
-                                                                 className={styles.eyeIcon}
-                                                                 onClick={() => togglePasswordVisibility('new')}
-                                                             >
-                                                                 {showPassword.new ? '👁️' : '🙈'}
-                                                             </span>
-                                                         </div>
-                                                     </div>
-                     
-                                                     <div className={styles.inputGroup}>
-                                                         <label htmlFor="confirm-password">Confirm New Password</label>
-                                                         <div className={styles.passwordField}>
-                                                             <input
-                                                                 type={showPassword.confirm ? "text" : "password"}
-                                                                 id="confirm"
-                                                                 placeholder="Confirm new password"
-                                                                 value={passwords.confirm}
-                                                                 onChange={handlePasswordChange}
-                                                             />
-                                                             <span
-                                                                 className={styles.eyeIcon}
-                                                                 onClick={() => togglePasswordVisibility('confirm')}
-                                                             >
-                                                                 {showPassword.confirm ? '👁️' : '🙈'}
-                                                             </span>
-                                                         </div>
-                                                     </div>
-                                                 </div>
-                     
-                                                 <div className={styles.passwordRequirements}>
-                                                     <h4>Password Requirements:</h4>
-                                                     <ul>
-                                                         <li
-                                                             className={
-                                                                 passwordValidations.minLength ? styles.valid : styles.invalid
-                                                             }
-                                                         >
-                                                             Minimum 8 characters long - the more, the better
-                                                         </li>
-                                                         <li
-                                                             className={
-                                                                 passwordValidations.lowercase ? styles.valid : styles.invalid
-                                                             }
-                                                         >
-                                                             At least one lowercase character
-                                                         </li>
-                                                         <li
-                                                             className={
-                                                                 passwordValidations.numberSymbol ? styles.valid : styles.invalid
-                                                             }
-                                                         >
-                                                             At least one number, symbol, or whitespace character
-                                                         </li>
-                                                         <li
-                                                             className={passwords.confirm != "" && passwords.new !== "" && passwords.confirm === passwords.new ? styles.valid : styles.invalid}
-                                                         >
-                                                             Confirm password matches the new password
-                                                         </li>
-                                                     </ul>
-                                                 </div>
-                     
-                                                 <div className={styles.buttonRow}>
-                                                     <Button title="Save changes" variant='secondary' disabled={!isValid} />
-                                                     <Button title="Reset" variant='primary' />
-                                                 </div>
-                                             </form>
-                                         </div>
+                    <div className={styles.passwordForm}>
+                        <h3>Change Password</h3>
+                        <form>
+                            <div className={styles.inputRow}>
+                                <div className={styles.inputGroup}>
+                                    <label htmlFor="current-password">Current Password</label>
+                                    <div className={styles.passwordField}>
+                                        <input
+                                            type={showPassword.current ? "text" : "password"}
+                                            id="current"
+                                            placeholder="Enter current password"
+                                            value={passwords.current}
+                                            onChange={handlePasswordChange}
+                                        />
+
+
+                                        <span
+                                            className={styles.eyeIcon}
+                                            onClick={() => togglePasswordVisibility('current')}
+                                        >
+                                            {showPassword.current ? '👁️' : '🙈'}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* New Password */}
+                                <div className={styles.inputGroup}>
+                                    <label htmlFor="new-password">New Password</label>
+                                    <div className={styles.passwordField}>
+                                        <input
+                                            type={showPassword.new ? "text" : "password"}
+                                            id="new"
+                                            placeholder="Enter new password"
+                                            value={passwords.new}
+                                            onChange={handlePasswordChange}
+                                        />
+                                        <span
+                                            className={styles.eyeIcon}
+                                            onClick={() => togglePasswordVisibility('new')}
+                                        >
+                                            {showPassword.new ? '👁️' : '🙈'}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className={styles.inputGroup}>
+                                    <label htmlFor="confirm-password">Confirm New Password</label>
+                                    <div className={styles.passwordField}>
+                                        <input
+                                            type={showPassword.confirm ? "text" : "password"}
+                                            id="confirm"
+                                            placeholder="Confirm new password"
+                                            value={passwords.confirm}
+                                            onChange={handlePasswordChange}
+                                        />
+                                        <span
+                                            className={styles.eyeIcon}
+                                            onClick={() => togglePasswordVisibility('confirm')}
+                                        >
+                                            {showPassword.confirm ? '👁️' : '🙈'}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className={styles.passwordRequirements}>
+                                <h4>Password Requirements:</h4>
+                                <ul>
+                                    <li
+                                        className={
+                                            passwordValidations.minLength ? styles.valid : styles.invalid
+                                        }
+                                    >
+                                        Minimum 8 characters long - the more, the better
+                                    </li>
+                                    <li
+                                        className={
+                                            passwordValidations.lowercase ? styles.valid : styles.invalid
+                                        }
+                                    >
+                                        At least one lowercase character
+                                    </li>
+                                    <li
+                                        className={
+                                            passwordValidations.numberSymbol ? styles.valid : styles.invalid
+                                        }
+                                    >
+                                        At least one number, symbol, or whitespace character
+                                    </li>
+                                    <li
+                                        className={passwords.confirm != "" && passwords.new !== "" && passwords.confirm === passwords.new ? styles.valid : styles.invalid}
+                                    >
+                                        Confirm password matches the new password
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className={styles.buttonRow}>
+                                <Button title="Save changes" variant='secondary' disabled={!isValid} />
+                                <Button title="Reset" variant='primary' />
+                            </div>
+                        </form>
+                    </div>
                 )}
             </div>
         </>

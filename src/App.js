@@ -23,6 +23,7 @@ import ProfilePage from './pages/UserProfile/UserProfile';
 import ProtectedRoute from './components/protectedRoute/protectedRoute';
 import PublicRoute from './components/publicRoute/publicRoute';
 import Logout from './pages/auth/logout/Logout';
+import ContactUs from './pages/contactus/ContactUS';
 
 // import { generateToken, messaging } from './notification/firebase';
 // import { getMessaging, onMessage } from 'firebase/messaging';
@@ -88,6 +89,10 @@ function App() {
                 <Route path="/students" element={<StudentsPage />} />
                 <Route path="/create-student" element={<NewStudentRegister />} />
                 <Route path="/member_page" element={<MembersPage />} />
+                <Route path="/contact" element={<ContactUs />} />
+                <Route path="/invite" element={<InvitationForm />} />
+
+
                 <Route
                   path="/complaints/:complaintID"
                   element={

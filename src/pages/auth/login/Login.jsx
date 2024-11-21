@@ -5,6 +5,7 @@ import { useAuth } from '../../../context/AuthContext';
 import { useFCM } from '../../../context/FCMContext';
 import { getDeviceId, getPlatform } from '../../../utils/deviceUtils';
 import styles from './Login.module.css'; // Assume this CSS module contains your styles
+import UGCLOGO from "./ugc_logo.png"
 // import 
 
 const Login = () => {
@@ -62,9 +63,9 @@ const Login = () => {
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginBox}>
-        <h2 className={styles.title}>Welcome to Anti-Ragging App</h2>
+        {/* <h2 className={styles.title}>Welcome to Anti-Ragging App</h2> */}
         <div className={styles.logoPlaceholder}>
-         LOGO
+         <img src={UGCLOGO} alt="" srcset="" />
         </div>
        
 

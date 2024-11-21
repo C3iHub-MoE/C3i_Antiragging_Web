@@ -1,96 +1,95 @@
+/* Sidebar */
 .sidebar {
   width: 250px;
   transition: width 0.3s ease;
-  flex-direction: column;
   justify-content: space-between;
-  border-right: none;
-  border-left: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-left: 1rem;
   background-color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 20px;
-  display: flex;
-  
-
+  gap: 1rem;
 }
 
-.collapsed {
+.sidebar.collapsed {
   width: 80px;
+  transition: width 0.3s ease;
 }
 
+/* Logo Section */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  height: 40px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.logo:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+}
+
+.logoText {
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  margin-left: 10px;
+  transition: opacity 0.3s ease;
+}
+
+.collapsed .logoText {
+  opacity: 0;
+}
+
+/* Navigation Links */
 .navLinks {
   list-style: none;
   padding: 0;
-}
-
-.navLinks li {
-  margin: 15px 0;
+  margin: 0;
 }
 
 .linkText {
   display: flex;
   align-items: center;
-  padding: 10px;
-  font-size: 16px;
+  padding: 15px 20px;
   color: black;
-  border-radius: 5px;
   text-decoration: none;
-  transition: color 0.3s; 
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  position: relative;
+  margin-top: 1rem;
 }
 
+.linkText:hover {
+  background: linear-gradient(90deg, #f0f0f0, #e8e8e8);
+  color: #2c3e50;
+  transform: translateX(4px); /* Smooth slide effect */
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.linkText:hover .icon {
+  transform: scale(1.2); /* Icon zoom effect */
+}
+
+.activeLink {
+  background-color: #1abc9c;
+  color: white;
+  box-shadow: 0px 4px 8px rgba(26, 188, 156, 0.2);
+}
 
 .icon {
   font-size: 20px;
-  width: 30px; /* Ensures consistent icon width */
-  display: inline-flex;
-  justify-content: center; /* Centers the icon within its container */
-}
-
-.linkLabel {
-  margin-left: 15px; /* Spacing between icon and text */
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.footer {
-  padding: 20px;
-  text-align: center;
-  color: black;
+  margin-right: 10px;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .collapsed .linkLabel {
   display: none;
-}
-
-.collapsed .icon {
-  margin-right: 0;
-}
-
-.sidebar:hover .collapsed .linkLabel {
-  display: inline-block;
-  margin-left: 10px;
-}
-
-@media (max-width: 768px) {
-
-
-.sidemenu .linkLabel {
-  display: none;
-}
-
-.sidemenu .icon {
-  margin-right: 0;
-}
-
-.sidebar:hover .sidemenu .linkLabel {
-  display: inline-block;
-  margin-left: 10px;
-}
-.sidemenu {
-  width: 80px;
-}
-
-  
 }
