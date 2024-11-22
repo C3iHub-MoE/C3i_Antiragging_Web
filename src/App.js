@@ -24,6 +24,7 @@ import ProtectedRoute from './components/protectedRoute/protectedRoute';
 import PublicRoute from './components/publicRoute/publicRoute';
 import Logout from './pages/auth/logout/Logout';
 import ContactUs from './pages/contactus/ContactUS';
+import VerifyAccount from './pages/auth/login/VerifyAccount';
 
 // import { generateToken, messaging } from './notification/firebase';
 // import { getMessaging, onMessage } from 'firebase/messaging';
@@ -70,6 +71,8 @@ function App() {
     <Routes>
       {/* Public Routes */}
       <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+      <Route path="/verifyAccount" element={<PublicRoute><VerifyAccount /></PublicRoute>} />
+      
       <Route path="/logout" element={<ProtectedRoute><Logout /></ProtectedRoute>} />
       <Route path="/reset-password" element={<PublicRoute><ResetPassword /></PublicRoute>} />
       <Route

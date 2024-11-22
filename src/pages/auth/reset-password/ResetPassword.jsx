@@ -220,7 +220,7 @@ const ResetPassword = () => {
       return;
     }
     try {
-      const response = await sendOtp({ mobile_number: mobileNumber, device_id:deviceId });
+      const response = await sendOtp({ mobile_number: mobileNumber, device_id: deviceId });
       console.log(response)
       setIsOtpSent(true);
       setTimer(120);
@@ -275,12 +275,12 @@ const ResetPassword = () => {
 
   return (
     <div className={styles.resetContainer}>
-      
+
       <div className={styles.resetBox}>
-      <div className={styles.logo}>
-        <img src={UGCLOGO} alt="Logo" className={styles.logoImage} />
-      </div>
-      <h2 className={styles.title}>✨ Reset Your Password With Ease</h2>
+        <div className={styles.logo}>
+          <img src={UGCLOGO} alt="Logo" className={styles.logoImage} />
+        </div>
+        <h2 className={styles.title}>✨ Reset Your Password With Ease</h2>
 
         {successMessage ? (
           <p className={styles.success}>{successMessage}</p>
