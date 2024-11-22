@@ -57,18 +57,33 @@ const ProfilePage = () => {
         }));
     };
 
+    // const [profileData, setProfileData] = useState({
+    //     firstName: user?.user?.username || '',
+    //     id: user?.user?.id || '',
+
+    //     lastName: user?.user?.lastName || '',
+    //     email: user?.user?.email || '',
+    //     phoneNumber: user?.user?.mobile_number || '',
+    //     state: user?.user?.state || '',
+    //     address: user?.user?.address || '',
+
+    //     country: user?.user?.country || '',
+    //     language: user?.user?.language || '',
+    //     timezone: user?.user?.timezone || '',
+    //     currency: user?.user?.currency || '',
+    // });
     const [profileData, setProfileData] = useState({
-        firstName: user?.user?.username || '',
-        id: user?.user?.id || '',
+        firstName: user?.username || '',
+        id: user?.id || '',
 
-        lastName: user?.user?.lastName || '',
-        email: user?.user?.email || '',
-        phoneNumber: user?.user?.mobile_number || '',
-        state: user?.user?.state || '',
-        address: user?.user?.address || '',
+        lastName: user?.lastName || '',
+        email: user?.email || '',
+        phoneNumber: user?.mobile_number || '',
+        state: user?.state || '',
+        address: user?.address || '',
 
-        country: user?.user?.country || '',
-        language: user?.user?.language || '',
+        dob: user?.date_of_birth || '',
+        role: user?.role || '',
         timezone: user?.user?.timezone || '',
         currency: user?.user?.currency || '',
     });
@@ -132,6 +147,17 @@ const ProfilePage = () => {
                         <div className={styles.profileInfo}>
                             <div className={styles.row}>
                                 <div className={styles.field}>
+                                    <label>First Name</label>
+                                    <input
+                                        type="text"
+                                        id="firstName"
+                                        value={profileData.firstName}
+                                        onChange={handleChange}
+                                        placeholder={user?.user?.firstName}
+                                        disabled={!isEditing}
+                                    />
+                                </div>
+                                <div className={styles.field}>
                                     <label>ID</label>
                                     <input
                                         type="text"
@@ -143,17 +169,7 @@ const ProfilePage = () => {
                                     />
                                 </div>
 
-                                <div className={styles.field}>
-                                    <label>First Name</label>
-                                    <input
-                                        type="text"
-                                        id="firstName"
-                                        value={profileData.firstName}
-                                        onChange={handleChange}
-                                        placeholder={user?.user?.firstName}
-                                        disabled={!isEditing}
-                                    />
-                                </div>
+
 
                             </div>
                             <div className={styles.row}>
@@ -204,30 +220,30 @@ const ProfilePage = () => {
                                     />
                                 </div>
                             </div>
-                            {/* <div className={styles.row}>
+                            <div className={styles.row}>
                                 <div className={styles.field}>
-                                    <label>Country</label>
-                                    <select
-                                        id="country"
-                                        value={profileData.country}
+                                    <label>Date of Birth</label>
+                                    <input
+                                        type="text"
+                                        id="dob"
+                                        value={profileData.dob}
                                         onChange={handleChange}
+                                        placeholder="date of birth"
                                         disabled={!isEditing}
-                                    >
-                                        <option value="">Select Country</option>
-                                    </select>
+                                    />
                                 </div>
                                 <div className={styles.field}>
-                                    <label>Language</label>
-                                    <select
-                                        id="language"
-                                        value={profileData.language}
+                                    <label>Role</label>
+                                    <input
+                                        type="text"
+                                        id="role"
+                                        value={profileData.role}
                                         onChange={handleChange}
+                                        placeholder="Role"
                                         disabled={!isEditing}
-                                    >
-                                        <option value="">Select Language</option>
-                                    </select>
+                                    />
                                 </div>
-                            </div> */}
+                            </div>
                             {/* <div className={styles.row}>
                                 <div className={styles.field}>
                                     <label>Timezone</label>

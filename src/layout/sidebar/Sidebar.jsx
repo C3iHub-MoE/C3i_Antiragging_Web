@@ -98,10 +98,10 @@ const Sidebar = ({ collapsed }) => {
   return (
     <div className={`${styles.sidebar} ${styles.sidemenu} ${collapsed ? styles.collapsed : ''}`}>
       {/* Logo Section */}
-      <div className={`${styles.logoContainer} ${collapsed ? styles.logoCollapsed : ''}`}>
-        <img src={C3ILOGO} alt="C3IHUB Logo" className={styles.logo} onClick={() => {
+      <div className={`${styles.logoContainer} ${collapsed ? styles.logoCollapsed : ''}`} onClick={() => {
           navigate("/")
-        }}/>
+        }}>
+        <img src={C3ILOGO} alt="C3IHUB Logo" className={styles.logo} />
         {!collapsed && <span className={styles.logoText}>C3IHUB</span>}
       </div>
 

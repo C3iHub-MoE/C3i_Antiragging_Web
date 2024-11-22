@@ -6,6 +6,7 @@ import { useFCM } from '../../../context/FCMContext';
 import { getDeviceId, getPlatform } from '../../../utils/deviceUtils';
 import styles from './Login.module.css'; // Assume this CSS module contains your styles
 import UGCLOGO from "./ugc_logo.png"
+import C3ILOGO from "./c3.png"
 // import 
 
 const Login = () => {
@@ -13,7 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [mobileError, setMobileError] = useState('');
   const { login, loading, error, user } = useAuth(); // Use the login logic from context
-  const { fcmToken, isTokenLoaded} = useFCM();
+  const { fcmToken, isTokenLoaded } = useFCM();
   const navigate = useNavigate();
   const fcm_token = fcmToken;
 
@@ -28,23 +29,23 @@ const Login = () => {
       return;
     }
 
-  if (!isTokenLoaded) {
-    console.log('FCM token is not yet loaded.');
-    return;
-  }
+    if (!isTokenLoaded) {
+      console.log('FCM token is not yet loaded.');
+      return;
+    }
 
-  const platform = getPlatform();  // Get the platform (OS)
-    const device_id = getDeviceId();  
+    const platform = getPlatform();  // Get the platform (OS)
+    const device_id = getDeviceId();
 
     const loginPayload = {
-      mobile_number : mobileNumber, 
+      mobile_number: mobileNumber,
       password,
       fcm_token, // Add FCM token here
       device_id,
       platform,
     };
 
- 
+
     try {
       await login(loginPayload); // Perform login using the context
 
@@ -65,9 +66,9 @@ const Login = () => {
       <div className={styles.loginBox}>
         {/* <h2 className={styles.title}>Welcome to Anti-Ragging App</h2> */}
         <div className={styles.logoPlaceholder}>
-         <img src={UGCLOGO} alt="" srcset="" />
+          <img src={UGCLOGO} alt="" srcset="" />
         </div>
-       
+
 
         <form onSubmit={handleLogin} className={styles.form}>
           <div className={styles.inputGroup}>
@@ -98,9 +99,16 @@ const Login = () => {
           </button>
         </form>
         {error && <p className={styles.error}>{error}</p>}
+
         <button onClick={handleForgotPassword} className={styles.forgotButton}>
           Forgot Password?
         </button>
+        <div className={styles.ClogoPlaceholder}>          
+          <img src={C3ILOGO} alt="C3iHub Logo" />
+          <p>A Product of C3iHub</p>
+        </div>
+
+
       </div>
     </div>
   );
