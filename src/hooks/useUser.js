@@ -52,7 +52,7 @@ export const useClient = () => {
 
             const data = await loginUser(payload, controller.signal);
 
-            console.log("test data", data);
+            // console.log("test data", data);
 
             // If the login is successful, store the Bearer token and user data
 
@@ -138,7 +138,7 @@ export const useClient = () => {
     const LogOutUser = () => {
         localStorage.removeItem('authToken');
         localStorage.removeItem('user')
-        localStorage.removeItem('deviceid')
+        localStorage.removeItem('deviceId')
 
         setUser(null)
     }

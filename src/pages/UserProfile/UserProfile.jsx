@@ -2,13 +2,29 @@ import React, { useState } from 'react';
 import styles from './UserProfile.module.css';
 import { ICONS } from "../utils/icons";
 import Button from '../../components/button/Button';
-import { useAuth } from '../../context/AuthContext';
+// import { useAuth } from '../../context/AuthContext';
 
 const ProfilePage = () => {
     const [activeTab, setActiveTab] = useState('account');
     const [isEditing, setIsEditing] = useState()
-    const { user } = useAuth();
-    console.log("user profile", user);
+    // const { user } = useAuth();
+    // console.log("user profile", user);
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user)
+
+    // if (user) {
+    // try {
+    // const userProfile = JSON.parse(user);
+    // console.log("User Profile:", userProfile);
+    // } catch (error) {
+    // console.error("Error parsing user data from localStorage:", error);
+    // }
+    // } else {
+    // console.log("No user data found in localStorage.");
+    // }
+
+    // console.log(user)
+
 
     // Edit mode state
     const [showPassword, setShowPassword] = useState({
@@ -28,7 +44,6 @@ const ProfilePage = () => {
         numberSymbol: false
     });
 
-
     const handlePasswordChange = (e) => {
         const { id, value } = e.target;
         setPasswords((prevPasswords) => ({
@@ -46,7 +61,6 @@ const ProfilePage = () => {
         }
     };
 
-
     const isConfirmValid = passwords.confirm === passwords.new;
     const isValid = Object.values(passwordValidations).every(Boolean);
 
@@ -58,19 +72,19 @@ const ProfilePage = () => {
     };
 
     // const [profileData, setProfileData] = useState({
-    //     firstName: user?.user?.username || '',
-    //     id: user?.user?.id || '',
+    // firstName: User?.username || '',
+    // id: User?.id || '',
 
-    //     lastName: user?.user?.lastName || '',
-    //     email: user?.user?.email || '',
-    //     phoneNumber: user?.user?.mobile_number || '',
-    //     state: user?.user?.state || '',
-    //     address: user?.user?.address || '',
+    // lastName: User?.lastName || '',
+    // email: User?.email || '',
+    // phoneNumber: User?.mobile_number || '',
+    // state: User?.state || '',
+    // address: User?.address || '',
 
-    //     country: user?.user?.country || '',
-    //     language: user?.user?.language || '',
-    //     timezone: user?.user?.timezone || '',
-    //     currency: user?.user?.currency || '',
+    // country: User?.country || '',
+    // language: User?.language || '',
+    // timezone: User?.timezone || '',
+    // currency: User?.currency || '',
     // });
     const [profileData, setProfileData] = useState({
         firstName: user?.username || '',
@@ -170,7 +184,6 @@ const ProfilePage = () => {
                                 </div>
 
 
-
                             </div>
                             <div className={styles.row}>
                                 <div className={styles.field}>
@@ -245,29 +258,29 @@ const ProfilePage = () => {
                                 </div>
                             </div>
                             {/* <div className={styles.row}>
-                                <div className={styles.field}>
-                                    <label>Timezone</label>
-                                    <select
-                                        id="timezone"
-                                        value={profileData.timezone}
-                                        onChange={handleChange}
-                                        disabled={!isEditing}
-                                    >
-                                        <option value="">Select Timezone</option>
-                                    </select>
-                                </div>
-                                <div className={styles.field}>
-                                    <label>Currency</label>
-                                    <select
-                                        id="currency"
-                                        value={profileData.currency}
-                                        onChange={handleChange}
-                                        disabled={!isEditing}
-                                    >
-                                        <option value="">Select Currency</option>
-                                    </select>
-                                </div>
-                            </div> */}
+<div className={styles.field}>
+<label>Timezone</label>
+<select
+id="timezone"
+value={profileData.timezone}
+onChange={handleChange}
+disabled={!isEditing}
+>
+<option value="">Select Timezone</option>
+</select>
+</div>
+<div className={styles.field}>
+<label>Currency</label>
+<select
+id="currency"
+value={profileData.currency}
+onChange={handleChange}
+disabled={!isEditing}
+>
+<option value="">Select Currency</option>
+</select>
+</div>
+</div> */}
                             <div className={styles.buttonRow}>
                                 {!isEditing ? (
                                     <Button
@@ -309,7 +322,6 @@ const ProfilePage = () => {
                                             value={passwords.current}
                                             onChange={handlePasswordChange}
                                         />
-
 
                                         <span
                                             className={styles.eyeIcon}
@@ -405,3 +417,4 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+

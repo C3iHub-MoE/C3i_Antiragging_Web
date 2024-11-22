@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
     setCollapsed(!collapsed);
   };
 
-  console.log("uesesadf", children)
+  // console.log("uesesadf", children)
 
 
   return (

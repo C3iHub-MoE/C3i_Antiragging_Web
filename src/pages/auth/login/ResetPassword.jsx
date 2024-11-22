@@ -275,13 +275,11 @@ const ResetPassword = () => {
 
   return (
     <div className={styles.resetContainer}>
-      
-      <div className={styles.resetBox}>
       <div className={styles.logo}>
         <img src={UGCLOGO} alt="Logo" className={styles.logoImage} />
       </div>
-      <h2 className={styles.title}>✨ Reset Your Password With Ease</h2>
-
+      <div className={styles.resetBox}>
+        <h2 className={styles.title}>Reset Password</h2>
         {successMessage ? (
           <p className={styles.success}>{successMessage}</p>
         ) : !isOtpSent ? (

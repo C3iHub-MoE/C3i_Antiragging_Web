@@ -14,8 +14,8 @@ export const resendOtp = async (payload, signal) => {
 }
 
 // Function to send OTP to the user
-export const sendOtp = async (mobileNumber, signal) => {
-    const response = await apiClient.post(constants.API_URLS.USER_SEND_OTP, { mobile_number: mobileNumber }, { signal });
+export const sendOtp = async (payload, signal) => {
+    const response = await apiClient.post(constants.API_URLS.USER_SEND_OTP, payload, { signal });
     return response.data?.data;
 }
 
