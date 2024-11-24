@@ -26,7 +26,24 @@
   --disabled-bg-color: #d3d3d3;
   --disabled-text-color: #a0a0a0;
 }
+/* In your CSS file, e.g., variables.css */
+:root {
+  --theme-color: #991B16;
+  --background: #F8E7E7;
+  --light: #F8E7E7;
+  --text: #FFFFFF;
+  --white: #FFFFFF;
+  --black: #000000;
+  --gray: #4B5563;
+  --transparent: transparent;
+  --placeholder: #A5A5A5;
+  --danger: #FF0000;
+}
+
+
+
 body {
+  background-color: var(--theme-color);
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

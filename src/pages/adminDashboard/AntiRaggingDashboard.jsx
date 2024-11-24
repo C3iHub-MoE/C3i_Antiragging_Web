@@ -258,12 +258,15 @@
 
 
 import React, { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartTooltip, Legend, CartesianGrid, ResponsiveContainer, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid, ResponsiveContainer, Cell } from 'recharts';
 import { PieChart, Pie } from 'recharts';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Spin, DatePicker, Select } from 'antd'; // Ant Design components for a modern UI
 import { blue, green, red, orange, purple } from '@ant-design/colors';
-import dayjs from 'dayjs'; // Use dayjs instead of moment
-import styles from './AntiRaggingDashboard.module.css'; // Import the CSS module
+import dayjs from 'dayjs';
+import styles from './AntiRaggingDashboard.module.css';
+
+const { RangePicker } = DatePicker;
+const { Option } = Select;
 
 const mockData = {
   "National": {
@@ -311,53 +314,22 @@ const Dashboard = () => {
   const [college, setCollege] = useState('College 1');
   const [data, setData] = useState(mockData['National']['State 1']['District 1']['College 1']);
   const [loading, setLoading] = useState(false);
-  const [dateRange, setDateRange] = useState([null, null]); // for timestamp filtering
 
-  const handleNationalChange = (event) => {
-    setNational(event.target.value);
-    updateData(event.target.value, state, district, college, dateRange);
-  };
-
-  const handleStateChange = (event) => {
-    setState(event.target.value);
-    updateData(national, event.target.value, district, college, dateRange);
-  };
-
-  const handleDistrictChange = (event) => {
-    setDistrict(event.target.value);
-    updateData(national, state, event.target.value, college, dateRange);
-  };
-
-  const handleCollegeChange = (event) => {
-    setCollege(event.target.value);
-    updateData(national, state, district, event.target.value, dateRange);
-  };
-
-  const handleDateRangeChange = (dates) => {
-    setDateRange(dates);
-    updateData(national, state, district, college, dates);
-  };
-
-  const updateData = (selectedNational, selectedState, selectedDistrict, selectedCollege, selectedDateRange) => {
+  const updateData = (selectedNational, selectedState, selectedDistrict, selectedCollege, dateRange) => {
     setLoading(true);
-
-    let filteredData = mockData[selectedNational]?.[selectedState]?.[selectedDistrict]?.[selectedCollege];
-
-    if (selectedDateRange && selectedDateRange[0] && selectedDateRange[1]) {
-      const startDate = dayjs(selectedDateRange[0]);
-      const endDate = dayjs(selectedDateRange[1]);
-
-      filteredData = {
-        ...filteredData,
-        dataTrends: filteredData.dataTrends.filter((entry) => {
-          const entryDate = dayjs(entry.name);
-          return entryDate.isBetween(startDate, endDate, 'day', '[]');
-        })
-      };
-    }
-
     setTimeout(() => {
-      setData(filteredData || mockData['National']['State 1']['District 1']['College 1']);
+      let filteredData = mockData[selectedNational]?.[selectedState]?.[selectedDistrict]?.[selectedCollege];
+      if (dateRange && dateRange[0] && dateRange[1]) {
+        const startDate = dayjs(dateRange[0]);
+        const endDate = dayjs(dateRange[1]);
+        filteredData = {
+          ...filteredData,
+          dataTrends: filteredData.dataTrends.filter((entry) =>
+            dayjs(entry.name).isBetween(startDate, endDate, 'day', '[]')
+          )
+        };
+      }
+      setData(filteredData);
       setLoading(false);
     }, 1000);
   };
@@ -365,88 +337,136 @@ const Dashboard = () => {
   return (
     <div className={styles.dashboard}>
       <div className={styles.filters}>
-        <select className={styles.filterSelect} value={national} onChange={handleNationalChange}>
-          <option value="National">National</option>
-        </select>
-        <select className={styles.filterSelect} value={state} onChange={handleStateChange}>
-          <option value="State 1">State 1</option>
-          <option value="State 2">State 2</option>
-        </select>
-        <select className={styles.filterSelect} value={district} onChange={handleDistrictChange}>
-          <option value="District 1">District 1</option>
-          <option value="District 2">District 2</option>
-        </select>
-        <select className={styles.filterSelect} value={college} onChange={handleCollegeChange}>
-          <option value="College 1">College 1</option>
-          <option value="College 2">College 2</option>
-        </select>
-        <input
+        <Select
+          className={styles.filterSelect}
+          value={national}
+          onChange={(value) => {
+            setNational(value);
+            updateData(value, state, district, college, null);
+          }}
+        >
+          <Option value="National">National</Option>
+        </Select>
+        <Select
+          className={styles.filterSelect}
+          value={state}
+          onChange={(value) => {
+            setState(value);
+            updateData(national, value, district, college, null);
+          }}
+        >
+          <Option value="State 1">State 1</Option>
+          <Option value="State 2">State 2</Option>
+        </Select>
+        <Select
+          className={styles.filterSelect}
+          value={district}
+          onChange={(value) => {
+            setDistrict(value);
+            updateData(national, state, value, college, null);
+          }}
+        >
+          <Option value="District 1">District 1</Option>
+          <Option value="District 2">District 2</Option>
+        </Select>
+        <Select
+          className={styles.filterSelect}
+          value={college}
+          onChange={(value) => {
+            setCollege(value);
+            updateData(national, state, district, value, null);
+          }}
+        >
+          <Option value="College 1">College 1</Option>
+          <Option value="College 2">College 2</Option>
+        </Select>
+        <RangePicker
           className={styles.filterDateInput}
-          type="date"
-          value={dateRange[0] || ''}
-          onChange={(e) => handleDateRangeChange([e.target.value, dateRange[1]])}
-        />
-        <input
-          className={styles.filterDateInput}
-          type="date"
-          value={dateRange[1] || ''}
-          onChange={(e) => handleDateRangeChange([dateRange[0], e.target.value])}
+          onChange={(dates) => updateData(national, state, district, college, dates)}
         />
       </div>
 
       <div className={styles.statistics}>
-        <div className={styles.statCard} style={{ backgroundColor: green[1] }}>
+        <div className={`${styles.statCard} ${styles.greenGradient}`}>
           <h3>Total Students</h3>
           <p>{data.totalStudents}</p>
         </div>
-        <div className={styles.statCard} style={{ backgroundColor: orange[1] }}>
+        <div className={`${styles.statCard} ${styles.orangeGradient}`}>
           <h3>Daily SOS Sending Rate</h3>
           <p>{data.dailySOSSendingRate}</p>
         </div>
-        <div className={styles.statCard} style={{ backgroundColor: blue[1] }}>
+        <div className={`${styles.statCard} ${styles.blueGradient}`}>
           <h3>Total Members</h3>
           <p>{data.totalMembers}</p>
         </div>
-        <div className={styles.statCard} style={{ backgroundColor: purple[1] }}>
+        <div className={`${styles.statCard} ${styles.purpleGradient}`}>
           <h3>Actions Taken</h3>
           <p>{data.actionsTaken}</p>
         </div>
       </div>
 
       <div className={styles.charts}>
-        <div className={styles.chartCard}>
-          {loading ? (
-            <div className={styles.loading}><LoadingOutlined /></div>
-          ) : (
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={data.dataTrends}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <RechartTooltip />
-                <Legend />
-                <Bar dataKey="MTTA" fill={blue[1]} />
-                <Bar dataKey="MTTR" fill={red[1]} />
-              </BarChart>
-            </ResponsiveContainer>
-          )}
-        </div>
-        <div className={styles.chartCard}>
-          {loading ? (
-            <div className={styles.loading}><LoadingOutlined /></div>
-          ) : (
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie data={data.pieData} dataKey="value" nameKey="name" outerRadius={100}>
-                  {data.pieData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={index === 0 ? red[1] : green[1]} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
-          )}
-        </div>
+  {/* Bar Chart Section */}
+  <div className={`${styles.chartCard} ${styles.barChart}`}>
+    {loading ? (
+      <div className={styles.loading}>
+        <Spin size="large" />
       </div>
+    ) : (
+      <ResponsiveContainer width="100%" height={400}>
+        <BarChart data={data.dataTrends}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+          <XAxis dataKey="name" tick={{ fontSize: 12, fill: "#555" }} />
+          <YAxis tick={{ fontSize: 12, fill: "#555" }} />
+          <Tooltip contentStyle={{ backgroundColor: "#f5f5f5", border: "1px solid #ddd" }} />
+          <Legend />
+          <Bar dataKey="MTTA" fill={blue[6]} barSize={20} radius={[5, 5, 0, 0]} />
+          <Bar dataKey="MTTR" fill={red[6]} barSize={20} radius={[5, 5, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
+    )}
+  </div>
+
+  {/* Doughnut Chart Section */}
+  <div className={`${styles.chartCard} ${styles.doughnutChart}`}>
+    {loading ? (
+      <div className={styles.loading}>
+        <Spin size="large" />
+      </div>
+    ) : (
+      <ResponsiveContainer width="100%" height={350}>
+        <PieChart>
+          <Pie
+            data={data.pieData}
+            dataKey="value"
+            nameKey="name"
+            innerRadius={70}
+            outerRadius={100}
+            paddingAngle={5}
+            fill="#8884d8"
+          >
+            {data.pieData.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={index === 0 ? red[5] : green[5]}
+                stroke="#fff"
+                strokeWidth={2}
+              />
+            ))}
+          </Pie>
+          <Tooltip />
+        </PieChart>
+      </ResponsiveContainer>
+    )}
+    <div className={styles.doughnutDetails}>
+      <h4>Ack vs Not Ack</h4>
+      <p>Total Cases: 100%</p>
+      <p><span style={{ color: red[6] }}>Ack:</span> {data.pieData[1].value}%</p>
+      <p><span style={{ color: green[6] }}>Not Ack:</span> {data.pieData[0].value}%</p>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 };

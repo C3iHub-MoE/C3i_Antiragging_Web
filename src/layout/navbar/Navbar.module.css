@@ -44,13 +44,6 @@
 }
 
 /* Hover Effect on Links */
-.linkText:hover {
-  color: white;
-  background: #7367f0;  /* Background color change */
-  transform: translateY(-6px);  /* Lifting effect */
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);  /* Shadow effect for depth */
-  cursor: pointer;  /* Cursor change to pointer */
-}
 
 .linkText:hover::after {
   content: "";
@@ -100,7 +93,6 @@
 
 /* Hover Effect on Toggle Button */
 .toggleButton:hover {
-  color: #7367f0;  /* Change to match the navbar hover color */
   transform: rotate(90deg);  /* Rotate on hover */
   transition: transform 0.3s ease, color 0.3s ease;
 }

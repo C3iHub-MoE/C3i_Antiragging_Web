@@ -5,10 +5,11 @@
 
 .filters {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 15px;
   margin-bottom: 30px;
-  background: linear-gradient(135deg, #7367f0, #a0a4ff); /* Gradient background */
+  background-color: white;
+  /* background: linear-gradient(135deg, #7367f0, #a0a4ff); Gradient background */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
@@ -21,7 +22,7 @@
 
 .filterSelect,
 .filterDateInput {
-  padding: 10px;
+  /* padding: 10px;  */
   border-radius: 8px;
   font-size: 14px;
   border: 1px solid #ccc;
@@ -80,7 +81,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .statCard {
-  background: #f4f4f4;
+  background: white;
   padding: 20px;
   text-align: center;
   border-radius: 8px;
@@ -150,4 +151,48 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   .chartCard {
     flex: 1 1 100%; /* Full width on smaller screens */
   }
+}
+
+
+.charts {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.chartCard {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  flex: 1;
+  max-width: 48%; /* Adjust for responsiveness */
+  position: relative;
+}
+
+.barChart {
+  border-left: 5px solid #2b90d9;
+}
+
+.doughnutChart {
+  border-left: 5px solid #f759ab;
+}
+
+.doughnutDetails {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.doughnutDetails h4 {
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.doughnutDetails span {
+  font-weight: bold;
 }

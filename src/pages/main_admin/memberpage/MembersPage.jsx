@@ -8,7 +8,7 @@ import styles from './MembersPage.module.css'; // Import your styles
 
 const MembersPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [membersPerPage] = useState(5);
+    const [membersPerPage] = useState(10);
     const [membersData, setMembersData] = useState(initialMembersData);
     const [totalPages, setTotalPages] = useState(Math.ceil(initialMembersData.length / membersPerPage));
     const [openMenu, setOpenMenu] = useState(null); // Track which action menu is open
@@ -77,6 +77,9 @@ const MembersPage = () => {
         "email",
         "phone",
         "memberType",
+        "state",
+        "district",
+        "university",
         "Actions",
     ];
 

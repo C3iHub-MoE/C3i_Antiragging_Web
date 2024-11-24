@@ -133,12 +133,12 @@ const Sidebar = ({ collapsed }) => {
                 {!collapsed && <span className={styles.linkLabel}>Students</span>}
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink to="/complaints" className={styles.linkText} activeClassName={styles.activeLink}>
                 <span className={styles.icon} role="img" aria-label="Complaints">{ICONS.COMPLAINT}</span>
                 {!collapsed && <span className={styles.linkLabel}>Complaints</span>}
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink to="/member_page" className={styles.linkText} activeClassName={styles.activeLink}>
                 <span className={styles.icon} role="img" aria-label="Members">{ICONS.MEMBERS}</span>
