@@ -1,165 +1,164 @@
 [
-    {
-      "id": 1,
-      "name": "John Doe",
-      "college": "ABC College",
-      "university": "ABC university",
+  {
+    "id": 1,
+    "name": "John Doe",
+    "college": "ABC College",
+    "university": "ABC university",
 
-      "district": "District 1",
-      "state": "State 1",
-      "status": "Pending"
-    },
-    {
-      "id": 2,
-      "name": "Jane Smith",
-      "college": "XYZ University",
-      "district": "District 2",
-      "state": "State 1",
-      "status": "Pending"
-    },
-    {
-      "id": 3,
-      "name": "Alice Brown",
-      "college": "LMN College",
-      "district": "District 3",
-      "state": "State 2",
-      "status": "Pending"
-    },
-    {
-      "id": 4,
-      "name": "Michael Johnson",
-      "college": "PQR University",
-      "district": "District 4",
-      "state": "State 2",
-      "status": "Pending"
-    },
-    {
-      "id": 5,
-      "name": "Emily Davis",
-      "college": "GHI College",
-      "district": "District 5",
-      "state": "State 3",
-      "status": "Pending"
-    },
-    {
-      "id": 6,
-      "name": "Robert Wilson",
-      "college": "JKL University",
-      "district": "District 6",
-      "state": "State 3",
-      "status": "Pending"
-    },
-    {
-      "id": 7,
-      "name": "David Lee",
-      "college": "TUV College",
-      "district": "District 7",
-      "state": "State 4",
-      "status": "Pending"
-    },
-    {
-      "id": 8,
-      "name": "Sophia White",
-      "college": "NOP University",
-      "district": "District 8",
-      "state": "State 4",
-      "status": "Pending"
-    },
-    {
-      "id": 9,
-      "name": "Daniel Harris",
-      "college": "XYZ College",
-      "district": "District 9",
-      "state": "State 5",
-      "status": "Pending"
-    },
-    {
-      "id": 10,
-      "name": "Emma Clark",
-      "college": "ABC University",
-      "district": "District 10",
-      "state": "State 5",
-      "status": "Pending"
-    },
-    {
-      "id": 11,
-      "name": "Liam Walker",
-      "college": "DEF College",
-      "district": "District 11",
-      "state": "State 6",
-      "status": "Pending"
-    },
-    {
-      "id": 12,
-      "name": "Isabella Young",
-      "college": "GHI University",
-      "district": "District 12",
-      "state": "State 6",
-      "status": "Pending"
-    },
-    {
-      "id": 13,
-      "name": "James King",
-      "college": "JKL College",
-      "district": "District 13",
-      "state": "State 7",
-      "status": "Pending"
-    },
-    {
-      "id": 14,
-      "name": "Olivia Wright",
-      "college": "XYZ University",
-      "district": "District 14",
-      "state": "State 7",
-      "status": "Pending"
-    },
-    {
-      "id": 15,
-      "name": "Elijah Hall",
-      "college": "LMN College",
-      "district": "District 15",
-      "state": "State 8",
-      "status": "Pending"
-    },
-    {
-      "id": 16,
-      "name": "Charlotte Allen",
-      "college": "ABC University",
-      "district": "District 16",
-      "state": "State 8",
-      "status": "Pending"
-    },
-    {
-      "id": 17,
-      "name": "Benjamin Scott",
-      "college": "PQR College",
-      "district": "District 17",
-      "state": "State 9",
-      "status": "Pending"
-    },
-    {
-      "id": 18,
-      "name": "Ava Carter",
-      "college": "XYZ University",
-      "district": "District 18",
-      "state": "State 9",
-      "status": "Pending"
-    },
-    {
-      "id": 19,
-      "name": "Lucas Moore",
-      "college": "LMN College",
-      "district": "District 19",
-      "state": "State 10",
-      "status": "Pending"
-    },
-    {
-      "id": 20,
-      "name": "Mia Martinez",
-      "college": "ABC University",
-      "district": "District 20",
-      "state": "State 10",
-      "status": "Pending"
-    }
-  ]
-  
+    "district": "District 1",
+    "state": "State 1",
+    "status": "Pending"
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "college": "XYZ University",
+    "district": "District 2",
+    "state": "State 1",
+    "status": "Pending"
+  },
+  {
+    "id": 3,
+    "name": "Alice Brown",
+    "college": "LMN College",
+    "district": "District 3",
+    "state": "State 2",
+    "status": "Pending"
+  },
+  {
+    "id": 4,
+    "name": "Michael Johnson",
+    "college": "PQR University",
+    "district": "District 4",
+    "state": "State 2",
+    "status": "Pending"
+  },
+  {
+    "id": 5,
+    "name": "Emily Davis",
+    "college": "GHI College",
+    "district": "District 5",
+    "state": "State 3",
+    "status": "Pending"
+  },
+  {
+    "id": 6,
+    "name": "Robert Wilson",
+    "college": "JKL University",
+    "district": "District 6",
+    "state": "State 3",
+    "status": "Pending"
+  },
+  {
+    "id": 7,
+    "name": "David Lee",
+    "college": "TUV College",
+    "district": "District 7",
+    "state": "State 4",
+    "status": "Pending"
+  },
+  {
+    "id": 8,
+    "name": "Sophia White",
+    "college": "NOP University",
+    "district": "District 8",
+    "state": "State 4",
+    "status": "Pending"
+  },
+  {
+    "id": 9,
+    "name": "Daniel Harris",
+    "college": "XYZ College",
+    "district": "District 9",
+    "state": "State 5",
+    "status": "Pending"
+  },
+  {
+    "id": 10,
+    "name": "Emma Clark",
+    "college": "ABC University",
+    "district": "District 10",
+    "state": "State 5",
+    "status": "Pending"
+  },
+  {
+    "id": 11,
+    "name": "Liam Walker",
+    "college": "DEF College",
+    "district": "District 11",
+    "state": "State 6",
+    "status": "Pending"
+  },
+  {
+    "id": 12,
+    "name": "Isabella Young",
+    "college": "GHI University",
+    "district": "District 12",
+    "state": "State 6",
+    "status": "Pending"
+  },
+  {
+    "id": 13,
+    "name": "James King",
+    "college": "JKL College",
+    "district": "District 13",
+    "state": "State 7",
+    "status": "Pending"
+  },
+  {
+    "id": 14,
+    "name": "Olivia Wright",
+    "college": "XYZ University",
+    "district": "District 14",
+    "state": "State 7",
+    "status": "Pending"
+  },
+  {
+    "id": 15,
+    "name": "Elijah Hall",
+    "college": "LMN College",
+    "district": "District 15",
+    "state": "State 8",
+    "status": "Pending"
+  },
+  {
+    "id": 16,
+    "name": "Charlotte Allen",
+    "college": "ABC University",
+    "district": "District 16",
+    "state": "State 8",
+    "status": "Pending"
+  },
+  {
+    "id": 17,
+    "name": "Benjamin Scott",
+    "college": "PQR College",
+    "district": "District 17",
+    "state": "State 9",
+    "status": "Pending"
+  },
+  {
+    "id": 18,
+    "name": "Ava Carter",
+    "college": "XYZ University",
+    "district": "District 18",
+    "state": "State 9",
+    "status": "Pending"
+  },
+  {
+    "id": 19,
+    "name": "Lucas Moore",
+    "college": "LMN College",
+    "district": "District 19",
+    "state": "State 10",
+    "status": "Pending"
+  },
+  {
+    "id": 20,
+    "name": "Mia Martinez",
+    "college": "ABC University",
+    "district": "District 20",
+    "state": "State 10",
+    "status": "Pending"
+  }
+]

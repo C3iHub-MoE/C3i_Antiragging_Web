@@ -220,6 +220,8 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import Table from '../../components/table/Table'; // Import your Table component
 import Pagination from '../../components/Pagination/Pagination';
+import "./sospage.css"
+
 
 const SOSPage = () => {
   const [sosData, setSosData] = useState([]);
@@ -461,21 +463,21 @@ const SOSPage = () => {
 
       {/* Filters Section */}
       <div className="filters">
-        <select name="state" value={filters.state} onChange={handleFilterChange}>
+        <select name="state" className='filterInput' value={filters.state} onChange={handleFilterChange}>
           <option value="">Select State</option>
           {uniqueStates.map(state => (
             <option key={state} value={state}>{state}</option>
           ))}
         </select>
 
-        <select name="district" value={filters.district} onChange={handleFilterChange} disabled={!filters.state}>
+        <select name="district" className='filterInput' value={filters.district} onChange={handleFilterChange} disabled={!filters.state}>
           <option value="">Select District</option>
           {uniqueDistricts.map(district => (
             <option key={district} value={district}>{district}</option>
           ))}
         </select>
 
-        <select name="college" value={filters.college} onChange={handleFilterChange} disabled={!filters.district}>
+        <select name="college" value={filters.college} className='filterInput' onChange={handleFilterChange} disabled={!filters.district}>
           <option value="">Select College</option>
           {uniqueColleges.map(college => (
             <option key={college} value={college}>{college}</option>
