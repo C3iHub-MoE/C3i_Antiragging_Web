@@ -27,7 +27,7 @@
   --disabled-text-color: #a0a0a0;
 }
 /* In your CSS file, e.g., variables.css */
-:root {
+/* :root {
   --theme-color: #991B16;
   --background: #F8E7E7;
   --light: #F8E7E7;
@@ -38,7 +38,7 @@
   --transparent: transparent;
   --placeholder: #A5A5A5;
   --danger: #FF0000;
-}
+} */
 
 
 

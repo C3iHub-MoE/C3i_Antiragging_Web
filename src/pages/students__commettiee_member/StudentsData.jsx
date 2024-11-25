@@ -205,7 +205,6 @@
 // export default StudentsPage;
 
 
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import studentsData from '../jsonfile/students.json';
@@ -232,9 +231,9 @@ const StudentsPage = () => {
     // Filtering logic
     const filteredStudents = students.filter((student) => {
         return (
-            (!stateFilter || student.state.toLowerCase().includes(stateFilter.toLowerCase())) &&
-            (!districtFilter || student.district.toLowerCase().includes(districtFilter.toLowerCase())) &&
-            (!collegeFilter || student.college.toLowerCase().includes(collegeFilter.toLowerCase()))
+            (!stateFilter || student.State.toLowerCase().includes(stateFilter.toLowerCase())) &&
+            (!districtFilter || student.District.toLowerCase().includes(districtFilter.toLowerCase())) &&
+            (!collegeFilter || student.College.toLowerCase().includes(collegeFilter.toLowerCase()))
         );
     });
 
@@ -323,7 +322,7 @@ const StudentsPage = () => {
         });
     };
 
-    const columns = ['id', 'name', 'college', 'district', 'state', 'status'];
+    const columns = ['S.No', 'Student Name', 'State', 'District','University', 'College'];
 
     return (
         <div className={styles.container}>
@@ -359,6 +358,69 @@ const StudentsPage = () => {
                 totalPages={totalPages}
                 onPageChange={handlePageChange}
             />
+        </div>
+    );
+};
+
+// ActionMenu Component
+const ActionMenu = ({ student, handleDeactivate, handleEdit, handleDelete }) => {
+    const [menuOpen, setMenuOpen] = useState(false);
+    const menuRef = useRef(null);
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
+
+    const handleClickOutside = (event) => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setMenuOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    return (
+        <div className={styles.actionMenu} ref={menuRef}>
+            <div className={styles.threeDots} onClick={toggleMenu}>
+                &#x22EE; {/* Three dots character */}
+            </div>
+
+            {menuOpen && (
+                <div className={styles.menu}>
+                    <button
+                        className={styles.menuButton}
+                        onClick={() => {
+                            handleEdit(student.id);
+                            toggleMenu();
+                        }}
+                    >
+                        Edit
+                    </button>
+                    <button
+                        className={styles.menuButton}
+                        onClick={() => {
+                            handleDeactivate(student.id);
+                            toggleMenu();
+                        }}
+                    >
+                        Deactivate
+                    </button>
+                    <button
+                        className={styles.menuButton}
+                        onClick={() => {
+                            handleDelete(student.id);
+                            toggleMenu();
+                        }}
+                    >
+                        Delete
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
