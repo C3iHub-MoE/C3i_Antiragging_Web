@@ -12,10 +12,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <FCMProvider>
+      <FCMProvider>
         <AuthProvider>
-        <App />
-      </AuthProvider>
+          <App />
+        </AuthProvider>
       </FCMProvider>
     </BrowserRouter>
   </React.StrictMode>

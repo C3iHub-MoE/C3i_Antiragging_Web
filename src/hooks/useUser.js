@@ -21,7 +21,10 @@ export const useClient = () => {
         const storedUser = localStorage.getItem('user'); // Or you can use cookies if preferred
 
         if (token && storedUser) {
-            setUser({ token, user: JSON.parse(storedUser) });
+            setUser({
+                token,
+                ...(JSON.parse(storedUser) || {}),
+            });
         }
     }, []);
 
@@ -60,7 +63,9 @@ export const useClient = () => {
             if (data.token) {
                 localStorage.setItem('authToken', data?.token);
                 localStorage.setItem('user', JSON.stringify(data));
+                localStorage.setItem('isVerified', JSON.stringify(data?.isVerified));           
                 setUser(data)
+
             } else {
                 console.log("data not found")
             }
@@ -77,6 +82,9 @@ export const useClient = () => {
             throw new Error(err.message || 'An error occurred during login');
         }
     };
+
+    
+
 
     const resetPassword = async () => {
         setLoading(true);
@@ -147,6 +155,7 @@ export const useClient = () => {
     return {
         login,
         LogOutUser,
+        setUser,
         loading,
         error,
         user,

@@ -25,10 +25,6 @@ import PublicRoute from './components/publicRoute/publicRoute';
 import Logout from './pages/auth/logout/Logout';
 import ContactUs from './pages/contactus/ContactUS';
 import VerifyAccount from './pages/auth/login/VerifyAccount';
-// const VerifyAccount = React.lazy(() => import("/pages/auth/login/VerifyAccount"))
-
-// import { generateToken, messaging } from './notification/firebase';
-// import { getMessaging, onMessage } from 'firebase/messaging';
 
 
 
@@ -118,6 +114,7 @@ function App() {
       </Route>
       
     </Routes>
+   
   );
 }
 

@@ -5,7 +5,10 @@ export const constants = {
         USER_LOGIN: `/login/`,
         USER_RESEND_OTP: `/resetPassword/resendOtp/`,
         USER_SEND_OTP: `/resetPassword/sendOtp/`,
-        USER_VERIFY_OTP: `/resetPassword/verifyOtp/`
+        USER_VERIFY_OTP: `/resetPassword/verifyOtp/`,
+        ACCOUNT_RESEND_OTP: `/verify/resendOtp/`,
+        ACCOUNT_SEND_OTP: `/verify/sendOtp/`,
+        ACCOUNT_VERIFY_OTP: `/verify/verifyOtp/`
     }
 }
 

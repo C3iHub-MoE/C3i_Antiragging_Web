@@ -1,12 +1,13 @@
 // src/components/Login.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../context/AuthContext';
 import { useFCM } from '../../../context/FCMContext';
 import { getDeviceId, getPlatform } from '../../../utils/deviceUtils';
 import styles from './Login.module.css'; // Assume this CSS module contains your styles
 import UGCLOGO from "./ugc_logo.png"
 import C3ILOGO from "./c3.png"
+import { useAuth } from '../../../context/AuthContext';
+import { notifySuccess, notifyError } from '../../../utils/toastUtil';
 // import 
 
 const Login = () => {
@@ -18,6 +19,8 @@ const Login = () => {
   const navigate = useNavigate();
   const fcm_token = fcmToken;
 
+
+console.log("bhsjsjsjsj",user)
   const isMobileValid = (mobileNumber) => /^[0-9]{10}$/.test(mobileNumber); // Simple mobile number validation
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -50,6 +53,8 @@ const Login = () => {
       await login(loginPayload); // Perform login using the context
 
       if (user) {
+
+        
         navigate('/'); // Redirect to the dashboard on successful login
       }
     } catch (err) {
@@ -60,6 +65,7 @@ const Login = () => {
   const handleForgotPassword = () => {
     navigate('/reset-password'); // Redirect to reset password page
   };
+  
 
   return (
     <div className={styles.loginContainer}>

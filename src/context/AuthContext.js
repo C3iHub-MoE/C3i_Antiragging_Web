@@ -1,19 +1,49 @@
-import React, { createContext, useState, useContext } from 'react';
+// AuthContext.js
+import React, { createContext, useContext } from 'react';
 import { useClient } from '../hooks/useUser';
 
 // Create an AuthContext
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const userLoginState = useClient();
-  const LogOutUserState = useClient();
+  const { login,
+    LogOutUser,
+    setUser,
+    loading,
+    error,
+    user,
+    resetPassword,
+    sendOtpRequest,
+    verifyOtpRequest,
+    setPasswordData,
+    otp,
+    setOtp,
+    otpError,
+    otpTimer,
+    otpSent,
+    passwordData } = useClient();
 
-
-  
-
+  console.log("AuthProvider user:", user);
 
   return (
-    <AuthContext.Provider value={{ ...userLoginState, ...LogOutUserState}}>
+    <AuthContext.Provider value={{
+      login,
+      LogOutUser,
+      loading,
+      error,
+      setUser,
+      user,
+      resetPassword,
+      sendOtpRequest,
+      verifyOtpRequest,
+      setPasswordData,
+      otp,
+      setOtp,
+      otpError,
+      otpTimer,
+      otpSent,
+      passwordData,
+    }}>
       {children}
     </AuthContext.Provider>
   );
@@ -21,5 +51,10 @@ export const AuthProvider = ({ children }) => {
 
 // Custom hook to use the AuthContext
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  console.log("useAuth context:", context);
+  return context;
 };
