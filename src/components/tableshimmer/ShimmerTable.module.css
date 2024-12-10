@@ -14,13 +14,51 @@
     border: 1px solid #e0e0e0; /* Adds a light border around the table */
 }
 
+/* Shimmer effect for loading */
+.customTable.shimmer-loading {
+    position: relative;
+}
+
+.customTable.shimmer-loading td,
+.customTable.shimmer-loading th {
+    background: #f4f6f9;
+    animation: shimmer 1.5s infinite linear;
+    position: relative;
+}
+
+.customTable.shimmer-loading td::before,
+.customTable.shimmer-loading th::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+    background-size: 200% 100%;
+    animation: shimmer-animation 1.5s infinite ease-in-out;
+}
+
+/* Keyframes for shimmer effect */
+@keyframes shimmer-animation {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Table th and td */
 .customTable th,
 .customTable td {
     padding: 16px;
     text-align: left;
     border-bottom: 1px solid #e0e0e0; /* Clear separation between rows */
+    position: relative;
 }
 
+/* Table th */
 .customTable th {
     background-color: #f4f6f9;
     color: #495057;
@@ -29,6 +67,7 @@
     text-transform: uppercase;
 }
 
+/* Table tbody tr */
 .customTable tbody tr {
     background-color: white;
     transition: background-color 0.3s ease;
@@ -39,6 +78,7 @@
     background-color: #f1f5f9; /* Light hover color */
 }
 
+/* Table td */
 .customTable td {
     padding: 1.2rem;
     font-size: 15px;

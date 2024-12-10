@@ -1,0 +1,87 @@
+.sosDetailsContainer {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sosDetailsHeading {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sosDetailsContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sosDetailsSection {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sectionTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4a4a4a;
+    margin-bottom: 10px;
+}
+
+.sosDetailsSection p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.sosDetailsSection p strong {
+    color: #333;
+}
+
+.sosDetailsSection p:last-child {
+    margin-bottom: 0;
+}
+
+.sosDetailsSection p {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sosDetailsSection p:even {
+    background-color: #f7f7f7;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 6px;
+}
+
+.sosDetailsSection p {
+    font-weight: 500;
+}
+
+.sosDetailsSection p span {
+    font-weight: 300;
+    color: #777;
+}
+
+.sosDetailsContainer {
+    background-color: #f8f9fa;
+    border-radius: 15px;
+}
+
+.sosDetailsSection p {
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.sosDetailsContainer .sectionTitle {
+    font-weight: 600;
+    font-size: 20px;
+    color: #4c4b63;
+}

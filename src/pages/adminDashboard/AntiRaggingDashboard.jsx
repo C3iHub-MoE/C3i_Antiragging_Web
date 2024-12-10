@@ -1,4 +1,3 @@
-
 // // import React, { useState } from 'react';
 // // import { Layout, Card, Select, Row, Col, Typography, Statistic, Spin, Tooltip, DatePicker } from 'antd';
 // // import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartTooltip, Legend, CartesianGrid, ResponsiveContainer, Cell } from 'recharts';
@@ -255,8 +254,6 @@
 
 // // export default Dashboard;
 
-
-
 // import React, { useState } from 'react';
 // import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid, ResponsiveContainer, Cell } from 'recharts';
 // import { PieChart, Pie } from 'recharts';
@@ -473,29 +470,31 @@
 
 // export default Dashboard;
 
-
-
-
 import React from "react";
 import { Chart1, Chart3, Chart4, GaugeChart } from "../../components/chartsoption/chartOptions";
+import { useAuth } from "../../context/AuthContext";
 
 const Dashboard = () => {
-  return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gap: "20px",
-        padding: "20px",
-      }}
-    >
-      <Chart1 />
-      <GaugeChart />
-      <Chart3 />
-      <Chart4 />
-
-    </div>
-  );
+    const { user, login, LogOutUser } = useAuth();
+    return (
+        <>
+            {console.log("dashboard", user)}
+            <h1>Welcome, {user?.last_name || "Guest"}!</h1>
+            <div
+                style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, 1fr)",
+                    gap: "20px",
+                    padding: "20px",
+                }}
+            >
+                <Chart1 />
+                <GaugeChart />
+                <Chart3 />
+                <Chart4 />
+            </div>
+        </>
+    );
 };
 
 export default Dashboard;

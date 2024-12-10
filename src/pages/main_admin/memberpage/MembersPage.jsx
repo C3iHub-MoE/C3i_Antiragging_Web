@@ -100,14 +100,13 @@
 
 // export default MembersPage;
 
-
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Table from '../../../components/table/Table';
-import Pagination from '../../../components/Pagination/Pagination';
-import Button from '../../../components/button/Button';
-import initialMembersData from '../../jsonfile/members.json'; // Import your member data
-import styles from './MembersPage.module.css'; // Import your styles
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import Table from "../../../components/table/Table";
+import Pagination from "../../../components/Pagination/Pagination";
+import Button from "../../../components/button/Button";
+import initialMembersData from "../../jsonfile/members.json"; // Import your member data
+import styles from "./MembersPage.module.css"; // Import your styles
 
 const MembersPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -136,9 +135,9 @@ const MembersPage = () => {
             }
         };
 
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [openMenu]);
 
@@ -147,7 +146,7 @@ const MembersPage = () => {
     };
 
     const deleteMember = (id) => {
-        const updatedMembers = membersData.filter(member => member.id !== id);
+        const updatedMembers = membersData.filter((member) => member.id !== id);
         setMembersData(updatedMembers);
         setFilteredMembers(updatedMembers);
     };
@@ -185,10 +184,7 @@ const MembersPage = () => {
                     &#x22EE;
                 </button>
                 {openMenu === member.id && (
-                    <div
-                        ref={(el) => (menuRefs.current[member.id] = el)}
-                        className={styles.actionMenu}
-                    >
+                    <div ref={(el) => (menuRefs.current[member.id] = el)} className={styles.actionMenu}>
                         <Button title="Delete" trigger={() => deleteMember(member.id)} />
                         <Button title="Update" trigger={() => console.log(`Update member ${member.id}`)} />
                     </div>
@@ -206,7 +202,7 @@ const MembersPage = () => {
         "state",
         "district",
         "university",
-        "Actions",
+        // "Actions",
     ];
 
     return (
@@ -214,45 +210,13 @@ const MembersPage = () => {
             <div className={styles.filters}>
                 <Button title="Invite New Member" trigger={() => navigate("/invite")} />
 
-                <input
-                    type="text"
-                    name="state"
-                    placeholder="Filter by State"
-                    value={filters.state}
-                    onChange={handleFilterChange}
-                    className={styles.filterInput}
-                />
-                <input
-                    type="text"
-                    name="district"
-                    placeholder="Filter by District"
-                    value={filters.district}
-                    onChange={handleFilterChange}
-                    className={styles.filterInput}
-                />
-                <input
-                    type="text"
-                    name="university"
-                    placeholder="Filter by University"
-                    value={filters.university}
-                    onChange={handleFilterChange}
-                    className={styles.filterInput}
-                />
-                <input
-                    type="text"
-                    name="college"
-                    placeholder="Filter by College"
-                    value={filters.college}
-                    onChange={handleFilterChange}
-                    className={styles.filterInput}
-                />
+                <input type="text" name="state" placeholder="Filter by State" value={filters.state} onChange={handleFilterChange} className={styles.filterInput} />
+                <input type="text" name="district" placeholder="Filter by District" value={filters.district} onChange={handleFilterChange} className={styles.filterInput} />
+                <input type="text" name="university" placeholder="Filter by University" value={filters.university} onChange={handleFilterChange} className={styles.filterInput} />
+                <input type="text" name="college" placeholder="Filter by College" value={filters.college} onChange={handleFilterChange} className={styles.filterInput} />
             </div>
             <Table columns={columns} data={dataWithActions} />
-            <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-            />
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
         </div>
     );
 };

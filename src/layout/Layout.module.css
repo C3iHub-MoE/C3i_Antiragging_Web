@@ -4,17 +4,15 @@
     height: 100vh; /* Full height of the viewport */
     /* background-color: #F8F7FA */
     background: #f7f7f7;
-  }
-  
-  .mainContainer {
+}
+
+.mainContainer {
     display: flex;
     flex: 1; /* Allow content to take remaining space */
-  }
-  
-  .content {
+}
+
+.content {
     padding: 1rem;
     flex: 1; /* Allow content to expand */
     overflow-y: auto; /* Enable scrolling if content overflows */
-  }
-  
-  
+}

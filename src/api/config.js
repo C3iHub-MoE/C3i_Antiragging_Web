@@ -1,9 +1,9 @@
 import axios from "axios";
-import { constants } from "../utils/constant";
+import { Constants } from "../utils/constant";
 import { notifyError } from "../utils/toastUtil";
 
 const apiClient = axios.create({
-    baseURL: constants.API_BASE_URL
+    baseURL: Constants.API_BASE_URL
 })
 
 apiClient.interceptors.request.use(

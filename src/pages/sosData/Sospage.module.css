@@ -1,0 +1,16 @@
+.studentNameLink {
+    font-size: 18px;
+    font-weight: 500;
+    color: #007bff; /* Change to your desired link color */
+    text-decoration: none; /* Remove underline */
+    transition: transform 0.3s ease, color 0.3s ease; /* For smooth transition */
+}
+
+.studentNameLink:hover {
+    transform: scale(0.95); /* Zoom out effect */
+    color: #0056b3; /* Change to your desired hover color */
+}
+
+.studentNameLink:focus {
+    outline: none; /* Remove outline on focus */
+}
