@@ -1,26 +1,55 @@
 import apiClient from "../config";
-import { constants } from "../../utils/constant";
+import { Constants } from "../../utils/constant";
 
 export const loginUser = async (payload, signal) => {
-    const response = await apiClient.post(constants.API_URLS.USER_LOGIN, payload, { signal });
+    const response = await apiClient.post(Constants.API_URLS.USER_LOGIN, payload, { signal });
     return response.data?.data;
-}
+};
 
+export const sosAlerts = async (userId, payload, signal) => {
+    const url = `${Constants.API_URLS.SOS_ALERTS}${userId}`;
+    const response = await apiClient.get(url, payload, { signal });
+    return response.data?.data;
+};
+
+export const sosDetails = async (id, userId, payload, signal) => {
+    const url = `${Constants.API_URLS.SOS_DETAILS}${id}/?squad_member_id=${userId}`;
+    const response = await apiClient.get(url, payload, { signal });
+    return response.data?.data;
+};
 
 // Function to handle password reset (change password)
-export const resetPassword = async (payload, signal) => {
-    const response = await apiClient.post(constants.API_URLS.USER_RESET_PASSWORD, payload, { signal });
+export const resendOtp = async (payload, signal) => {
+    const response = await apiClient.post(Constants.API_URLS.USER_RESEND_OTP, payload, { signal });
     return response.data?.data;
-}
+};
 
 // Function to send OTP to the user
-export const sendOtp = async (mobileNumber, signal) => {
-    const response = await apiClient.post(constants.API_URLS.USER_SEND_OTP, { mobile_number: mobileNumber }, { signal });
+export const sendOtp = async (payload, signal) => {
+    const response = await apiClient.post(Constants.API_URLS.USER_SEND_OTP, payload, { signal });
     return response.data?.data;
-}
+};
 
 // Function to verify the OTP entered by the user
 export const verifyOtp = async (payload, signal) => {
-    const response = await apiClient.post(constants.API_URLS.USER_VERIFY_OTP, payload, { signal });
+    const response = await apiClient.post(Constants.API_URLS.USER_VERIFY_OTP, payload, { signal });
     return response.data?.data;
-}
+};
+
+// Function to handle password reset (change password)
+export const AccountResendOtp = async (payload, signal) => {
+    const response = await apiClient.post(Constants.API_URLS.ACCOUNT_RESEND_OTP, payload, { signal });
+    return response.data?.data;
+};
+
+// Function to send OTP to the user
+export const AccountSendOtp = async (payload, signal) => {
+    const response = await apiClient.post(Constants.API_URLS.ACCOUNT_SEND_OTP, payload, { signal });
+    return response.data?.data;
+};
+
+// Function to verify the OTP entered by the user
+export const AccountVerifyOtp = async (payload, signal) => {
+    const response = await apiClient.post(Constants.API_URLS.ACCOUNT_VERIFY_OTP, payload, { signal });
+    return response.data?.data;
+};

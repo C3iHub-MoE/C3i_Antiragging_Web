@@ -2,18 +2,17 @@
     display: flex;
     flex-direction: column; /* Stack navbar on top */
     height: 100vh; /* Full height of the viewport */
-    background-color: #F8F7FA
-  }
-  
-  .mainContainer {
+    /* background-color: #F8F7FA */
+    background: #f7f7f7;
+}
+
+.mainContainer {
     display: flex;
     flex: 1; /* Allow content to take remaining space */
-  }
-  
-  .content {
-    padding: 20px;
+}
+
+.content {
+    padding: 1rem;
     flex: 1; /* Allow content to expand */
     overflow-y: auto; /* Enable scrolling if content overflows */
-  }
-  
-  
+}

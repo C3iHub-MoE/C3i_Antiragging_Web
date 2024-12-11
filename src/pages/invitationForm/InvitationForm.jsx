@@ -33,7 +33,7 @@ const InvitationForm = ({ memberType }) => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Invite {memberType}</h2>
+      <h2 className={styles.title}>Invite a new Member {memberType}</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
         {error && <p className={styles.error}>{error}</p>}
         {success && <p className={styles.success}>{success}</p>}

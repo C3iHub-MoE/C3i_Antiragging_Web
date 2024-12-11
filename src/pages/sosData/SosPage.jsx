@@ -1,499 +1,359 @@
-// import React, { useState, useEffect } from 'react';
-// import { NavLink } from 'react-router-dom';
-// import Table from '../../components/table/Table'; // Import your Table component
-// import Pagination from '../../components/Pagination/Pagination';
+// import React, { useState, useEffect } from "react";
+// import { NavLink } from "react-router-dom";
+// import Table from "../../components/table/Table"; // Import your Table component
+// import Pagination from "../../components/Pagination/Pagination";
+// import "./sospage.css";
+
 // const SOSPage = () => {
 //     const [sosData, setSosData] = useState([]);
+//     const [filteredData, setFilteredData] = useState([]);
 //     const [currentPage, setCurrentPage] = useState(1);
 //     const [sosPerPage] = useState(10);
-//     const columns = ['Student Id', 'Student Name', 'College', 'State', 'District', 'Location'];
+//     const [filters, setFilters] = useState({
+//         state: "",
+//         district: "",
+//         college: "",
+//     });
 
-//     // Static JSON data for SOS alerts (replace this with your API later)
-//     const mockSosData = [
-//         {
-//           studentId: 1,
-//           studentName: 'John Doe',
-//           college: 'ABC College',
-//           state: 'California',
-//           district: 'Los Angeles',
-//           location: '34.0522° N, 118.2437° W',
-//         },
-//         {
-//           studentId: 2,
-//           studentName: 'Jane Smith',
-//           college: 'XYZ University',
-//           state: 'Texas',
-//           district: 'Dallas',
-//           location: '32.7767° N, 96.7970° W',
-//         },
-//         {
-//           studentId: 3,
-//           studentName: 'Emily Johnson',
-//           college: 'DEF Institute',
-//           state: 'New York',
-//           district: 'Brooklyn',
-//           location: '40.6782° N, 73.9442° W',
-//         },
-//         {
-//           studentId: 4,
-//           studentName: 'Michael Brown',
-//           college: 'GHI University',
-//           state: 'Florida',
-//           district: 'Miami',
-//           location: '25.7617° N, 80.1918° W',
-//         },
-//         {
-//           studentId: 5,
-//           studentName: 'Sarah Lee',
-//           college: 'JKL Institute',
-//           state: 'Illinois',
-//           district: 'Chicago',
-//           location: '41.8781° N, 87.6298° W',
-//         },
-//         {
-//           studentId: 6,
-//           studentName: 'David Wilson',
-//           college: 'MNO College',
-//           state: 'Nevada',
-//           district: 'Las Vegas',
-//           location: '36.1699° N, 115.1398° W',
-//         },
-//         {
-//           studentId: 7,
-//           studentName: 'Sophia Garcia',
-//           college: 'PQR University',
-//           state: 'Arizona',
-//           district: 'Phoenix',
-//           location: '33.4484° N, 112.0740° W',
-//         },
-//         {
-//           studentId: 8,
-//           studentName: 'James Martinez',
-//           college: 'STU Institute',
-//           state: 'Ohio',
-//           district: 'Columbus',
-//           location: '39.9612° N, 82.9988° W',
-//         },
-//         {
-//           studentId: 9,
-//           studentName: 'Isabella Hernandez',
-//           college: 'VWX University',
-//           state: 'Georgia',
-//           district: 'Atlanta',
-//           location: '33.7490° N, 84.3880° W',
-//         },
-//         {
-//           studentId: 10,
-//           studentName: 'Liam Lopez',
-//           college: 'YZA College',
-//           state: 'Virginia',
-//           district: 'Richmond',
-//           location: '37.5407° N, 77.4360° W',
-//         },
-//         {
-//           studentId: 11,
-//           studentName: 'Olivia Clark',
-//           college: 'BCD Institute',
-//           state: 'North Carolina',
-//           district: 'Charlotte',
-//           location: '35.2271° N, 80.8431° W',
-//         },
-//         {
-//           studentId: 12,
-//           studentName: 'Lucas Rodriguez',
-//           college: 'EFG University',
-//           state: 'New Jersey',
-//           district: 'Newark',
-//           location: '40.7357° N, 74.1724° W',
-//         },
-//         {
-//           studentId: 13,
-//           studentName: 'Emma Perez',
-//           college: 'HIJ College',
-//           state: 'Pennsylvania',
-//           district: 'Philadelphia',
-//           location: '39.9526° N, 75.1652° W',
-//         },
-//         {
-//           studentId: 14,
-//           studentName: 'Noah Thompson',
-//           college: 'KLM Institute',
-//           state: 'Michigan',
-//           district: 'Detroit',
-//           location: '42.3314° N, 83.0458° W',
-//         },
-//         {
-//           studentId: 15,
-//           studentName: 'Mia Anderson',
-//           college: 'NOP University',
-//           state: 'Colorado',
-//           district: 'Denver',
-//           location: '39.7392° N, 104.9903° W',
-//         },
-//         {
-//           studentId: 16,
-//           studentName: 'William White',
-//           college: 'QRS College',
-//           state: 'Massachusetts',
-//           district: 'Boston',
-//           location: '42.3601° N, 71.0589° W',
-//         },
-//         {
-//           studentId: 17,
-//           studentName: 'Ava Harris',
-//           college: 'TUV Institute',
-//           state: 'Washington',
-//           district: 'Seattle',
-//           location: '47.6062° N, 122.3321° W',
-//         },
-//         {
-//           studentId: 18,
-//           studentName: 'Ethan Lewis',
-//           college: 'WXY University',
-//           state: 'Oregon',
-//           district: 'Portland',
-//           location: '45.5051° N, 122.6750° W',
-//         },
-//         {
-//           studentId: 19,
-//           studentName: 'Amelia Scott',
-//           college: 'ZAB College',
-//           state: 'Tennessee',
-//           district: 'Nashville',
-//           location: '36.1627° N, 86.7816° W',
-//         },
-//         {
-//           studentId: 20,
-//           studentName: 'Mason King',
-//           college: 'CDE Institute',
-//           state: 'Indiana',
-//           district: 'Indianapolis',
-//           location: '39.7684° N, 86.1581° W',
-//         },
-//       ];
+//     const columns = ["Student Id", "Student Name", "Location Name", "State", "District", "Location"];
 
 //     const indexOfLastSos = currentPage * sosPerPage;
 //     const indexOfFirstSos = indexOfLastSos - sosPerPage;
-//     const currentSos = sosData.slice(indexOfFirstSos, indexOfLastSos);
+//     const currentSos = filteredData.slice(indexOfFirstSos, indexOfLastSos);
 
-
-
+//     // Fetch SOS alerts data from API
 //     useEffect(() => {
-//         // Use static JSON data instead of API
-//         setSosData(mockSosData);
+//         const fetchSosAlerts = async () => {
+//             try {
+//                 const response = await fetch(`http://172.29.24.136:8000/api/live-sos-alerts/?squad_member_id=13`); // Replace with your API endpoint
+//                 const alert = await response.json();
+//                 const alerts = alert?.data?.live_sos_alerts;
+
+//                 const transformedData = alerts.map((alert) => ({
+//                     studentId: alert.student_id,
+//                     studentName: alert.student_name,
+//                     Location_Name: alert.location_name || "N/A",
+//                     state: alert.state_name || "N/A",
+//                     district: alert.district_name || "N/A",
+//                     location: `${alert.location_latitude}, ${alert.location_longitude}`,
+//                 }));
+//                 setSosData(transformedData);
+//                 setFilteredData(transformedData);
+//             } catch (error) {
+//                 console.error("Error fetching SOS alerts:", error);
+//             }
+//         };
+
+//         fetchSosAlerts();
 //     }, []);
+
+//     // Update filtered data whenever filters change
+//     useEffect(() => {
+//         let updatedData = sosData;
+
+//         if (filters.state) {
+//             updatedData = updatedData.filter((item) => item.state === filters.state);
+//         }
+//         if (filters.district) {
+//             updatedData = updatedData.filter((item) => item.district === filters.district);
+//         }
+//         if (filters.college) {
+//             updatedData = updatedData.filter((item) => item.college === filters.college);
+//         }
+
+//         setFilteredData(updatedData);
+//         setCurrentPage(1); // Reset to first page
+//     }, [filters, sosData]);
 
 //     // Map the data for the table
 //     const formattedData = currentSos.map((sos) => ({
-//         'Student Id': sos.studentId,
-//         'Student Name': (
-//             <NavLink to={`/student/${sos.studentId}`}>
-//                 {sos.studentName}
-//             </NavLink>
-//         ),
-//         'College': sos.college,
-//         'State': sos.state,
-//         'District': sos.district,
-//         'Location': sos.location,
+//         "Student Id": sos.studentId,
+//         "Student Name": <NavLink to={`/student/${sos.studentId}`}>{sos.studentName}</NavLink>,
+//         Location_Name: sos.location_name,
+//         State: sos.state,
+//         District: sos.district,
+//         Location: sos.location,
 //     }));
 
 //     const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+//     // Handle filter changes
+//     const handleFilterChange = (e) => {
+//         const { name, value } = e.target;
+//         setFilters((prevFilters) => ({
+//             ...prevFilters,
+//             [name]: value,
+//         }));
+//     };
+
+//     // Get unique values for dropdowns
+//     const uniqueStates = [...new Set(sosData.map((item) => item.state))];
+//     const uniqueDistricts = [...new Set(sosData.filter((item) => item.state === filters.state || !filters.state).map((item) => item.district))];
+//     const uniqueColleges = [...new Set(sosData.filter((item) => item.district === filters.district || !filters.district).map((item) => item.college))];
+
 //     return (
 //         <div>
 //             <h1>SOS Alerts</h1>
+
+//             {/* Filters Section */}
+//             <div className="filters">
+//                 <select name="state" className="filterInput" value={filters.state} onChange={handleFilterChange}>
+//                     <option value="">Select State</option>
+//                     {uniqueStates.map((state) => (
+//                         <option key={state} value={state}>
+//                             {state}
+//                         </option>
+//                     ))}
+//                 </select>
+
+//                 <select name="district" className="filterInput" value={filters.district} onChange={handleFilterChange} disabled={!filters.state}>
+//                     <option value="">Select District</option>
+//                     {uniqueDistricts.map((district) => (
+//                         <option key={district} value={district}>
+//                             {district}
+//                         </option>
+//                     ))}
+//                 </select>
+
+//                 <select name="college" value={filters.college} className="filterInput" onChange={handleFilterChange} disabled={!filters.district}>
+//                     <option value="">Select College</option>
+//                     {uniqueColleges.map((college) => (
+//                         <option key={college} value={college}>
+//                             {college}
+//                         </option>
+//                     ))}
+//                 </select>
+//             </div>
+
+//             {/* Table */}
 //             <Table columns={columns} data={formattedData} />
 
-//               {/* Pagination */}
-//               <Pagination
-//                 currentPage={currentPage}
-//                 totalPages={Math.ceil(sosData.length / sosPerPage)}
-//                 onPageChange={paginate}
-//             />
+//             {/* Pagination */}
+//             <Pagination currentPage={currentPage} totalPages={Math.ceil(filteredData.length / sosPerPage)} onPageChange={paginate} />
 //         </div>
 //     );
 // };
 
 // export default SOSPage;
 
+// import React, { useState, useEffect } from "react";
+// import { NavLink } from "react-router-dom";
+// import Table from "../../components/table/Table"; // Import your Table component
+// import Pagination from "../../components/Pagination/Pagination";
+// import { useAuth } from "../../context/AuthContext";
+// import "./sospage.css";
 
-import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import Table from '../../components/table/Table'; // Import your Table component
-import Pagination from '../../components/Pagination/Pagination';
+// const SOSPage = () => {
+//     const [sosData, setSosData] = useState([]);
+//     const [currentPage, setCurrentPage] = useState(1);
+//     const [sosPerPage] = useState(10);
+//     const { fetchSosAlerts } = useAuth();
+
+//     const columns = ["Student Id", "Student Name", "Student Email", "Mobile Number", "Location Name", "Location"];
+
+//     const indexOfLastSos = currentPage * sosPerPage;
+//     const indexOfFirstSos = indexOfLastSos - sosPerPage;
+//     const currentSos = sosData.slice(indexOfFirstSos, indexOfLastSos);
+
+//     // Fetch SOS alerts data from API
+//     useEffect(() => {
+//         const fetchSosAlerts = async () => {
+//             try {
+//                 const response = await fetch(`http://172.29.24.136:8000/api/live-sos-alerts/?squad_member_id=13`); // Replace with your API endpoint
+//                 const alert = await response.json();
+//                 const alerts = alert?.data?.live_sos_alerts;
+//                 console.log("alerts", alerts);
+
+//                 const transformedData = alerts.map((alert) => ({
+//                     studentId: alert.student_id,
+//                     studentName: alert.student_name,
+//                     studentEmail: alert.student_email || "N/A",
+//                     locationName: alert.location_name || "N/A",
+//                     mobile: alert.student_mobile_number || "N/A",
+//                     location: `${alert.location_latitude}, ${alert.location_longitude}`,
+//                 }));
+//                 setSosData(transformedData);
+//             } catch (error) {
+//                 console.error("Error fetching SOS alerts:", error);
+//             }
+//         };
+
+//         fetchSosAlerts();
+//     }, []);
+
+//     // Map the data for the table
+//     const formattedData = currentSos.map((sos) => ({
+//         "Student Id": sos.studentId,
+//         "Student Name": <NavLink to={`/student/${sos.studentId}`}>{sos.studentName}</NavLink>,
+//         "Location Name": sos.locationName,
+//         "Student Email": sos.studentEmail,
+//         "Mobile Number": sos.mobile,
+//         Location: sos.location,
+//     }));
+
+//     const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+//     return (
+//         <div>
+//             <h1>SOS Alerts</h1>
+
+//             {/* Table */}
+//             <Table columns={columns} data={formattedData} />
+
+//             {/* Pagination */}
+//             <Pagination currentPage={currentPage} totalPages={Math.ceil(sosData.length / sosPerPage)} onPageChange={paginate} />
+//         </div>
+//     );
+// };
+
+// export default SOSPage;
+
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import Table from "../../components/table/Table";
+import Pagination from "../../components/Pagination/Pagination";
+import { useSosAlerts } from "../../hooks/useData";
+import Styles from "./Sospage.module.css";
+import ShimmerTable from "../../components/tableshimmer/Loader";
 
 const SOSPage = () => {
-  const [sosData, setSosData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sosPerPage] = useState(10);
-  const [filters, setFilters] = useState({
-    state: '',
-    district: '',
-    college: ''
-  });
+    const [currentPage, setCurrentPage] = useState(1);
+    const [sosPerPage] = useState(10);
+    const { sosData, loading, error, fetchAlerts } = useSosAlerts();
+    const [filteredData, setFilteredData] = useState([]);
+    const [filters, setFilters] = useState({
+        state: "",
+        district: "",
+        college: "",
+        date: "",
+    });
 
-  const columns = ['Student Id', 'Student Name', 'College', 'State', 'District', 'Location'];
+    const [dropDownData, setDropDownData] = useState({
+        states: [],
+        districts: [],
+        colleges: [],
+    });
 
-  const mockSosData = [
-    {
-      studentId: 1,
-      studentName: "John Doe",
-      college: "ABC College",
-      state: "California",
-      district: "Los Angeles",
-      location: "34.0522° N, 118.2437° W",
-    },
-    {
-      studentId: 2,
-      studentName: "Jane Smith",
-      college: "XYZ University",
-      state: "California",
-      district: "San Francisco",
-      location: "37.7749° N, 122.4194° W",
-    },
-    {
-      studentId: 3,
-      studentName: "Emily Johnson",
-      college: "ABC College",
-      state: "California",
-      district: "Los Angeles",
-      location: "34.0522° N, 118.2437° W",
-    },
-    {
-      studentId: 4,
-      studentName: "Michael Brown",
-      college: "DEF Institute",
-      state: "Texas",
-      district: "Dallas",
-      location: "32.7767° N, 96.7970° W",
-    },
-    {
-      studentId: 5,
-      studentName: "Sarah Lee",
-      college: "XYZ University",
-      state: "Texas",
-      district: "Houston",
-      location: "29.7604° N, 95.3698° W",
-    },
-    {
-      studentId: 6,
-      studentName: "David Wilson",
-      college: "JKL Institute",
-      state: "New York",
-      district: "Brooklyn",
-      location: "40.6782° N, 73.9442° W",
-    },
-    {
-      studentId: 7,
-      studentName: "Sophia Garcia",
-      college: "MNO College",
-      state: "New York",
-      district: "Manhattan",
-      location: "40.7831° N, 73.9712° W",
-    },
-    {
-      studentId: 8,
-      studentName: "James Martinez",
-      college: "DEF Institute",
-      state: "Florida",
-      district: "Miami",
-      location: "25.7617° N, 80.1918° W",
-    },
-    {
-      studentId: 9,
-      studentName: "Isabella Hernandez",
-      college: "GHI University",
-      state: "Florida",
-      district: "Orlando",
-      location: "28.5383° N, 81.3792° W",
-    },
-    {
-      studentId: 10,
-      studentName: "Liam Lopez",
-      college: "DEF Institute",
-      state: "Florida",
-      district: "Miami",
-      location: "25.7617° N, 80.1918° W",
-    },
-    {
-      studentId: 11,
-      studentName: "Olivia Clark",
-      college: "PQR University",
-      state: "Illinois",
-      district: "Chicago",
-      location: "41.8781° N, 87.6298° W",
-    },
-    {
-      studentId: 12,
-      studentName: "Lucas Rodriguez",
-      college: "PQR University",
-      state: "Illinois",
-      district: "Chicago",
-      location: "41.8781° N, 87.6298° W",
-    },
-    {
-      studentId: 13,
-      studentName: "Emma Perez",
-      college: "STU Institute",
-      state: "New Jersey",
-      district: "Newark",
-      location: "40.7357° N, 74.1724° W",
-    },
-    {
-      studentId: 14,
-      studentName: "Noah Thompson",
-      college: "WXY University",
-      state: "New Jersey",
-      district: "Jersey City",
-      location: "40.7282° N, 74.0776° W",
-    },
-    {
-      studentId: 15,
-      studentName: "Mia Anderson",
-      college: "HIJ College",
-      state: "New Jersey",
-      district: "Newark",
-      location: "40.7357° N, 74.1724° W",
-    },
-    {
-      studentId: 16,
-      studentName: "William White",
-      college: "NOP University",
-      state: "Massachusetts",
-      district: "Boston",
-      location: "42.3601° N, 71.0589° W",
-    },
-    {
-      studentId: 17,
-      studentName: "Ava Harris",
-      college: "NOP University",
-      state: "Massachusetts",
-      district: "Boston",
-      location: "42.3601° N, 71.0589° W",
-    },
-    {
-      studentId: 18,
-      studentName: "Ethan Lewis",
-      college: "QRS College",
-      state: "North Carolina",
-      district: "Charlotte",
-      location: "35.2271° N, 80.8431° W",
-    },
-    {
-      studentId: 19,
-      studentName: "Amelia Scott",
-      college: "BCD Institute",
-      state: "North Carolina",
-      district: "Raleigh",
-      location: "35.7796° N, 78.6382° W",
-    },
-    {
-      studentId: 20,
-      studentName: "Mason King",
-      college: "BCD Institute",
-      state: "North Carolina",
-      district: "Charlotte",
-      location: "35.2271° N, 80.8431° W",
-    },
-  ];
+    useEffect(() => {
+        fetchAlerts();
+    }, [fetchAlerts]);
 
+    useEffect(() => {
+        if (sosData.length > 0) {
+            const uniqueStates = [...new Set(sosData.map((item) => item.student_state))];
+            setDropDownData((prev) => ({ ...prev, states: uniqueStates }));
+        }
+    }, [sosData]);
 
-  const indexOfLastSos = currentPage * sosPerPage;
-  const indexOfFirstSos = indexOfLastSos - sosPerPage;
-  const currentSos = filteredData.slice(indexOfFirstSos, indexOfLastSos);
+    useEffect(() => {
+        let data = sosData;
 
-  useEffect(() => {
-    setSosData(mockSosData);
-    setFilteredData(mockSosData); // Initialize filtered data with full dataset
-  }, []);
+        if (filters.state) {
+            data = data.filter((item) => item.student_state === filters.state);
+        }
 
-  // Update filtered data whenever filters change
-  useEffect(() => {
-    let updatedData = sosData;
+        if (filters.district) {
+            data = data.filter((item) => item.student_district === filters.district);
+        }
 
-    if (filters.state) {
-      updatedData = updatedData.filter(item => item.state === filters.state);
-    }
-    if (filters.district) {
-      updatedData = updatedData.filter(item => item.district === filters.district);
-    }
-    if (filters.college) {
-      updatedData = updatedData.filter(item => item.college === filters.college);
-    }
+        if (filters.college) {
+            data = data.filter((item) => item.student_college === filters.college);
+        }
 
-    setFilteredData(updatedData);
-    setCurrentPage(1); // Reset to first page
-  }, [filters, sosData]);
+        if (filters.date) {
+            data = data.filter((item) => {
+                const itemDate = new Date(item.timestamp).toISOString().split("T")[0];
+                return itemDate === filters.date;
+            });
+        }
 
-  // Map the data for the table
-  const formattedData = currentSos.map((sos) => ({
-    'Student Id': sos.studentId,
-    'Student Name': (
-      <NavLink to={`/student/${sos.studentId}`}>
-        {sos.studentName}
-      </NavLink>
-    ),
-    'College': sos.college,
-    'State': sos.state,
-    'District': sos.district,
-    'Location': sos.location,
-  }));
+        setFilteredData(data);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+        const uniqueDistricts = [...new Set(data.map((item) => item.student_district))];
+        const uniqueColleges = [...new Set(data.map((item) => item.student_college))];
 
-  // Handle filter changes
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: value
+        setDropDownData((prev) => ({
+            ...prev,
+            districts: uniqueDistricts,
+            colleges: uniqueColleges,
+        }));
+    }, [filters, sosData]);
+
+    const indexOfLastSos = currentPage * sosPerPage;
+    const indexOfFirstSos = indexOfLastSos - sosPerPage;
+    const currentSos = filteredData.slice(indexOfFirstSos, indexOfLastSos);
+
+    const columns = ["Student Id", "Student Name", "Student Email", "Mobile Number", "State", "District", "College", "Location Name", "Location"];
+
+    const formattedData = currentSos.map((sos) => ({
+        "Student Id": sos.student_id,
+        "Student Name": (
+            <NavLink to={`/student/${sos.id}`} className={Styles.studentNameLink}>
+                {sos.student_name}
+            </NavLink>
+        ),
+        "Location Name": sos.location_name,
+        "Student Email": sos.student_email,
+        "Mobile Number": sos.student_mobile_number,
+        Location: `${sos.location_latitude}, ${sos.location_longitude}`,
+        State: sos.student_state,
+        District: sos.student_district,
+        College: sos.student_college,
     }));
-  };
 
-  // Get unique values for dropdowns
-  const uniqueStates = [...new Set(sosData.map(item => item.state))];
-  const uniqueDistricts = [...new Set(sosData.filter(item => item.state === filters.state || !filters.state).map(item => item.district))];
-  const uniqueColleges = [...new Set(sosData.filter(item => item.district === filters.district || !filters.district).map(item => item.college))];
+    const handleFilterChange = (filterName, value) => {
+        setFilters((prev) => ({
+            ...prev,
+            [filterName]: value,
+        }));
+        setCurrentPage(1);
+    };
 
-  return (
-    <div>
-      <h1>SOS Alerts</h1>
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-      {/* Filters Section */}
-      <div className="filters">
-        <select name="state" value={filters.state} onChange={handleFilterChange}>
-          <option value="">Select State</option>
-          {uniqueStates.map(state => (
-            <option key={state} value={state}>{state}</option>
-          ))}
-        </select>
+    return (
+        <div>
+            <h1>SOS Alerts</h1>
 
-        <select name="district" value={filters.district} onChange={handleFilterChange} disabled={!filters.state}>
-          <option value="">Select District</option>
-          {uniqueDistricts.map(district => (
-            <option key={district} value={district}>{district}</option>
-          ))}
-        </select>
+            <div className={Styles.filters}>
+                <select value={filters.state} onChange={(e) => handleFilterChange("state", e.target.value)}>
+                    <option value="">Select State</option>
+                    {dropDownData.states.map((state) => (
+                        <option key={state} value={state}>
+                            {state}
+                        </option>
+                    ))}
+                </select>
 
-        <select name="college" value={filters.college} onChange={handleFilterChange} disabled={!filters.district}>
-          <option value="">Select College</option>
-          {uniqueColleges.map(college => (
-            <option key={college} value={college}>{college}</option>
-          ))}
-        </select>
-      </div>
+                <select value={filters.district} onChange={(e) => handleFilterChange("district", e.target.value)}>
+                    <option value="">Select District</option>
+                    {dropDownData.districts.map((district) => (
+                        <option key={district} value={district}>
+                            {district}
+                        </option>
+                    ))}
+                </select>
 
-      {/* Table */}
-      <Table columns={columns} data={formattedData} />
+                <select value={filters.college} onChange={(e) => handleFilterChange("college", e.target.value)}>
+                    <option value="">Select College</option>
+                    {dropDownData.colleges.map((college) => (
+                        <option key={college} value={college}>
+                            {college}
+                        </option>
+                    ))}
+                </select>
 
-      {/* Pagination */}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={Math.ceil(filteredData.length / sosPerPage)}
-        onPageChange={paginate}
-      />
-    </div>
-  );
+                <input type="date" value={filters.date} onChange={(e) => handleFilterChange("date", e.target.value)} />
+            </div>
+
+            {loading && <p>Loading SOS alerts...</p>}
+            {error && <p style={{ color: "red" }}>{error}</p>}
+
+            {filteredData.length === 0 && !loading ? <p>No SOS alerts found.</p> : <Table columns={columns} data={formattedData} />}
+
+            {filteredData.length > 0 && <Pagination currentPage={currentPage} totalPages={Math.ceil(filteredData.length / sosPerPage)} onPageChange={paginate} />}
+        </div>
+    );
 };
 
 export default SOSPage;

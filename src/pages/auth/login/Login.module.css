@@ -92,6 +92,19 @@
     font-size: 16px;
     color: #555;
   }
+  .ClogoPlaceholder {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between text and logo */
+    font-size: 16px; /* Adjust font size as needed */
+    font-weight: bold;
+    color: #333; /* Adjust the color as per your theme */
+  }
+  
+  .ClogoPlaceholder img {
+    height: 25px;
+    width: auto; /* Maintain aspect ratio */
+  }
   /* Responsive styling */
   @media (max-width: 480px) {
     .loginBox {

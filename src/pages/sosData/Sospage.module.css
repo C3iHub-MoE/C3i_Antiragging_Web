@@ -1,0 +1,34 @@
+.studentNameLink {
+    font-size: 18px;
+    font-weight: 500;
+    color: #007bff; /* Change to your desired link color */
+    text-decoration: none; /* Remove underline */
+    transition: transform 0.3s ease, color 0.3s ease; /* For smooth transition */
+}
+
+.studentNameLink:hover {
+    transform: scale(0.95); /* Zoom out effect */
+    color: #0056b3; /* Change to your desired hover color */
+}
+
+.studentNameLink:focus {
+    outline: none; /* Remove outline on focus */
+}
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+select,
+input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+}
+
+select:disabled {
+    background-color: #f9f9f9;
+    cursor: not-allowed;
+}

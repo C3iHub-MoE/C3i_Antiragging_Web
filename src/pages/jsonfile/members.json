@@ -1,163 +1,242 @@
 [
-    {
-      "id": 1,
-      "name": "Alice Johnson",
-      "email": "alice.johnson@example.com",
-      "phone": "555-1234",
-      "password": "password123",
-      "memberType": "Admin"
-    },
-    {
-      "id": 2,
-      "name": "Bob Smith",
-      "email": "bob.smith@example.com",
-      "phone": "555-5678",
-      "password": "password123",
-      "memberType": "User"
-    },
-    {
-      "id": 3,
-      "name": "Charlie Brown",
-      "email": "charlie.brown@example.com",
-      "phone": "555-8765",
-      "password": "password123",
-      "memberType": "User"
-    },
-    {
-      "id": 4,
-      "name": "Diana Prince",
-      "email": "diana.prince@example.com",
-      "phone": "555-4321",
-      "password": "password123",
-      "memberType": "Admin"
-    },
-    {
-      "id": 5,
-      "name": "Ethan Hunt",
-      "email": "ethan.hunt@example.com",
-      "phone": "555-1357",
-      "password": "password123",
-      "memberType": "User"
-    },
-    {
-      "id": 6,
-      "name": "Fiona Gallagher",
-      "email": "fiona.gallagher@example.com",
-      "phone": "555-2468",
-      "password": "password123",
-      "memberType": "User"
-    },
-    {
-      "id": 7,
-      "name": "George Clooney",
-      "email": "george.clooney@example.com",
-      "phone": "555-9753",
-      "password": "password123",
-      "memberType": "Admin"
-    },
-    {
-      "id": 8,
-      "name": "Hannah Montana",
-      "email": "hannah.montana@example.com",
-      "phone": "555-8642",
-      "password": "password123",
-      "memberType": "User"
-    },
-    {
-      "id": 9,
-      "name": "Isabella Swan",
-      "email": "isabella.swan@example.com",
-      "phone": "555-7531",
-      "password": "password123",
-      "memberType": "User"
-    },
-    {
-      "id": 10,
-      "name": "Jack Sparrow",
-      "email": "jack.sparrow@example.com",
-      "phone": "555-6543",
-      "password": "password123",
-      "memberType": "Admin"
-    },
-    {
-      "id": 11,
-      "name": "Kevin Hart",
-      "email": "kevin.hart@example.com",
-      "phone": "555-3210",
-      "password": "password123",
-      "memberType": "User"
-    },
-    {
-      "id": 12,
-      "name": "Lucy Liu",
-      "email": "lucy.liu@example.com",
-      "phone": "555-8901",
-      "password": "password123",
-      "memberType": "User"
-    },
-    {
-      "id": 13,
-      "name": "Michael Scott",
-      "email": "michael.scott@example.com",
-      "phone": "555-4567",
-      "password": "password123",
-      "memberType": "Admin"
-    },
-    {
-      "id": 14,
-      "name": "Natalie Portman",
-      "email": "natalie.portman@example.com",
-      "phone": "555-2109",
-      "password": "password123",
-      "memberType": "User"
-    },
-    {
-      "id": 15,
-      "name": "Oscar Isaac",
-      "email": "oscar.isaac@example.com",
-      "phone": "555-6789",
-      "password": "password123",
-      "memberType": "User"
-    },
-    {
-      "id": 16,
-      "name": "Paul Rudd",
-      "email": "paul.rudd@example.com",
-      "phone": "555-7890",
-      "password": "password123",
-      "memberType": "Admin"
-    },
-    {
-      "id": 17,
-      "name": "Quinn Fabray",
-      "email": "quinn.fabray@example.com",
-      "phone": "555-8902",
-      "password": "password123",
-      "memberType": "User"
-    },
-    {
-      "id": 18,
-      "name": "Ryan Reynolds",
-      "email": "ryan.reynolds@example.com",
-      "phone": "555-2345",
-      "password": "password123",
-      "memberType": "User"
-    },
-    {
-      "id": 19,
-      "name": "Sophie Turner",
-      "email": "sophie.turner@example.com",
-      "phone": "555-6781",
-      "password": "password123",
-      "memberType": "Admin"
-    },
-    {
-      "id": 20,
-      "name": "Tom Hardy",
-      "email": "tom.hardy@example.com",
-      "phone": "555-8763",
-      "password": "password123",
-      "memberType": "User"
-    }
-  ]
-  
+  {
+    "id": 1,
+    "name": "Aarav Sharma",
+    "email": "aarav.sharma@example.in",
+    "phone": "9876543210",
+    "password": "password123",
+    "memberType": "Admin",
+    "state": "Maharashtra",
+    "district": "Mumbai",
+    "university": "University of Mumbai",
+    "college": "Mumbai College"
+  },
+  {
+    "id": 2,
+    "name": "Ishita Verma",
+    "email": "ishita.verma@example.in",
+    "phone": "9876543211",
+    "password": "password123",
+    "memberType": "User",
+    "state": "Karnataka",
+    "district": "Bengaluru",
+    "university": "Bangalore University",
+    "college": "Bengaluru College"
+  },
+  {
+    "id": 3,
+    "name": "Rohan Gupta",
+    "email": "rohan.gupta@example.in",
+    "phone": "9876543212",
+    "password": "password123",
+    "memberType": "User",
+    "state": "Delhi",
+    "district": "New Delhi",
+    "university": "University of Delhi",
+    "college": "Delhi College"
+  },
+  {
+    "id": 4,
+    "name": "Kavya Menon",
+    "email": "kavya.menon@example.in",
+    "phone": "9876543213",
+    "password": "password123",
+    "memberType": "Admin",
+    "state": "Kerala",
+    "district": "Kochi",
+    "university": "Cochin University",
+    "college": "Kochi College"
+  },
+  {
+    "id": 5,
+    "name": "Aditya Patel",
+    "email": "aditya.patel@example.in",
+    "phone": "9876543214",
+    "password": "password123",
+    "memberType": "User",
+    "state": "Gujarat",
+    "district": "Ahmedabad",
+    "university": "Gujarat University",
+    "college": "Ahmedabad College"
+  },
+  {
+    "id": 6,
+    "name": "Meera Desai",
+    "email": "meera.desai@example.in",
+    "phone": "9876543215",
+    "password": "password123",
+    "memberType": "User",
+    "state": "Tamil Nadu",
+    "district": "Chennai",
+    "university": "University of Madras",
+    "college": "Chennai College"
+  },
+  {
+    "id": 7,
+    "name": "Vikram Rao",
+    "email": "vikram.rao@example.in",
+    "phone": "9876543216",
+    "password": "password123",
+    "memberType": "Admin",
+    "state": "Telangana",
+    "district": "Hyderabad",
+    "university": "Osmania University",
+    "college": "Hyderabad College"
+  },
+  {
+    "id": 8,
+    "name": "Priya Singh",
+    "email": "priya.singh@example.in",
+    "phone": "9876543217",
+    "password": "password123",
+    "memberType": "User",
+    "state": "West Bengal",
+    "district": "Kolkata",
+    "university": "University of Calcutta",
+    "college": "Kolkata College"
+  },
+  {
+    "id": 9,
+    "name": "Ananya Roy",
+    "email": "ananya.roy@example.in",
+    "phone": "9876543218",
+    "password": "password123",
+    "memberType": "User",
+    "state": "Rajasthan",
+    "district": "Jaipur",
+    "university": "University of Rajasthan",
+    "college": "Jaipur College"
+  },
+  {
+    "id": 10,
+    "name": "Arjun Mehta",
+    "email": "arjun.mehta@example.in",
+    "phone": "9876543219",
+    "password": "password123",
+    "memberType": "Admin",
+    "state": "Punjab",
+    "district": "Amritsar",
+    "university": "Punjab University",
+    "college": "Amritsar College"
+  },
+  {
+    "id": 11,
+    "name": "Ritika Bansal",
+    "email": "ritika.bansal@example.in",
+    "phone": "9876543220",
+    "password": "password123",
+    "memberType": "User",
+    "state": "Uttar Pradesh",
+    "district": "Lucknow",
+    "university": "Lucknow University",
+    "college": "Lucknow College"
+  },
+  {
+    "id": 12,
+    "name": "Nikhil Kapoor",
+    "email": "nikhil.kapoor@example.in",
+    "phone": "9876543221",
+    "password": "password123",
+    "memberType": "User",
+    "state": "Haryana",
+    "district": "Gurugram",
+    "university": "Maharshi Dayanand University",
+    "college": "Gurugram College"
+  },
+  {
+    "id": 13,
+    "name": "Sneha Das",
+    "email": "sneha.das@example.in",
+    "phone": "9876543222",
+    "password": "password123",
+    "memberType": "Admin",
+    "state": "Odisha",
+    "district": "Bhubaneswar",
+    "university": "Utkal University",
+    "college": "Bhubaneswar College"
+  },
+  {
+    "id": 14,
+    "name": "Rahul Nair",
+    "email": "rahul.nair@example.in",
+    "phone": "9876543223",
+    "password": "password123",
+    "memberType": "User",
+    "state": "Assam",
+    "district": "Guwahati",
+    "university": "Gauhati University",
+    "college": "Guwahati College"
+  },
+  {
+    "id": 15,
+    "name": "Tanya Kulkarni",
+    "email": "tanya.kulkarni@example.in",
+    "phone": "9876543224",
+    "password": "password123",
+    "memberType": "User",
+    "state": "Madhya Pradesh",
+    "district": "Bhopal",
+    "university": "Barkatullah University",
+    "college": "Bhopal College"
+  },
+  {
+    "id": 16,
+    "name": "Harsh Vardhan",
+    "email": "harsh.vardhan@example.in",
+    "phone": "9876543225",
+    "password": "password123",
+    "memberType": "Admin",
+    "state": "Bihar",
+    "district": "Patna",
+    "university": "Patna University",
+    "college": "Patna College"
+  },
+  {
+    "id": 17,
+    "name": "Neha Chawla",
+    "email": "neha.chawla@example.in",
+    "phone": "9876543226",
+    "password": "password123",
+    "memberType": "User",
+    "state": "Uttarakhand",
+    "district": "Dehradun",
+    "university": "Doon University",
+    "college": "Dehradun College"
+  },
+  {
+    "id": 18,
+    "name": "Rajesh Reddy",
+    "email": "rajesh.reddy@example.in",
+    "phone": "9876543227",
+    "password": "password123",
+    "memberType": "User",
+    "state": "Andhra Pradesh",
+    "district": "Vijayawada",
+    "university": "Andhra University",
+    "college": "Vijayawada College"
+  },
+  {
+    "id": 19,
+    "name": "Sanya Kaur",
+    "email": "sanya.kaur@example.in",
+    "phone": "9876543228",
+    "password": "password123",
+    "memberType": "Admin",
+    "state": "Chhattisgarh",
+    "district": "Raipur",
+    "university": "Pandit Ravishankar University",
+    "college": "Raipur College"
+  },
+  {
+    "id": 20,
+    "name": "Dev Sharma",
+    "email": "dev.sharma@example.in",
+    "phone": "9876543229",
+    "password": "password123",
+    "memberType": "User",
+    "state": "Himachal Pradesh",
+    "district": "Shimla",
+    "university": "Himachal Pradesh University",
+    "college": "Shimla College"
+  }
+]

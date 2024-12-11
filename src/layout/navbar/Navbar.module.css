@@ -1,109 +1,101 @@
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: relative;
-  margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin: 1rem;
 }
 
 /* Logo Container */
 .logoContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 20px; /* Add some space between the logo and hamburger */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px; /* Add some space between the logo and hamburger */
 }
 
 /* Logo styling */
 .logo {
-  height: 40px; /* Adjust the size as needed */
-  transition: all 0.3s ease;
-  cursor: pointer;
+    height: 40px; /* Adjust the size as needed */
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 /* Navigation Links Container */
 .navLinks {
-  display: flex;
-  gap: 30px;
+    display: flex;
+    gap: 30px;
 }
 
 /* Navigation Links */
 .linkText {
-  text-decoration: none;
-  color: black;
-  font-size: 16px;
-  font-weight: 500;
-  position: relative;
-  transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  padding: 5px 10px;
-  border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
 /* Hover Effect on Links */
-.linkText:hover {
-  color: white;
-  background: #7367f0;  /* Background color change */
-  transform: translateY(-6px);  /* Lifting effect */
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);  /* Shadow effect for depth */
-  cursor: pointer;  /* Cursor change to pointer */
-}
 
 .linkText:hover::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  height: 2px;
-  width: 100%;
-  background: #ffd700;  /* Gold underline */
-  border-radius: 10px;
-  transition: width 0.3s ease, background 0.3s ease;
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2px;
+    width: 100%;
+    background: #ffd700; /* Gold underline */
+    border-radius: 10px;
+    transition: width 0.3s ease, background 0.3s ease;
 }
 
 .linkText::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  height: 2px;
-  width: 0;
-  background: #7367f0;  /* Initial color for underline */
-  border-radius: 10px;
-  transition: width 0.3s ease, background 0.3s ease;
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2px;
+    width: 0;
+    background: #7367f0; /* Initial color for underline */
+    border-radius: 10px;
+    transition: width 0.3s ease, background 0.3s ease;
 }
 
 /* Active Link Styling */
 .activeLink {
-  color: white;
-  background: #7367f0;  /* Same color as hover */
+    color: white;
+    background: #7367f0; /* Same color as hover */
 }
 
 .activeLink::after {
-  width: 100%;
-  background: #ffd700;  /* Gold underline */
+    width: 100%;
+    background: #ffd700; /* Gold underline */
 }
 
 /* Toggle Button */
 .toggleButton {
-  background: none;
-  border: none;
-  color: black;
-  font-size: 24px;
-  cursor: pointer;
-  padding-inline: 13px;
-  transition: transform 0.3s ease, color 0.3s ease;
+    background: none;
+    border: none;
+    color: black;
+    font-size: 24px;
+    cursor: pointer;
+    padding-inline: 13px;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 /* Hover Effect on Toggle Button */
 .toggleButton:hover {
-  color: #7367f0;  /* Change to match the navbar hover color */
-  transform: rotate(90deg);  /* Rotate on hover */
-  transition: transform 0.3s ease, color 0.3s ease;
+    transform: rotate(90deg); /* Rotate on hover */
+    transition: transform 0.3s ease, color 0.3s ease;
 }
-.LogoHeader{
-  display: flex;
+.LogoHeader {
+    display: flex;
 }

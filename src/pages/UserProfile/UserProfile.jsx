@@ -2,13 +2,29 @@ import React, { useState } from 'react';
 import styles from './UserProfile.module.css';
 import { ICONS } from "../utils/icons";
 import Button from '../../components/button/Button';
-import { useAuth } from '../../context/AuthContext';
+// import { useAuth } from '../../context/AuthContext';
 
 const ProfilePage = () => {
     const [activeTab, setActiveTab] = useState('account');
     const [isEditing, setIsEditing] = useState()
-    const { user } = useAuth();
-    console.log("user profile", user);
+    // const { user } = useAuth();
+    // console.log("user profile", user);
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user)
+
+    // if (user) {
+    // try {
+    // const userProfile = JSON.parse(user);
+    // console.log("User Profile:", userProfile);
+    // } catch (error) {
+    // console.error("Error parsing user data from localStorage:", error);
+    // }
+    // } else {
+    // console.log("No user data found in localStorage.");
+    // }
+
+    // console.log(user)
+
 
     // Edit mode state
     const [showPassword, setShowPassword] = useState({
@@ -28,7 +44,6 @@ const ProfilePage = () => {
         numberSymbol: false
     });
 
-
     const handlePasswordChange = (e) => {
         const { id, value } = e.target;
         setPasswords((prevPasswords) => ({
@@ -46,7 +61,6 @@ const ProfilePage = () => {
         }
     };
 
-
     const isConfirmValid = passwords.confirm === passwords.new;
     const isValid = Object.values(passwordValidations).every(Boolean);
 
@@ -57,18 +71,33 @@ const ProfilePage = () => {
         }));
     };
 
+    // const [profileData, setProfileData] = useState({
+    // firstName: User?.username || '',
+    // id: User?.id || '',
+
+    // lastName: User?.lastName || '',
+    // email: User?.email || '',
+    // phoneNumber: User?.mobile_number || '',
+    // state: User?.state || '',
+    // address: User?.address || '',
+
+    // country: User?.country || '',
+    // language: User?.language || '',
+    // timezone: User?.timezone || '',
+    // currency: User?.currency || '',
+    // });
     const [profileData, setProfileData] = useState({
-        firstName: user?.user?.username || '',
-        id: user?.user?.id || '',
+        firstName: user?.username || '',
+        id: user?.id || '',
 
-        lastName: user?.user?.lastName || '',
-        email: user?.user?.email || '',
-        phoneNumber: user?.user?.mobile_number || '',
-        state: user?.user?.state || '',
-        address: user?.user?.address || '',
+        lastName: user?.lastName || '',
+        email: user?.email || '',
+        phoneNumber: user?.mobile_number || '',
+        state: user?.state || '',
+        address: user?.address || '',
 
-        country: user?.user?.country || '',
-        language: user?.user?.language || '',
+        dob: user?.date_of_birth || '',
+        role: user?.role || '',
         timezone: user?.user?.timezone || '',
         currency: user?.user?.currency || '',
     });
@@ -132,6 +161,17 @@ const ProfilePage = () => {
                         <div className={styles.profileInfo}>
                             <div className={styles.row}>
                                 <div className={styles.field}>
+                                    <label>First Name</label>
+                                    <input
+                                        type="text"
+                                        id="firstName"
+                                        value={profileData.firstName}
+                                        onChange={handleChange}
+                                        placeholder={user?.user?.firstName}
+                                        disabled={!isEditing}
+                                    />
+                                </div>
+                                <div className={styles.field}>
                                     <label>ID</label>
                                     <input
                                         type="text"
@@ -143,17 +183,6 @@ const ProfilePage = () => {
                                     />
                                 </div>
 
-                                <div className={styles.field}>
-                                    <label>First Name</label>
-                                    <input
-                                        type="text"
-                                        id="firstName"
-                                        value={profileData.firstName}
-                                        onChange={handleChange}
-                                        placeholder={user?.user?.firstName}
-                                        disabled={!isEditing}
-                                    />
-                                </div>
 
                             </div>
                             <div className={styles.row}>
@@ -204,54 +233,54 @@ const ProfilePage = () => {
                                     />
                                 </div>
                             </div>
+                            <div className={styles.row}>
+                                <div className={styles.field}>
+                                    <label>Date of Birth</label>
+                                    <input
+                                        type="text"
+                                        id="dob"
+                                        value={profileData.dob}
+                                        onChange={handleChange}
+                                        placeholder="date of birth"
+                                        disabled={!isEditing}
+                                    />
+                                </div>
+                                <div className={styles.field}>
+                                    <label>Role</label>
+                                    <input
+                                        type="text"
+                                        id="role"
+                                        value={profileData.role}
+                                        onChange={handleChange}
+                                        placeholder="Role"
+                                        disabled={!isEditing}
+                                    />
+                                </div>
+                            </div>
                             {/* <div className={styles.row}>
-                                <div className={styles.field}>
-                                    <label>Country</label>
-                                    <select
-                                        id="country"
-                                        value={profileData.country}
-                                        onChange={handleChange}
-                                        disabled={!isEditing}
-                                    >
-                                        <option value="">Select Country</option>
-                                    </select>
-                                </div>
-                                <div className={styles.field}>
-                                    <label>Language</label>
-                                    <select
-                                        id="language"
-                                        value={profileData.language}
-                                        onChange={handleChange}
-                                        disabled={!isEditing}
-                                    >
-                                        <option value="">Select Language</option>
-                                    </select>
-                                </div>
-                            </div> */}
-                            {/* <div className={styles.row}>
-                                <div className={styles.field}>
-                                    <label>Timezone</label>
-                                    <select
-                                        id="timezone"
-                                        value={profileData.timezone}
-                                        onChange={handleChange}
-                                        disabled={!isEditing}
-                                    >
-                                        <option value="">Select Timezone</option>
-                                    </select>
-                                </div>
-                                <div className={styles.field}>
-                                    <label>Currency</label>
-                                    <select
-                                        id="currency"
-                                        value={profileData.currency}
-                                        onChange={handleChange}
-                                        disabled={!isEditing}
-                                    >
-                                        <option value="">Select Currency</option>
-                                    </select>
-                                </div>
-                            </div> */}
+<div className={styles.field}>
+<label>Timezone</label>
+<select
+id="timezone"
+value={profileData.timezone}
+onChange={handleChange}
+disabled={!isEditing}
+>
+<option value="">Select Timezone</option>
+</select>
+</div>
+<div className={styles.field}>
+<label>Currency</label>
+<select
+id="currency"
+value={profileData.currency}
+onChange={handleChange}
+disabled={!isEditing}
+>
+<option value="">Select Currency</option>
+</select>
+</div>
+</div> */}
                             <div className={styles.buttonRow}>
                                 {!isEditing ? (
                                     <Button
@@ -293,7 +322,6 @@ const ProfilePage = () => {
                                             value={passwords.current}
                                             onChange={handlePasswordChange}
                                         />
-
 
                                         <span
                                             className={styles.eyeIcon}
@@ -389,3 +417,4 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
