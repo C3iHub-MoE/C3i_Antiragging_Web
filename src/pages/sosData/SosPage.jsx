@@ -210,33 +210,81 @@
 
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import Table from "../../components/table/Table"; // Import your Table component
+import Table from "../../components/table/Table";
 import Pagination from "../../components/Pagination/Pagination";
 import { useSosAlerts } from "../../hooks/useData";
 import Styles from "./Sospage.module.css";
-import ShimmerTable from "../../components/tableshimmer/ShimmerTable";
+import ShimmerTable from "../../components/tableshimmer/Loader";
+
 const SOSPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [sosPerPage] = useState(10);
+    const { sosData, loading, error, fetchAlerts } = useSosAlerts();
+    const [filteredData, setFilteredData] = useState([]);
+    const [filters, setFilters] = useState({
+        state: "",
+        district: "",
+        college: "",
+        date: "",
+    });
 
-    // Use the custom hook
-    const { sosData, filteredData, loading, error, fetchAlerts } = useSosAlerts();
-    // console.log("jhvcaeeeeeeeeee", sosData);
+    const [dropDownData, setDropDownData] = useState({
+        states: [],
+        districts: [],
+        colleges: [],
+    });
 
-    // Fetch SOS alerts data on component mount
     useEffect(() => {
         fetchAlerts();
     }, [fetchAlerts]);
 
-    // Determine the current page data based on pagination
+    useEffect(() => {
+        if (sosData.length > 0) {
+            const uniqueStates = [...new Set(sosData.map((item) => item.student_state))];
+            setDropDownData((prev) => ({ ...prev, states: uniqueStates }));
+        }
+    }, [sosData]);
+
+    useEffect(() => {
+        let data = sosData;
+
+        if (filters.state) {
+            data = data.filter((item) => item.student_state === filters.state);
+        }
+
+        if (filters.district) {
+            data = data.filter((item) => item.student_district === filters.district);
+        }
+
+        if (filters.college) {
+            data = data.filter((item) => item.student_college === filters.college);
+        }
+
+        if (filters.date) {
+            data = data.filter((item) => {
+                const itemDate = new Date(item.timestamp).toISOString().split("T")[0];
+                return itemDate === filters.date;
+            });
+        }
+
+        setFilteredData(data);
+
+        const uniqueDistricts = [...new Set(data.map((item) => item.student_district))];
+        const uniqueColleges = [...new Set(data.map((item) => item.student_college))];
+
+        setDropDownData((prev) => ({
+            ...prev,
+            districts: uniqueDistricts,
+            colleges: uniqueColleges,
+        }));
+    }, [filters, sosData]);
+
     const indexOfLastSos = currentPage * sosPerPage;
     const indexOfFirstSos = indexOfLastSos - sosPerPage;
-    const currentSos = sosData.slice(indexOfFirstSos, indexOfLastSos);
+    const currentSos = filteredData.slice(indexOfFirstSos, indexOfLastSos);
 
-    // Columns for your table
-    const columns = ["Student Id", "Student Name", "Student Email", "Mobile Number", "Location Name", "Location"];
+    const columns = ["Student Id", "Student Name", "Student Email", "Mobile Number", "State", "District", "College", "Location Name", "Location"];
 
-    // Map the currentSOS data into a format suitable for your table
     const formattedData = currentSos.map((sos) => ({
         "Student Id": sos.student_id,
         "Student Name": (
@@ -248,26 +296,62 @@ const SOSPage = () => {
         "Student Email": sos.student_email,
         "Mobile Number": sos.student_mobile_number,
         Location: `${sos.location_latitude}, ${sos.location_longitude}`,
+        State: sos.student_state,
+        District: sos.student_district,
+        College: sos.student_college,
     }));
 
-    // Handle pagination
+    const handleFilterChange = (filterName, value) => {
+        setFilters((prev) => ({
+            ...prev,
+            [filterName]: value,
+        }));
+        setCurrentPage(1);
+    };
+
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    return sosData.length === 0 ? (
-        <ShimmerTable />
-    ) : (
+    return (
         <div>
             <h1>SOS Alerts</h1>
 
-            {/* Loading and error state */}
+            <div className={Styles.filters}>
+                <select value={filters.state} onChange={(e) => handleFilterChange("state", e.target.value)}>
+                    <option value="">Select State</option>
+                    {dropDownData.states.map((state) => (
+                        <option key={state} value={state}>
+                            {state}
+                        </option>
+                    ))}
+                </select>
+
+                <select value={filters.district} onChange={(e) => handleFilterChange("district", e.target.value)}>
+                    <option value="">Select District</option>
+                    {dropDownData.districts.map((district) => (
+                        <option key={district} value={district}>
+                            {district}
+                        </option>
+                    ))}
+                </select>
+
+                <select value={filters.college} onChange={(e) => handleFilterChange("college", e.target.value)}>
+                    <option value="">Select College</option>
+                    {dropDownData.colleges.map((college) => (
+                        <option key={college} value={college}>
+                            {college}
+                        </option>
+                    ))}
+                </select>
+
+                <input type="date" value={filters.date} onChange={(e) => handleFilterChange("date", e.target.value)} />
+            </div>
+
             {loading && <p>Loading SOS alerts...</p>}
             {error && <p style={{ color: "red" }}>{error}</p>}
 
-            {/* Table rendering */}
-            <Table columns={columns} data={formattedData} />
+            {filteredData.length === 0 && !loading ? <p>No SOS alerts found.</p> : <Table columns={columns} data={formattedData} />}
 
-            {/* Pagination component */}
-            <Pagination currentPage={currentPage} totalPages={Math.ceil(sosData.length / sosPerPage)} onPageChange={paginate} />
+            {filteredData.length > 0 && <Pagination currentPage={currentPage} totalPages={Math.ceil(filteredData.length / sosPerPage)} onPageChange={paginate} />}
         </div>
     );
 };

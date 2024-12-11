@@ -1,0 +1,21 @@
+.loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full screen height */
+    background-color: #f9f9f9; /* Light background for contrast */
+}
+
+.loader {
+    animation: fade-in 1s ease-in-out;
+    color: black; /* Primary theme color for the loader */
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
