@@ -240,7 +240,7 @@ const SOSPage = () => {
 
     useEffect(() => {
         if (sosData.length > 0) {
-            const uniqueStates = [...new Set(sosData.map((item) => item.student_state))];
+            const uniqueStates = [...new Set(sosData.map((item) => item?.student_info?.state_name))];
             setDropDownData((prev) => ({ ...prev, states: uniqueStates }));
         }
     }, [sosData]);
@@ -249,28 +249,28 @@ const SOSPage = () => {
         let data = sosData;
 
         if (filters.state) {
-            data = data.filter((item) => item.student_state === filters.state);
+            data = data.filter((item) => item?.student_info?.state_name === filters.state);
         }
 
         if (filters.district) {
-            data = data.filter((item) => item.student_district === filters.district);
+            data = data.filter((item) => item?.student_info?.district_name === filters.district);
         }
 
         if (filters.college) {
-            data = data.filter((item) => item.student_college === filters.college);
+            data = data.filter((item) => item?.student_info?.college_name === filters.college);
         }
 
         if (filters.date) {
             data = data.filter((item) => {
-                const itemDate = new Date(item.timestamp).toISOString().split("T")[0];
+                const itemDate = new Date(item?.timestamps?.triggered_at).toISOString().split("T")[0];
                 return itemDate === filters.date;
             });
         }
 
         setFilteredData(data);
 
-        const uniqueDistricts = [...new Set(data.map((item) => item.student_district))];
-        const uniqueColleges = [...new Set(data.map((item) => item.student_college))];
+        const uniqueDistricts = [...new Set(data.map((item) => item?.student_info?.district_name))];
+        const uniqueColleges = [...new Set(data.map((item) => item?.student_info?.college_name))];
 
         setDropDownData((prev) => ({
             ...prev,
@@ -286,19 +286,19 @@ const SOSPage = () => {
     const columns = ["Student Id", "Student Name", "Student Email", "Mobile Number", "State", "District", "College", "Location Name", "Location"];
 
     const formattedData = currentSos.map((sos) => ({
-        "Student Id": sos.student_id,
+        "Student Id": sos?.student_info.student_id,
         "Student Name": (
             <NavLink to={`/student/${sos.id}`} className={Styles.studentNameLink}>
-                {sos.student_name}
+                {sos?.student_info?.name}
             </NavLink>
         ),
-        "Location Name": sos.location_name,
-        "Student Email": sos.student_email,
-        "Mobile Number": sos.student_mobile_number,
-        Location: `${sos.location_latitude}, ${sos.location_longitude}`,
-        State: sos.student_state,
-        District: sos.student_district,
-        College: sos.student_college,
+        "Location Name": sos?.location?.name,
+        "Student Email": sos?.student_info?.email,
+        "Mobile Number": sos?.student_info?.mobile_number,
+        Location: `${sos?.location?.latitude}, ${sos?.location?.longitude}`,
+        State: sos?.student_info?.state_name,
+        District: sos?.student_info?.district_name,
+        College: sos?.student_info?.college_name,
     }));
 
     const handleFilterChange = (filterName, value) => {

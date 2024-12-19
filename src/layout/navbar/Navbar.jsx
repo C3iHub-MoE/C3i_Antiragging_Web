@@ -41,6 +41,7 @@ import styles from "./Navbar.module.css"; // Import CSS module
 import { NavLink } from "react-router-dom";
 import { ICONS } from "../../pages/utils/icons";
 import UGCLOGO from "./UGC-Preview (1).png";
+import DarkMode from "../../components/DarkMode/DarkMode";
 
 const Navbar = ({ toggleSidebar }) => {
     const navigate = useNavigate();
@@ -79,7 +80,8 @@ const Navbar = ({ toggleSidebar }) => {
                 <NavLink to="/profile" className={styles.linkText} activeClassName={styles.activeLink}>
                     Profile
                 </NavLink>
-                <NavLink to="/work" className={styles.linkText} activeClassName={styles.activeLink}></NavLink>
+
+                {/* <DarkMode /> */}
             </div>
         </div>
     );
