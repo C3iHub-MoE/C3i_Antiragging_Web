@@ -5,6 +5,7 @@ import styles from "./StudentsData.module.css";
 import Table from "../../components/table/Table";
 import Pagination from "../../components/Pagination/Pagination";
 import Swal from "sweetalert2";
+import ActionMenu from "../complaintPageAdmin/ActionMenu";
 
 const StudentsPage = () => {
     const [students, setStudents] = useState([]);
@@ -33,7 +34,9 @@ const StudentsPage = () => {
     const indexOfLastStudent = currentPage * studentsPerPage;
     const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
     const currentStudents = filteredStudents.slice(indexOfFirstStudent, indexOfLastStudent);
-
+    {
+        console.log("currentStudents,", currentStudents);
+    }
     const totalPages = Math.ceil(filteredStudents.length / studentsPerPage);
 
     const handlePageChange = (pageNumber) => {
@@ -109,7 +112,16 @@ const StudentsPage = () => {
         });
     };
 
-    const columns = ["S.No", "Student Name", "State", "District", "University", "College"];
+    const columns = ["S.No", "Student Name", "State", "District", "University", "College", "Actions"];
+
+    const dataWithActions = currentStudents.map((student, index) => [
+        student.University,
+        student.State,
+        student.District,
+        student.University,
+        student.College,
+        <ActionMenu key={student.id} student={student} handleEdit={handleEdit} handleDeactivate={handleDeactivate} handleDelete={handleDelete} />,
+    ]);
 
     return (
         <div className={styles.container}>
@@ -121,71 +133,8 @@ const StudentsPage = () => {
                 <input type="text" placeholder="Filter by College" value={collegeFilter} onChange={(e) => setCollegeFilter(e.target.value)} className={styles.filterInput} />
             </div>
 
-            <Table columns={columns} data={currentStudents} />
+            <Table columns={columns} data={dataWithActions} />
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-        </div>
-    );
-};
-
-// ActionMenu Component
-const ActionMenu = ({ student, handleDeactivate, handleEdit, handleDelete }) => {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const menuRef = useRef(null);
-
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
-    };
-
-    const handleClickOutside = (event) => {
-        if (menuRef.current && !menuRef.current.contains(event.target)) {
-            setMenuOpen(false);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
-
-    return (
-        <div className={styles.actionMenu} ref={menuRef}>
-            <div className={styles.threeDots} onClick={toggleMenu}>
-                &#x22EE; {/* Three dots character */}
-            </div>
-
-            {menuOpen && (
-                <div className={styles.menu}>
-                    <button
-                        className={styles.menuButton}
-                        onClick={() => {
-                            handleEdit(student.id);
-                            toggleMenu();
-                        }}
-                    >
-                        Edit
-                    </button>
-                    <button
-                        className={styles.menuButton}
-                        onClick={() => {
-                            handleDeactivate(student.id);
-                            toggleMenu();
-                        }}
-                    >
-                        Deactivate
-                    </button>
-                    <button
-                        className={styles.menuButton}
-                        onClick={() => {
-                            handleDelete(student.id);
-                            toggleMenu();
-                        }}
-                    >
-                        Delete
-                    </button>
-                </div>
-            )}
         </div>
     );
 };

@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"; // to access the route parameters
 import { useSosDetails } from "../../hooks/useSosDetails"; // Import the custom hook
 import styles from "./StudentProfile.module.css";
-
+import Loader from "../../components/tableshimmer/Loader";
 const StudentDetailsPage = () => {
     const { id } = useParams(); // Get the student ID from the URL parameter
     const { sosDetail, loading, error } = useSosDetails(id); // Use the custom hook to fetch the details
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <Loader />;
     if (error) return <p style={{ color: "red" }}>{error}</p>;
 
     return (

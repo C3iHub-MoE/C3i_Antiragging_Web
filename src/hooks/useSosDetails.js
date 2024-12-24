@@ -8,7 +8,7 @@ export const useSosDetails = (id) => {
     const [sosDetail, setSosDetail] = useState(null); // State to store SOS alert details
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-
+    // console.log("Received SOS Details:", user);
     const fetchSosDetail = useCallback(async () => {
         if (!user?.id || !id) {
             setError("User ID or SOS ID is not available.");
@@ -21,8 +21,8 @@ export const useSosDetails = (id) => {
         const controller = new AbortController();
 
         try {
-            const data = await sosDetails(id, user.id, controller.signal); // Fetch data for the specific SOS alert
-
+            const data = await sosDetails(id, user.id, user.role, controller.signal); // Fetch data for the specific SOS alert
+            // console.log("sosdetails", user.role);
             const response = data?.sos_details;
             console.log("Received SOS Details:", response);
 

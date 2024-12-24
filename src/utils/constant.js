@@ -9,7 +9,7 @@ export const Constants = {
         ACCOUNT_RESEND_OTP: `/verify/resendOtp/`,
         ACCOUNT_SEND_OTP: `/verify/sendOtp/`,
         ACCOUNT_VERIFY_OTP: `/verify/verifyOtp/`,
-        SOS_ALERTS: `/live-sos-alerts/?squad_member_id=`,
+        SOS_ALERTS: `/live-sos-alerts/`,
         SOS_DETAILS: `/sos-details/`,
     },
 };

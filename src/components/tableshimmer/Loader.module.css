@@ -1,21 +1,25 @@
+/* Loader.module.css */
 .loaderContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full screen height */
-    background-color: #f9f9f9; /* Light background for contrast */
+    height: 100vh;
 }
 
 .loader {
-    animation: fade-in 1s ease-in-out;
-    color: black; /* Primary theme color for the loader */
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #7367f0; /* Primary color */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
 }
 
-@keyframes fade-in {
-    from {
-        opacity: 0;
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
     }
-    to {
-        opacity: 1;
+    100% {
+        transform: rotate(360deg);
     }
 }

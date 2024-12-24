@@ -21,7 +21,7 @@ export const useSosAlerts = () => {
         const controller = new AbortController();
 
         try {
-            const alert = await sosAlerts(user.id, {}, controller.signal); // Fetch data
+            const alert = await sosAlerts(user.role, user.id, {}, controller.signal); // Fetch data
             const alerts = alert?.live_sos_alerts;
             console.log("Received SOS Alerts:", alerts);
 

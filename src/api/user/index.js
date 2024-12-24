@@ -6,14 +6,16 @@ export const loginUser = async (payload, signal) => {
     return response.data?.data;
 };
 
-export const sosAlerts = async (userId, payload, signal) => {
-    const url = `${Constants.API_URLS.SOS_ALERTS}${userId}`;
+export const sosAlerts = async (role, userId, payload, signal) => {
+    console.log("spsajus", userId);
+
+    const url = `${Constants.API_URLS.SOS_ALERTS}?role=${role}&user_id=${userId}`;
     const response = await apiClient.get(url, payload, { signal });
     return response.data?.data;
 };
 
-export const sosDetails = async (id, userId, payload, signal) => {
-    const url = `${Constants.API_URLS.SOS_DETAILS}${id}/?squad_member_id=${userId}`;
+export const sosDetails = async (id, userId, role, payload, signal) => {
+    const url = `${Constants.API_URLS.SOS_DETAILS}${id}?role=${role}&user_id=${userId}`;
     const response = await apiClient.get(url, payload, { signal });
     return response.data?.data;
 };

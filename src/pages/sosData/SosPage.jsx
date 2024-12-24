@@ -214,7 +214,7 @@ import Table from "../../components/table/Table";
 import Pagination from "../../components/Pagination/Pagination";
 import { useSosAlerts } from "../../hooks/useData";
 import Styles from "./Sospage.module.css";
-import ShimmerTable from "../../components/tableshimmer/Loader";
+import Loader from "../../components/tableshimmer/Loader";
 
 const SOSPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -283,10 +283,10 @@ const SOSPage = () => {
     const indexOfFirstSos = indexOfLastSos - sosPerPage;
     const currentSos = filteredData.slice(indexOfFirstSos, indexOfLastSos);
 
-    const columns = ["Student Id", "Student Name", "Student Email", "Mobile Number", "State", "District", "College", "Location Name", "Location"];
+    const columns = ["SOS Id", "Student Name", "Student Email", "Mobile Number", "State", "District", "College", "Location Name", "Location"];
 
     const formattedData = currentSos.map((sos) => ({
-        "Student Id": sos?.student_info.student_id,
+        "SOS Id": sos?.id,
         "Student Name": (
             <NavLink to={`/student/${sos.id}`} className={Styles.studentNameLink}>
                 {sos?.student_info?.name}
@@ -310,16 +310,17 @@ const SOSPage = () => {
     };
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-    return (
+    return sosData.length === 0 ? (
+        <Loader />
+    ) : (
         <div>
             <h1>SOS Alerts</h1>
 
             <div className={Styles.filters}>
                 <select value={filters.state} onChange={(e) => handleFilterChange("state", e.target.value)}>
                     <option value="">Select State</option>
-                    {dropDownData.states.map((state) => (
-                        <option key={state} value={state}>
+                    {dropDownData.states.map((state, index) => (
+                        <option key={`state-${index}`} value={state}>
                             {state}
                         </option>
                     ))}
@@ -327,8 +328,8 @@ const SOSPage = () => {
 
                 <select value={filters.district} onChange={(e) => handleFilterChange("district", e.target.value)}>
                     <option value="">Select District</option>
-                    {dropDownData.districts.map((district) => (
-                        <option key={district} value={district}>
+                    {dropDownData.districts.map((district, index) => (
+                        <option key={`district-${index}`} value={district}>
                             {district}
                         </option>
                     ))}
@@ -336,8 +337,8 @@ const SOSPage = () => {
 
                 <select value={filters.college} onChange={(e) => handleFilterChange("college", e.target.value)}>
                     <option value="">Select College</option>
-                    {dropDownData.colleges.map((college) => (
-                        <option key={college} value={college}>
+                    {dropDownData.colleges.map((college, index) => (
+                        <option key={`college-${index}`} value={college}>
                             {college}
                         </option>
                     ))}
