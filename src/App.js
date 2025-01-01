@@ -24,6 +24,7 @@ import Logout from "./pages/auth/logout/Logout";
 import ContactUs from "./pages/contactus/ContactUS";
 import VerifyAccount from "./pages/auth/login/VerifyAccount";
 import ChangePasswordPage from "./pages/UserProfile/ChangePassword";
+import SosBarChart from "./pages/adminDashboard/SosBarChart";
 
 function App() {
     const user = "member";
@@ -83,6 +84,7 @@ function App() {
                                 <Route path="/contact" element={<ContactUs />} />
                                 <Route path="/invite" element={<InvitationForm />} />
                                 <Route path="/changePassword" element={<ChangePasswordPage />} />
+                                <Route path="/bar" element={<SosBarChart />} />
 
                                 <Route path="*" element={<Error />} />
                             </Routes>

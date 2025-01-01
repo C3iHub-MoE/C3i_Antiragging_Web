@@ -11,5 +11,7 @@ export const Constants = {
         ACCOUNT_VERIFY_OTP: `/verify/verifyOtp/`,
         SOS_ALERTS: `/live-sos-alerts/`,
         SOS_DETAILS: `/sos-details/`,
+        STUDENTS_LIST: `/colleges/`,
+        MEMBER_LIST: `/colleges/`,
     },
 };

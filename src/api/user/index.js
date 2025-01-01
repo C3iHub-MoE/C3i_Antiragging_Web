@@ -20,6 +20,18 @@ export const sosDetails = async (id, userId, role, payload, signal) => {
     return response.data?.data;
 };
 
+export const studentList = async (college, payload, signal) => {
+    console.log("jgahsjkl;kjhg", college);
+    const url = `${Constants.API_URLS.STUDENTS_LIST}${college}/students/`;
+    const response = await apiClient.get(url, payload, { signal });
+    return response.data?.data;
+};
+export const memberList = async (college, payload, signal) => {
+    const url = `${Constants.API_URLS.MEMBER_LIST}${college}/members/`;
+    const response = await apiClient.get(url, payload, { signal });
+    return response.data?.data;
+};
+
 // Function to handle password reset (change password)
 export const resendOtp = async (payload, signal) => {
     const response = await apiClient.post(Constants.API_URLS.USER_RESEND_OTP, payload, { signal });

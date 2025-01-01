@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Chart1, Chart3, Chart4, GaugeChart } from "../../components/chartsoption/chartOptions";
 import { useAuth } from "../../context/AuthContext";
 // import "./AntiRaggingDashboard.module.css";
+import SosBarChart from "./SosBarChart";
 import { Line, Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from "chart.js";
 import "./AntiRaggingDashboard.css";
@@ -36,22 +37,6 @@ const Dashboard = () => {
 
     console.log("123456", sosData);
 
-    const barChartData = {
-        labels: ["Maharashtra", "Karnataka", "Delhi", "Tamil Nadu", "Gujarat"],
-        datasets: [
-            {
-                label: "Total Incidents",
-                data: [150, 120, 110, 130, 140],
-                backgroundColor: "#36a2eb",
-            },
-            {
-                label: "Avg Response Time (min)",
-                data: [8, 7.5, 7, 6.5, 6],
-                backgroundColor: "#4bc0c0",
-            },
-        ],
-    };
-
     return (
         <div className="analytics-page">
             <div className="cards-section">
@@ -82,8 +67,7 @@ const Dashboard = () => {
                     <Line data={lineChartData} />
                 </div>
                 <div className="chart-card">
-                    <h3>State-wise SOS Distribution</h3>
-                    <Bar data={barChartData} />
+                    <SosBarChart />
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import studentsData from "../jsonfile/students.json";
+import { useStudentList } from "../../hooks/useUserList";
 import styles from "./StudentsData.module.css";
 import Table from "../../components/table/Table";
 import Pagination from "../../components/Pagination/Pagination";
@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import ActionMenu from "../complaintPageAdmin/ActionMenu";
 
 const StudentsPage = () => {
+    const { students: apiStudents, loading, error } = useStudentList();
     const [students, setStudents] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [studentsPerPage] = useState(10);
@@ -18,25 +19,26 @@ const StudentsPage = () => {
 
     const navigate = useNavigate();
 
+    // Update students state when API data is fetched
     useEffect(() => {
-        setStudents(studentsData);
-    }, []);
+        if (apiStudents) {
+            setStudents(apiStudents);
+        }
+    }, [apiStudents]);
 
     // Filtering logic
     const filteredStudents = students.filter((student) => {
         return (
-            (!stateFilter || student.State.toLowerCase().includes(stateFilter.toLowerCase())) &&
-            (!districtFilter || student.District.toLowerCase().includes(districtFilter.toLowerCase())) &&
-            (!collegeFilter || student.College.toLowerCase().includes(collegeFilter.toLowerCase()))
+            (!stateFilter || student.state.toLowerCase().includes(stateFilter.toLowerCase())) &&
+            (!districtFilter || student.district.toLowerCase().includes(districtFilter.toLowerCase())) &&
+            (!collegeFilter || student.college.toLowerCase().includes(collegeFilter.toLowerCase()))
         );
     });
 
     const indexOfLastStudent = currentPage * studentsPerPage;
     const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
     const currentStudents = filteredStudents.slice(indexOfFirstStudent, indexOfLastStudent);
-    {
-        console.log("currentStudents,", currentStudents);
-    }
+
     const totalPages = Math.ceil(filteredStudents.length / studentsPerPage);
 
     const handlePageChange = (pageNumber) => {
@@ -112,16 +114,20 @@ const StudentsPage = () => {
         });
     };
 
-    const columns = ["S.No", "Student Name", "State", "District", "University", "College", "Actions"];
+    const columns = ["Id", "Name", "District", "Email", "Mobile", "Address"];
 
-    const dataWithActions = currentStudents.map((student, index) => [
-        student.University,
-        student.State,
-        student.District,
-        student.University,
-        student.College,
-        <ActionMenu key={student.id} student={student} handleEdit={handleEdit} handleDeactivate={handleDeactivate} handleDelete={handleDelete} />,
-    ]);
+    const dataWithActions = currentStudents.map((student, index) => ({
+        Id: student.id, // S.No
+        Name: student.name, // Student Name
+        District: student.district, // District
+        Email: student.email, // Email
+        Mobile: student.mobile_number, // Mobile Number
+        Address: student.address, // Address
+        // <ActionMenu key={student.id} student={student} handleDelete={handleDelete} />, // Removed edit and approve actions
+    }));
+
+    if (loading) return <p>Loading students...</p>;
+    if (error) return <p>{error}</p>;
 
     return (
         <div className={styles.container}>
