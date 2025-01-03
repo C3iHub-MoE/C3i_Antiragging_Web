@@ -13,5 +13,6 @@ export const Constants = {
         SOS_DETAILS: `/sos-details/`,
         STUDENTS_LIST: `/colleges/`,
         MEMBER_LIST: `/colleges/`,
+        Change_Password: `/`,
     },
 };

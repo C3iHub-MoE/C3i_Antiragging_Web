@@ -63,11 +63,13 @@ const ResetPassword = () => {
         }
         try {
             await verifyOtp({
-                phone_number: mobileNumber,
-                otp,
                 trxId, // Ensure trxId is included in the verification request
+
+                otp,
                 deviceId,
+
                 newPassword, // Send the new password here along with OTP
+                phone_number: mobileNumber,
             });
             setIsOtpVerified(true);
             setSuccessMessage("Password reset successfully!");

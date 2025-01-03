@@ -67,3 +67,8 @@ export const AccountVerifyOtp = async (payload, signal) => {
     const response = await apiClient.post(Constants.API_URLS.ACCOUNT_VERIFY_OTP, payload, { signal });
     return response.data?.data;
 };
+
+export const ChangePassword = async (payload, signal) => {
+    const response = await apiClient.post(Constants.API_URLS.Change_Password, payload, { signal });
+    return response.data?.data;
+};
