@@ -71,7 +71,7 @@ const ResetPassword = () => {
                 newPassword, // Send the new password here along with OTP
                 phone_number: mobileNumber,
             });
-            setIsOtpVerified(true);
+            setIsOtpVerified(true); 
             setSuccessMessage("Password reset successfully!");
             navigate("/login");
             setError("");

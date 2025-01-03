@@ -70,5 +70,6 @@ export const AccountVerifyOtp = async (payload, signal) => {
 
 export const ChangePassword = async (payload, signal) => {
     const response = await apiClient.post(Constants.API_URLS.Change_Password, payload, { signal });
+    // console.log("resonsjhv".response.data);
     return response.data?.data;
 };

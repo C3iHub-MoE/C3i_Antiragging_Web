@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import styles from "./ChangePassword.module.css";
 import { ChangePassword } from "../../api/user";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { notifyError, notifySuccess } from "../../utils/toastUtil";
 
 const ChangePasswordPage = () => {
+    const navigate = useNavigate();
     const [passwords, setPasswords] = useState({
         current: "",
         new: "",
@@ -21,6 +25,12 @@ const ChangePasswordPage = () => {
         numberSymbol: false,
         match: false,
     });
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const { user } = useAuth();
+
+    // console.log("bvbnbbxbsbsbsb", user);
 
     const validatePassword = (password, confirmPassword) => {
         const minLength = password.length >= 8;
@@ -52,13 +62,31 @@ const ChangePasswordPage = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!passwordValidations.minLength || !passwordValidations.lowercase || !passwordValidations.numberSymbol || !passwordValidations.match) {
             console.error("Password does not meet requirements");
             return;
         }
-        console.log("Password updated successfully:", passwords.new);
+
+        setLoading(true);
+        setError(null);
+
+        try {
+            const response = await ChangePassword({
+                mobile_number: user.mobile_number,
+                oldPassword: passwords.current,
+                newPassword: passwords.new,
+            });
+
+            alert("Password updated successfully!");
+            setPasswords({ current: "", new: "", confirm: "" });
+            navigate("/");
+        } catch (err) {
+            setError("An error occurred. Please try again.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -89,7 +117,10 @@ const ChangePasswordPage = () => {
                         <li className={passwordValidations.match ? styles.valid : styles.invalid}>Confirm password matches the new password</li>
                     </ul>
                 </div>
-                <button type="submit">Update Password</button>
+                {error && <p className={styles.error}>{error}</p>}
+                <button type="submit" disabled={loading}>
+                    {loading ? "Updating..." : "Update Password"}
+                </button>
             </form>
         </div>
     );
