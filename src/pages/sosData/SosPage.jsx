@@ -214,7 +214,7 @@ import Table from "../../components/table/Table";
 import Pagination from "../../components/Pagination/Pagination";
 import { useSosAlerts } from "../../hooks/useData";
 import Styles from "./Sospage.module.css";
-import ShimmerTable from "../../components/tableshimmer/Loader";
+import Loader from "../../components/tableshimmer/Loader";
 
 const SOSPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -240,7 +240,7 @@ const SOSPage = () => {
 
     useEffect(() => {
         if (sosData.length > 0) {
-            const uniqueStates = [...new Set(sosData.map((item) => item.student_state))];
+            const uniqueStates = [...new Set(sosData.map((item) => item?.student_info?.state_name))];
             setDropDownData((prev) => ({ ...prev, states: uniqueStates }));
         }
     }, [sosData]);
@@ -249,28 +249,28 @@ const SOSPage = () => {
         let data = sosData;
 
         if (filters.state) {
-            data = data.filter((item) => item.student_state === filters.state);
+            data = data.filter((item) => item?.student_info?.state_name === filters.state);
         }
 
         if (filters.district) {
-            data = data.filter((item) => item.student_district === filters.district);
+            data = data.filter((item) => item?.student_info?.district_name === filters.district);
         }
 
         if (filters.college) {
-            data = data.filter((item) => item.student_college === filters.college);
+            data = data.filter((item) => item?.student_info?.college_name === filters.college);
         }
 
         if (filters.date) {
             data = data.filter((item) => {
-                const itemDate = new Date(item.timestamp).toISOString().split("T")[0];
+                const itemDate = new Date(item?.timestamps?.triggered_at).toISOString().split("T")[0];
                 return itemDate === filters.date;
             });
         }
 
         setFilteredData(data);
 
-        const uniqueDistricts = [...new Set(data.map((item) => item.student_district))];
-        const uniqueColleges = [...new Set(data.map((item) => item.student_college))];
+        const uniqueDistricts = [...new Set(data.map((item) => item?.student_info?.district_name))];
+        const uniqueColleges = [...new Set(data.map((item) => item?.student_info?.college_name))];
 
         setDropDownData((prev) => ({
             ...prev,
@@ -283,22 +283,22 @@ const SOSPage = () => {
     const indexOfFirstSos = indexOfLastSos - sosPerPage;
     const currentSos = filteredData.slice(indexOfFirstSos, indexOfLastSos);
 
-    const columns = ["Student Id", "Student Name", "Student Email", "Mobile Number", "State", "District", "College", "Location Name", "Location"];
+    const columns = ["SOS Id", "Student Name", "Student Email", "Mobile Number", "State", "District", "College", "Location Name", "Location"];
 
     const formattedData = currentSos.map((sos) => ({
-        "Student Id": sos.student_id,
+        "SOS Id": sos?.id,
         "Student Name": (
             <NavLink to={`/student/${sos.id}`} className={Styles.studentNameLink}>
-                {sos.student_name}
+                {sos?.student_info?.name}
             </NavLink>
         ),
-        "Location Name": sos.location_name,
-        "Student Email": sos.student_email,
-        "Mobile Number": sos.student_mobile_number,
-        Location: `${sos.location_latitude}, ${sos.location_longitude}`,
-        State: sos.student_state,
-        District: sos.student_district,
-        College: sos.student_college,
+        "Location Name": sos?.location?.name,
+        "Student Email": sos?.student_info?.email,
+        "Mobile Number": sos?.student_info?.mobile_number,
+        Location: `${sos?.location?.latitude}, ${sos?.location?.longitude}`,
+        State: sos?.student_info?.state_name,
+        District: sos?.student_info?.district_name,
+        College: sos?.student_info?.college_name,
     }));
 
     const handleFilterChange = (filterName, value) => {
@@ -310,16 +310,17 @@ const SOSPage = () => {
     };
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-    return (
+    return sosData.length === 0 ? (
+        <Loader />
+    ) : (
         <div>
             <h1>SOS Alerts</h1>
 
             <div className={Styles.filters}>
                 <select value={filters.state} onChange={(e) => handleFilterChange("state", e.target.value)}>
                     <option value="">Select State</option>
-                    {dropDownData.states.map((state) => (
-                        <option key={state} value={state}>
+                    {dropDownData.states.map((state, index) => (
+                        <option key={`state-${index}`} value={state}>
                             {state}
                         </option>
                     ))}
@@ -327,8 +328,8 @@ const SOSPage = () => {
 
                 <select value={filters.district} onChange={(e) => handleFilterChange("district", e.target.value)}>
                     <option value="">Select District</option>
-                    {dropDownData.districts.map((district) => (
-                        <option key={district} value={district}>
+                    {dropDownData.districts.map((district, index) => (
+                        <option key={`district-${index}`} value={district}>
                             {district}
                         </option>
                     ))}
@@ -336,8 +337,8 @@ const SOSPage = () => {
 
                 <select value={filters.college} onChange={(e) => handleFilterChange("college", e.target.value)}>
                     <option value="">Select College</option>
-                    {dropDownData.colleges.map((college) => (
-                        <option key={college} value={college}>
+                    {dropDownData.colleges.map((college, index) => (
+                        <option key={`college-${index}`} value={college}>
                             {college}
                         </option>
                     ))}

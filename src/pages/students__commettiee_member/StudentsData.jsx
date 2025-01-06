@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import studentsData from "../jsonfile/students.json";
+import { useStudentList } from "../../hooks/useUserList";
 import styles from "./StudentsData.module.css";
 import Table from "../../components/table/Table";
 import Pagination from "../../components/Pagination/Pagination";
 import Swal from "sweetalert2";
+import ActionMenu from "../complaintPageAdmin/ActionMenu";
 
 const StudentsPage = () => {
+    const { students: apiStudents, loading, error } = useStudentList();
     const [students, setStudents] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [studentsPerPage] = useState(10);
@@ -17,16 +19,19 @@ const StudentsPage = () => {
 
     const navigate = useNavigate();
 
+    // Update students state when API data is fetched
     useEffect(() => {
-        setStudents(studentsData);
-    }, []);
+        if (apiStudents) {
+            setStudents(apiStudents);
+        }
+    }, [apiStudents]);
 
     // Filtering logic
     const filteredStudents = students.filter((student) => {
         return (
-            (!stateFilter || student.State.toLowerCase().includes(stateFilter.toLowerCase())) &&
-            (!districtFilter || student.District.toLowerCase().includes(districtFilter.toLowerCase())) &&
-            (!collegeFilter || student.College.toLowerCase().includes(collegeFilter.toLowerCase()))
+            (!stateFilter || student.state.toLowerCase().includes(stateFilter.toLowerCase())) &&
+            (!districtFilter || student.district.toLowerCase().includes(districtFilter.toLowerCase())) &&
+            (!collegeFilter || student.college.toLowerCase().includes(collegeFilter.toLowerCase()))
         );
     });
 
@@ -109,7 +114,20 @@ const StudentsPage = () => {
         });
     };
 
-    const columns = ["S.No", "Student Name", "State", "District", "University", "College"];
+    const columns = ["Id", "Name", "District", "Email", "Mobile", "Address"];
+
+    const dataWithActions = currentStudents.map((student, index) => ({
+        Id: student.id, // S.No
+        Name: student.name, // Student Name
+        District: student.district, // District
+        Email: student.email, // Email
+        Mobile: student.mobile_number, // Mobile Number
+        Address: student.address, // Address
+        // <ActionMenu key={student.id} student={student} handleDelete={handleDelete} />, // Removed edit and approve actions
+    }));
+
+    if (loading) return <p>Loading students...</p>;
+    if (error) return <p>{error}</p>;
 
     return (
         <div className={styles.container}>
@@ -121,71 +139,8 @@ const StudentsPage = () => {
                 <input type="text" placeholder="Filter by College" value={collegeFilter} onChange={(e) => setCollegeFilter(e.target.value)} className={styles.filterInput} />
             </div>
 
-            <Table columns={columns} data={currentStudents} />
+            <Table columns={columns} data={dataWithActions} />
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-        </div>
-    );
-};
-
-// ActionMenu Component
-const ActionMenu = ({ student, handleDeactivate, handleEdit, handleDelete }) => {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const menuRef = useRef(null);
-
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
-    };
-
-    const handleClickOutside = (event) => {
-        if (menuRef.current && !menuRef.current.contains(event.target)) {
-            setMenuOpen(false);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
-
-    return (
-        <div className={styles.actionMenu} ref={menuRef}>
-            <div className={styles.threeDots} onClick={toggleMenu}>
-                &#x22EE; {/* Three dots character */}
-            </div>
-
-            {menuOpen && (
-                <div className={styles.menu}>
-                    <button
-                        className={styles.menuButton}
-                        onClick={() => {
-                            handleEdit(student.id);
-                            toggleMenu();
-                        }}
-                    >
-                        Edit
-                    </button>
-                    <button
-                        className={styles.menuButton}
-                        onClick={() => {
-                            handleDeactivate(student.id);
-                            toggleMenu();
-                        }}
-                    >
-                        Deactivate
-                    </button>
-                    <button
-                        className={styles.menuButton}
-                        onClick={() => {
-                            handleDelete(student.id);
-                            toggleMenu();
-                        }}
-                    >
-                        Delete
-                    </button>
-                </div>
-            )}
         </div>
     );
 };

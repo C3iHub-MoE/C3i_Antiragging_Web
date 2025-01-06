@@ -1,6 +1,6 @@
 // src/hooks/useLogin.js
 import { useState, useEffect } from "react";
-import { loginUser, sendOtp, verifyOtp, sosAlerts } from "../api/user"; // Import your login function
+import { loginUser, sendOtp, verifyOtp, sosAlerts, ChangePassword } from "../api/user"; // Import your login function
 
 export const useClient = () => {
     const [loading, setLoading] = useState(false);
@@ -148,6 +148,29 @@ export const useClient = () => {
         }
     };
 
+    const changePassword = async (payload) => {
+        setLoading(true);
+        setError(null);
+
+        const controller = new AbortController();
+
+        try {
+            // Assuming `ChangePassword` is your API function for changing passwords
+            const response = await ChangePassword(payload, controller.signal);
+
+            if (response.success) {
+                console.log("Password changed successfully:", response.message);
+            } else {
+                setError(response.message || "Failed to change password. Please try again.");
+            }
+        } catch (err) {
+            setError(err.message || "An error occurred while changing the password.");
+        } finally {
+            setLoading(false);
+            return () => controller.abort();
+        }
+    };
+
     const LogOutUser = () => {
         localStorage.removeItem("authToken");
         localStorage.removeItem("user");
@@ -175,5 +198,6 @@ export const useClient = () => {
         otpTimer,
         otpSent,
         passwordData,
+        changePassword,
     };
 };

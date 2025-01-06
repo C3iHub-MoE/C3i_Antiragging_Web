@@ -6,14 +6,28 @@ export const loginUser = async (payload, signal) => {
     return response.data?.data;
 };
 
-export const sosAlerts = async (userId, payload, signal) => {
-    const url = `${Constants.API_URLS.SOS_ALERTS}${userId}`;
+export const sosAlerts = async (role, userId, payload, signal) => {
+    console.log("spsajus", userId);
+
+    const url = `${Constants.API_URLS.SOS_ALERTS}?role=${role}&user_id=${userId}`;
     const response = await apiClient.get(url, payload, { signal });
     return response.data?.data;
 };
 
-export const sosDetails = async (id, userId, payload, signal) => {
-    const url = `${Constants.API_URLS.SOS_DETAILS}${id}/?squad_member_id=${userId}`;
+export const sosDetails = async (id, userId, role, payload, signal) => {
+    const url = `${Constants.API_URLS.SOS_DETAILS}${id}?role=${role}&user_id=${userId}`;
+    const response = await apiClient.get(url, payload, { signal });
+    return response.data?.data;
+};
+
+export const studentList = async (college, payload, signal) => {
+    console.log("jgahsjkl;kjhg", college);
+    const url = `${Constants.API_URLS.STUDENTS_LIST}${college}/students/`;
+    const response = await apiClient.get(url, payload, { signal });
+    return response.data?.data;
+};
+export const memberList = async (college, payload, signal) => {
+    const url = `${Constants.API_URLS.MEMBER_LIST}${college}/members/`;
     const response = await apiClient.get(url, payload, { signal });
     return response.data?.data;
 };
@@ -51,5 +65,11 @@ export const AccountSendOtp = async (payload, signal) => {
 // Function to verify the OTP entered by the user
 export const AccountVerifyOtp = async (payload, signal) => {
     const response = await apiClient.post(Constants.API_URLS.ACCOUNT_VERIFY_OTP, payload, { signal });
+    return response.data?.data;
+};
+
+export const ChangePassword = async (payload, signal) => {
+    const response = await apiClient.post(Constants.API_URLS.Change_Password, payload, { signal });
+    // console.log("resonsjhv".response.data);
     return response.data?.data;
 };
