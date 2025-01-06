@@ -78,12 +78,17 @@ const ChangePasswordPage = () => {
                 oldPassword: passwords.current,
                 newPassword: passwords.new,
             });
+            if (response.success === false && response.error === "invalid credentials") {
+                alert(response.error);
+                return;
+            }
 
             alert("Password updated successfully!");
             setPasswords({ current: "", new: "", confirm: "" });
             navigate("/");
         } catch (err) {
             setError("An error occurred. Please try again.");
+            setError(err.response?.data?.error || "An error occurred. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -91,7 +96,6 @@ const ChangePasswordPage = () => {
 
     return (
         <div className={styles.changePasswordPage}>
-            <h1>Change Password</h1>
             <form onSubmit={handleSubmit}>
                 <div className={styles.inputGroup}>
                     <label>Current Password</label>

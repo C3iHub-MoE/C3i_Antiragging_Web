@@ -1,28 +1,17 @@
-.contactUsContainer {
-    padding: 50px 100px;
-    background: #f0f2f5;
-  }
-  
-  .contactCard {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .contactTitle {
+.contactTitle {
     font-size: 24px;
     font-weight: 600;
-  }
-  
-  .contactDetails {
+}
+
+.contactDetails {
     margin-bottom: 20px;
-  }
-  
-  .contactText {
+}
+
+.contactText {
     font-size: 16px;
     color: #333;
-  }
-  
-  .iconStyle {
+}
+
+.iconStyle {
     margin-right: 8px;
-  }
-  
+}
