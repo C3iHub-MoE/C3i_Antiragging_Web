@@ -232,114 +232,174 @@ import { useMemberList } from "../../../hooks/useUserList"; // Ensure this hook 
 import styles from "./MembersPage.module.css"; // Import your styles
 
 const MembersPage = () => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const [membersPerPage] = useState(10);
-    const [membersData, setMembersData] = useState([]);
-    const [filteredMembers, setFilteredMembers] = useState([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const [openMenu, setOpenMenu] = useState(null); // Track which action menu is open
-    const [filters, setFilters] = useState({ state: "", district: "", university: "", college: "" });
-    const menuRefs = useRef([]);
-    const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [membersPerPage] = useState(10);
+  const [membersData, setMembersData] = useState([]);
+  const [filteredMembers, setFilteredMembers] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [openMenu, setOpenMenu] = useState(null); // Track which action menu is open
+  const [filters, setFilters] = useState({
+    state: "",
+    district: "",
+    university: "",
+    college: "",
+  });
+  const menuRefs = useRef([]);
+  const navigate = useNavigate();
 
-    // Fetch members data from the custom hook
-    const { members: apiMembers, isLoading, error } = useMemberList();
+  // Fetch members data from the custom hook
+  const { members: apiMembers, isLoading, error } = useMemberList();
 
-    useEffect(() => {
-        if (apiMembers) {
-            setMembersData(apiMembers); // Set fetched data to state
-            setFilteredMembers(apiMembers); // Initially, no filters applied
-        }
-    }, [apiMembers]); // Re-run when the apiMembers data changes
+  useEffect(() => {
+    if (apiMembers) {
+      setMembersData(apiMembers); // Set fetched data to state
+      setFilteredMembers(apiMembers); // Initially, no filters applied
+    }
+  }, [apiMembers]); // Re-run when the apiMembers data changes
 
-    const indexOfLastMember = currentPage * membersPerPage;
-    const indexOfFirstMember = indexOfLastMember - membersPerPage;
-    const currentMembers = filteredMembers.slice(indexOfFirstMember, indexOfLastMember);
-    // console.log(currentMembers);
+  const indexOfLastMember = currentPage * membersPerPage;
+  const indexOfFirstMember = indexOfLastMember - membersPerPage;
+  const currentMembers = filteredMembers.slice(
+    indexOfFirstMember,
+    indexOfLastMember
+  );
+  // console.log(currentMembers);
 
-    useEffect(() => {
-        setTotalPages(Math.ceil(filteredMembers.length / membersPerPage)); // Update total pages when filtered members change
-    }, [filteredMembers]);
+  useEffect(() => {
+    setTotalPages(Math.ceil(filteredMembers.length / membersPerPage)); // Update total pages when filtered members change
+  }, [filteredMembers]);
 
-    // Handle click outside of menu to close it
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (openMenu !== null && menuRefs.current[openMenu] && !menuRefs.current[openMenu].contains(event.target)) {
-                setOpenMenu(null);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [openMenu]);
-
-    const handlePageChange = (newPage) => {
-        setCurrentPage(newPage);
+  // Handle click outside of menu to close it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        openMenu !== null &&
+        menuRefs.current[openMenu] &&
+        !menuRefs.current[openMenu].contains(event.target)
+      ) {
+        setOpenMenu(null);
+      }
     };
 
-    const deleteMember = (id) => {
-        const updatedMembers = membersData.filter((member) => member.id !== id);
-        setMembersData(updatedMembers);
-        setFilteredMembers(updatedMembers);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
     };
+  }, [openMenu]);
 
-    const toggleMenu = (id) => {
-        setOpenMenu(openMenu === id ? null : id);
-    };
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
-    // Update filters and apply them
-    const handleFilterChange = (e) => {
-        const { name, value } = e.target;
-        setFilters((prev) => ({ ...prev, [name]: value }));
-    };
+  const deleteMember = (id) => {
+    const updatedMembers = membersData.filter((member) => member.id !== id);
+    setMembersData(updatedMembers);
+    setFilteredMembers(updatedMembers);
+  };
 
-    useEffect(() => {
-        // Apply filters to membersData
-        const filtered = membersData.filter((member) => {
-            return (
-                (filters.state === "" || (member.state && member.state.toLowerCase().includes(filters.state.toLowerCase()))) &&
-                (filters.district === "" || (member.district && member.district.toLowerCase().includes(filters.district.toLowerCase()))) &&
-                (filters.university === "" || (member.university && member.university.toLowerCase().includes(filters.university.toLowerCase()))) &&
-                (filters.college === "" || (member.college && member.college.toLowerCase().includes(filters.college.toLowerCase())))
-            );
-        });
+  const toggleMenu = (id) => {
+    setOpenMenu(openMenu === id ? null : id);
+  };
 
-        setFilteredMembers(filtered);
-        setCurrentPage(1); // Reset to first page after filtering
-    }, [filters, membersData]);
+  // Update filters and apply them
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({ ...prev, [name]: value }));
+  };
 
-    const dataWithActions = currentMembers.map((member, index) => ({
-        Id: index + 1, // S.No
-        Name: member.name, // member Name
-        District: member.district, // District
-        Email: member.email, // Email
-        Phone: member.mobile_number, // Mobile Number
-        Role: member.role, // Mobile Number
+  useEffect(() => {
+    // Apply filters to membersData
+    const filtered = membersData.filter((member) => {
+      return (
+        (filters.state === "" ||
+          (member.state &&
+            member.state
+              .toLowerCase()
+              .includes(filters.state.toLowerCase()))) &&
+        (filters.district === "" ||
+          (member.district &&
+            member.district
+              .toLowerCase()
+              .includes(filters.district.toLowerCase()))) &&
+        (filters.university === "" ||
+          (member.university &&
+            member.university
+              .toLowerCase()
+              .includes(filters.university.toLowerCase()))) &&
+        (filters.college === "" ||
+          (member.college &&
+            member.college
+              .toLowerCase()
+              .includes(filters.college.toLowerCase())))
+      );
+    });
 
-        College: member.college, // Address
-    }));
+    setFilteredMembers(filtered);
+    setCurrentPage(1); // Reset to first page after filtering
+  }, [filters, membersData]);
 
-    const columns = ["Id", "Name", "Email", "Phone", "Role", "College"];
+  const dataWithActions = currentMembers.map((member, index) => ({
+    Id: index + 1, // S.No
+    Name: member.name, // member Name
+    District: member.district, // District
+    Email: member.email, // Email
+    Phone: member.mobile_number, // Mobile Number
+    Role: member.role, // Mobile Number
 
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error loading members data</div>;
+    College: member.college, // Address
+  }));
 
-    return (
-        <div className={styles.container}>
-            <div className={styles.filters}>
-                <Button title="Invite New Member" trigger={() => navigate("/invite")} />
+  const columns = ["Id", "Name", "Email", "Phone", "Role", "College"];
 
-                <input type="text" name="state" placeholder="Filter by State" value={filters.state} onChange={handleFilterChange} className={styles.filterInput} />
-                <input type="text" name="district" placeholder="Filter by District" value={filters.district} onChange={handleFilterChange} className={styles.filterInput} />
-                <input type="text" name="university" placeholder="Filter by University" value={filters.university} onChange={handleFilterChange} className={styles.filterInput} />
-                <input type="text" name="college" placeholder="Filter by College" value={filters.college} onChange={handleFilterChange} className={styles.filterInput} />
-            </div>
-            <Table columns={columns} data={dataWithActions} />
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-        </div>
-    );
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading members data</div>;
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.filters}>
+        <Button title="Invite New Member" trigger={() => navigate("/invite")} />
+
+        <input
+          type="text"
+          name="state"
+          placeholder="Filter by State"
+          value={filters.state}
+          onChange={handleFilterChange}
+          className={styles.filterInput}
+        />
+        <input
+          type="text"
+          name="district"
+          placeholder="Filter by District"
+          value={filters.district}
+          onChange={handleFilterChange}
+          className={styles.filterInput}
+        />
+        <input
+          type="text"
+          name="university"
+          placeholder="Filter by University"
+          value={filters.university}
+          onChange={handleFilterChange}
+          className={styles.filterInput}
+        />
+        <input
+          type="text"
+          name="college"
+          placeholder="Filter by College"
+          value={filters.college}
+          onChange={handleFilterChange}
+          className={styles.filterInput}
+        />
+      </div>
+      <Table columns={columns} data={dataWithActions} />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
+    </div>
+  );
 };
 
 export default MembersPage;

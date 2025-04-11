@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 const ProtectedRoute = ({ children }) => {
-    const { user } = useAuth();
+  const { user } = useAuth();
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  console.log("sdfghjk", user);
 
-    // if (user && !user.isVerified) {
-    //     navigate("/verifyAccount");
-    //     window.location.reload();
-    //     return null;
-    // }
+  useEffect(() => {
+    if (user && !user.is_verified) {
+      navigate("/verifyAccount");
+      // window.location.reload();
+    }
+  }, [user]);
 
-    const isAuthenticated = Boolean(localStorage.getItem("authToken")); // Or your auth logic
-    console.log("Is Authenticated:", isAuthenticated); // Debugging log
+  // if (user && !user.is_verified) {
+  //   navigate("/verifyAccount");
+  //   // window.location.reload();
+  //   return null;
+  // }
 
-    return isAuthenticated ? children : <Navigate to="/login" replace />;
+  const isAuthenticated = Boolean(localStorage.getItem("authToken")); // Or your auth logic
+  console.log("Is Authenticated:", isAuthenticated); // Debugging log
+
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 export default ProtectedRoute;

@@ -1,31 +1,41 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import styles from './InvitationForm.module.css';
+import React, { useState } from "react";
+import axios from "axios";
+import styles from "./InvitationForm.module.css";
 
 const InvitationForm = ({ memberType }) => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     const invitationData = {
       email,
       memberType,
     };
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Add the Bearer token here
+      "Content-Type": "application/json",
+    };
 
     try {
-      await axios.post('/api/user/invite', invitationData);
-      setSuccess('Invitation sent successfully!');
-      setEmail('');
+      await axios.post(
+        "http://172.29.27.115:8001/api/invite/",
+        invitationData,
+        {
+          headers,
+        }
+      );
+      setSuccess("Invitation sent successfully!");
+      setEmail("");
     } catch (error) {
-      console.error('Error sending invitation', error);
-      setError('Failed to send invitation');
+      console.error("Error sending invitation", error);
+      setError("Failed to send invitation");
     } finally {
       setLoading(false);
     }
@@ -38,7 +48,9 @@ const InvitationForm = ({ memberType }) => {
         {error && <p className={styles.error}>{error}</p>}
         {success && <p className={styles.success}>{success}</p>}
         <div className={styles.inputGroup}>
-          <label htmlFor="email" className={styles.label}>Email:</label>
+          <label htmlFor="email" className={styles.label}>
+            Email:
+          </label>
           <input
             type="email"
             id="email"
@@ -49,7 +61,7 @@ const InvitationForm = ({ memberType }) => {
           />
         </div>
         <button type="submit" className={styles.button} disabled={loading}>
-          {loading ? 'Sending...' : 'Send Invitation'}
+          {loading ? "Sending..." : "Send Invitation"}
         </button>
       </form>
     </div>
