@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./UgcDashboard.css";
+import { useSosAlerts, useSosHistory } from "../../hooks/useData";
+import Table from "../../components/table/Table";
 
 const UgcDashboard = () => {
   const [states, setStates] = useState([]);
@@ -10,7 +12,46 @@ const UgcDashboard = () => {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
 
   const [colleges, setColleges] = useState([]);
+  const [activeSOS, setActiveSOS] = useState([]);
   const [error, setError] = useState(null);
+  const [, setActiveSosError] = useState(null);
+  const [selectedCollege, setSelectedCollege] = useState();
+
+  const { sosData, fetchAlerts } = useSosAlerts();
+  const { sosHistoryData, fetchSosHistory } = useSosHistory();
+
+  useEffect(() => {
+    fetchAlerts();
+  }, [fetchAlerts]);
+
+  useEffect(() => {
+    fetchSosHistory();
+  }, [fetchSosHistory]);
+
+  console.log("123456", sosData, sosHistoryData);
+  const sosHistory = sosHistoryData;
+  const columns = [
+    "Id",
+    "Student",
+    "Time",
+    "Location",
+    "Status",
+    "Acknowledged By",
+    "Resolved At",
+  ];
+  const dataWithActions = sosHistory.map((sosHistoryItem, index) => ({
+    Id: index + 1, // S.No
+    Student: sosHistoryItem.student_info.name, // sosHistoryItem Name
+    Time: new Date(sosHistoryItem.timestamps.triggered_at).toLocaleString(),
+    Location: sosHistoryItem.location.name,
+    Status: sosHistoryItem.resolution_details.resolved
+      ? "✅ Resolved"
+      : "❌ Pending",
+    "Acknowledged By": sosHistoryItem.resolution_details.acknowledged_by.name,
+    "Resolved At": new Date(
+      sosHistoryItem.timestamps.resolved_at
+    ).toLocaleTimeString(),
+  }));
 
   // Fetch States
   useEffect(() => {
@@ -61,6 +102,29 @@ const UgcDashboard = () => {
     }
   }, [selectedDistrict]);
 
+  // Fetch active sos when a college is selected
+
+  useEffect(() => {
+    if (colleges.length > 0) {
+      const selectedCollegeId = selectedCollege.value; // or however you select one
+
+      const fetchActiveSOS = async () => {
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_BACKEND_API_BASE_URL}/sos/active-sos/?college=${selectedCollegeId}`
+          );
+          setActiveSOS(response.data.data.sos); // adjust if structure differs
+        } catch (err) {
+          setActiveSosError("Error fetching active SOS");
+        }
+      };
+
+      fetchActiveSOS();
+    }
+  }, [selectedCollege]);
+
+  console.log(selectedCollege);
+
   return (
     <div className="dashboard-container">
       <h2>Dashboard</h2>
@@ -94,12 +158,37 @@ const UgcDashboard = () => {
             ))}
           </select>
         )}
+        {/* collage Selector */}
+        {colleges.length > 0 && (
+          <select
+            className="input-select"
+            onChange={(e) => setSelectedCollege(e.target.value)}
+          >
+            <option value="">Select a collage</option>
+            {colleges.map((collage) => (
+              <option key={collage.value} value={collage.value}>
+                {collage.name}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
 
       {/* Output */}
       <div>
-        <h3>Total Colleges: {colleges.length}</h3>
-        {error || colleges.length >= 0 ? (
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            // justifyContent: "space-between",
+            gap: "5rem",
+          }}
+        >
+          <h3>Total Colleges: {colleges.length}</h3>
+          <h3>Active SOS for College:{activeSOS.length}</h3>
+        </div>
+
+        {error ? (
           <div className="error-wrraper">
             {colleges.length >= 0 ? (
               "No collages found please select state"
@@ -109,16 +198,48 @@ const UgcDashboard = () => {
           </div>
         ) : (
           <div className="collages-wrapper">
-            {colleges.map((college, index) => (
-              <p className="" skey={index}>
-                {college.name}
-              </p>
-            ))}
+            {colleges.length > 0 ? (
+              colleges.map((college, index) => (
+                <p className="collages-wrapper-card" key={index}>
+                  {college.name}
+                </p>
+              ))
+            ) : (
+              <p>No colleges available.</p>
+            )}
           </div>
         )}
       </div>
 
-      {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
+      <div className="">
+        <h1 className="">SOS History</h1>
+
+        {/* Summary Cards */}
+        <div className="cards-section">
+          <div className="card">
+            {" "}
+            <h3>Total Alerts:</h3> <p>{sosHistory.length}</p>
+          </div>
+          <div className="card">
+            <h3>Resolved: </h3>
+            <p>
+              {sosHistory.filter((s) => s.resolution_details.resolved).length}
+            </p>
+          </div>
+
+          <div className="card">
+            <h3>Video Errors: </h3>
+            <p>
+              {
+                sosHistory.filter(
+                  (s) => s.evidence_details.video.error !== "null"
+                ).length
+              }
+            </p>
+          </div>
+        </div>
+        <Table columns={columns} data={dataWithActions} />
+      </div>
     </div>
   );
 };

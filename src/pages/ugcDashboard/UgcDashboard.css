@@ -31,7 +31,7 @@
   height: 20rem;
   overflow-y: scroll;
 }
-.collages-wrapper p {
+.collages-wrapper-card {
   margin: 0;
   background: #fff;
   border-radius: 8px;

@@ -251,22 +251,23 @@ const MembersPage = () => {
   const { members: apiMembers, isLoading, error } = useMemberList();
 
   useEffect(() => {
-    if (apiMembers) {
-      setMembersData(apiMembers); // Set fetched data to state
-      setFilteredMembers(apiMembers); // Initially, no filters applied
+    if (Array.isArray(apiMembers)) {
+      setMembersData(apiMembers);
+      setFilteredMembers(apiMembers); // No need for `|| []` if you've already checked it's an array
+    } else {
+      console.warn("apiMembers is not an array:", apiMembers);
     }
-  }, [apiMembers]); // Re-run when the apiMembers data changes
+  }, [apiMembers]);
 
   const indexOfLastMember = currentPage * membersPerPage;
   const indexOfFirstMember = indexOfLastMember - membersPerPage;
-  const currentMembers = filteredMembers.slice(
-    indexOfFirstMember,
-    indexOfLastMember
-  );
-  // console.log(currentMembers);
+  const currentMembers = Array.isArray(filteredMembers)
+    ? filteredMembers.slice(indexOfFirstMember, indexOfLastMember)
+    : [];
+  console.log("jsgdggsdfog", apiMembers);
 
   useEffect(() => {
-    setTotalPages(Math.ceil(filteredMembers.length / membersPerPage)); // Update total pages when filtered members change
+    setTotalPages(Math.ceil(filteredMembers?.length / membersPerPage)); // Update total pages when filtered members change
   }, [filteredMembers]);
 
   // Handle click outside of menu to close it

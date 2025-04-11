@@ -24,7 +24,7 @@ const UserDashboard = () => {
             <AdminDashboard />
           </>
         )}
-        {userRole === "UGC_member" && (
+        {userRole === "ugc_member" && (
           <>
             <UgcDashboard />
           </>

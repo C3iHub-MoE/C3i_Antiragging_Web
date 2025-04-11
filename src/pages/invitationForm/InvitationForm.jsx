@@ -25,7 +25,7 @@ const InvitationForm = ({ memberType }) => {
 
     try {
       await axios.post(
-        "http://172.29.27.115:8001/api/invite/",
+        `${process.env.REACT_APP_BACKEND_API_BASE_URL}invite/`,
         invitationData,
         {
           headers,
