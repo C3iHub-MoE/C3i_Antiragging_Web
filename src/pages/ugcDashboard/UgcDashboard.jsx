@@ -3,6 +3,7 @@ import axios from "axios";
 import "./UgcDashboard.css";
 import { useSosAlerts, useSosHistory } from "../../hooks/useData";
 import Table from "../../components/table/Table";
+import moment from "moment";
 
 const UgcDashboard = () => {
   const [states, setStates] = useState([]);
@@ -17,7 +18,7 @@ const UgcDashboard = () => {
   const [, setActiveSosError] = useState(null);
   const [selectedCollege, setSelectedCollege] = useState();
 
-  const { sosData, fetchAlerts } = useSosAlerts();
+  const { sosData, fetchAlerts, error: liveSosError } = useSosAlerts();
   const { sosHistoryData, fetchSosHistory } = useSosHistory();
 
   useEffect(() => {
@@ -42,15 +43,17 @@ const UgcDashboard = () => {
   const dataWithActions = sosHistory.map((sosHistoryItem, index) => ({
     Id: index + 1, // S.No
     Student: sosHistoryItem.student_info.name, // sosHistoryItem Name
-    Time: new Date(sosHistoryItem.timestamps.triggered_at).toLocaleString(),
+    Time: moment(sosHistoryItem.timestamps.triggered_at).format(
+      "hh:mm A, DD-MM-YYYY"
+    ),
     Location: sosHistoryItem.location.name,
     Status: sosHistoryItem.resolution_details.resolved
       ? "✅ Resolved"
       : "❌ Pending",
     "Acknowledged By": sosHistoryItem.resolution_details.acknowledged_by.name,
-    "Resolved At": new Date(
-      sosHistoryItem.timestamps.resolved_at
-    ).toLocaleTimeString(),
+    "Resolved At": moment(sosHistoryItem.timestamps.resolved_at).format(
+      "hh:mm A, DD-MM-YYYY"
+    ),
   }));
 
   // Fetch States
@@ -202,16 +205,11 @@ const UgcDashboard = () => {
             )}
           </div>
         ) : (
-          <div className="collages-wrapper">
-            {colleges?.length > 0 ? (
-              colleges?.map((college, index) => (
-                <p className="collages-wrapper-card" key={index}>
-                  {college.name}
-                </p>
-              ))
-            ) : (
-              <p>No colleges available.</p>
-            )}
+          <div className="error-wrraper">
+            {colleges?.length > 0
+              ? " No colleges available."
+              : " Please select State."}
+            {activeSOS?.length > 0 && <p>No Active SOS for College.</p>}
           </div>
         )}
       </div>

@@ -352,7 +352,7 @@ const MembersPage = () => {
     College: member.college, // Address
   }));
 
-  const columns = ["Id", "Name", "Email", "Phone", "Role", "College"];
+  const columns = ["Id", "Name", "Email", "Phone"];
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading members data</div>;
