@@ -196,7 +196,7 @@ const UgcDashboard = () => {
           <h3>Active SOS for College:{activeSOS?.length}</h3>
         </div>
 
-        {error ? (
+        {/* {error ? (
           <div className="error-wrraper">
             {colleges?.length >= 0 ? (
               "No collages found please select state"
@@ -211,7 +211,7 @@ const UgcDashboard = () => {
               : " Please select State."}
             {activeSOS?.length > 0 && <p>No Active SOS for College.</p>}
           </div>
-        )}
+        )} */}
       </div>
 
       <div className="">

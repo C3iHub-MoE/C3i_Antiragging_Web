@@ -188,6 +188,19 @@ const AddMemberForm = () => {
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="name" className={styles.label}>
+            Email
+          </label>
+          <input
+            type="text"
+            id="email"
+            value={email}
+            className={styles.input}
+            onChange={(e) => setEmail(e.target.value)}
+            // required
+          />
+        </div>
+        <div className={styles.inputGroup}>
+          <label htmlFor="name" className={styles.label}>
             User Name:
           </label>
           <input
@@ -323,20 +336,6 @@ const AddMemberForm = () => {
           ))}
         </select>
         {/* )} */}
-
-        <div className={styles.inputGroup}>
-          <label htmlFor="name" className={styles.label}>
-            Email
-          </label>
-          <input
-            type="text"
-            id="email"
-            value={email}
-            className={styles.input}
-            onChange={(e) => setEmail(e.target.value)}
-            // required
-          />
-        </div>
         <button type="submit" className={styles.button} disabled={loading}>
           {loading ? "loading..." : "Submit"}
         </button>
