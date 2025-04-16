@@ -228,7 +228,7 @@ import { useNavigate } from "react-router-dom";
 import Table from "../../../components/table/Table";
 import Pagination from "../../../components/Pagination/Pagination";
 import Button from "../../../components/button/Button";
-import { useMemberList } from "../../../hooks/useUserList"; // Ensure this hook fetches member list
+import { useMemberList, useUserProfile } from "../../../hooks/useUserList"; // Ensure this hook fetches member list
 import styles from "./MembersPage.module.css"; // Import your styles
 
 const MembersPage = () => {
@@ -249,6 +249,8 @@ const MembersPage = () => {
 
   // Fetch members data from the custom hook
   const { members: apiMembers, isLoading, error } = useMemberList();
+  const { currentUser } = useUserProfile();
+  const role = currentUser?.role;
 
   useEffect(() => {
     if (Array.isArray(apiMembers)) {
@@ -355,10 +357,22 @@ const MembersPage = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading members data</div>;
 
+  console.log("err", error);
+
   return (
     <div className={styles.container}>
       <div className={styles.filters}>
-        <Button title="Invite New Member" trigger={() => navigate("/invite")} />
+        {role === "ugc_member" ? (
+          <Button
+            title="Add New Member"
+            trigger={() => navigate("/add-member")}
+          />
+        ) : (
+          <Button
+            title="Invite New Member"
+            trigger={() => navigate("/invite")}
+          />
+        )}
 
         <input
           type="text"

@@ -86,13 +86,15 @@ import React from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import styles from "./Sidebar.module.css"; // Updated CSS module
 import { ICONS } from "../../pages/utils/icons";
-import C3ILOGO from "./c3.png";
+// import C3ILOGO from "./c3.png";
+import UGCLOGO from "../../assets/ugc_logo.png";
 import { useUserProfile } from "../../hooks/useUserList";
 
 const Sidebar = ({ collapsed }) => {
   const { currentUser, isLoading, error } = useUserProfile();
   const role = currentUser?.role;
   const navigate = useNavigate();
+  console.log("crrent", currentUser);
 
   return (
     <div
@@ -109,8 +111,8 @@ const Sidebar = ({ collapsed }) => {
           navigate("/");
         }}
       >
-        <img src={C3ILOGO} alt="C3IHUB Logo" className={styles.logo} />
-        {!collapsed && <span className={styles.logoText}>C3IHUB</span>}
+        <img src={UGCLOGO} alt="UGC Logo" className={styles.logo} />
+        {/* {!collapsed && <span className={styles.logoText}>C3IHUB</span>} */}
       </div>
 
       {/* Navigation Links */}
@@ -222,6 +224,24 @@ const Sidebar = ({ collapsed }) => {
                 {!collapsed && <span className={styles.linkLabel}>Analytics</span>}
               </NavLink>
             </li> */}
+          </>
+        )}
+        {role === "ugc_member" && (
+          <>
+            <li>
+              <NavLink
+                to="/member_page"
+                className={styles.linkText}
+                activeClassName={styles.activeLink}
+              >
+                <span className={styles.icon} role="img" aria-label="Members">
+                  {ICONS.MEMBERS}
+                </span>
+                {!collapsed && (
+                  <span className={styles.linkLabel}>Members</span>
+                )}
+              </NavLink>
+            </li>
           </>
         )}
       </ul>

@@ -22,6 +22,11 @@
   gap: 1rem;
 }
 
+.formSelectInput {
+  width: 100%;
+  padding: 0.8rem;
+}
+
 .inputGroup {
   display: flex;
   flex-direction: column;

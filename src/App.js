@@ -31,6 +31,7 @@ import VerifyAccount from "./pages/auth/login/VerifyAccount";
 import ChangePasswordPage from "./pages/UserProfile/ChangePassword";
 import SosBarChart from "./pages/adminDashboard/SosBarChart";
 import InviteMemberForm from "./pages/invitationMemberForm/InviteMemberForm";
+import AddMemberForm from "./pages/addMemberForm/addMemberForm";
 
 function App() {
   // const user = "member";
@@ -78,6 +79,7 @@ function App() {
           // </ProtectedRoute>
         }
       />
+
       <Route
         path="*"
         element={
@@ -103,6 +105,7 @@ function App() {
                 <Route path="/member_page" element={<MembersPage />} />
                 <Route path="/contact" element={<ContactUs />} />
                 <Route path="/invite" element={<InvitationForm />} />
+                <Route path="/add-member" element={<AddMemberForm />} />
                 <Route
                   path="/changePassword"
                   element={<ChangePasswordPage />}

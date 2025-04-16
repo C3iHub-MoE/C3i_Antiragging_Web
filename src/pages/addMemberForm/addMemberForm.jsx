@@ -1,18 +1,27 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import styles from "./InviteMemberForm.module.css";
+import styles from "../invitationMemberForm/InviteMemberForm.module.css";
 import axios from "axios";
 import { BiSolidHide } from "react-icons/bi";
 import { BiSolidShow } from "react-icons/bi";
 
-const InviteMemberForm = () => {
+const AddMemberForm = () => {
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [role] = useState("squad_member");
+  const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [states, setStates] = useState([]);
+  const [selectedState, setSelectedState] = useState(null);
+
+  const [districts, setDistricts] = useState([]);
+  const [selectedDistrict, setSelectedDistrict] = useState(null);
+  const [selectedCollege, setSelectedCollege] = useState();
+  const [colleges, setColleges] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -23,38 +32,80 @@ const InviteMemberForm = () => {
 
   const navigate = useNavigate();
 
-  // const role = searchParams.get("role");
-  // const college = searchParams.get("college");
-  // const inviteBy = searchParams.get("inviteBy");
-  // const email = searchParams.get("email");
-  const token = searchParams.get("token");
-  const exactToken = token?.replace(/ /g, "+");
-  // const key = searchParams.get("key");
-  // console.log(role, college, inviteBy);
-
   const validateMobileNumber = (number) => /^[6-9]\d{9}$/.test(number);
 
-  const getInvitationDetails = useCallback(async () => {
-    setLoadingSec(true);
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_API_BASE_URL}invite/get-invitation-details/`,
-        {
-          token: exactToken,
-        }
-      );
-      console.log("res", res);
-      setInviteDetails(res?.data?.data);
-    } catch (error) {
-      console.log("ertyuio", error);
-    } finally {
-      setLoadingSec(false);
-    }
-  }, [exactToken]);
+  console.log("se", selectedCollege);
 
+  //   const getInvitationDetails = useCallback(async () => {
+  //     setLoadingSec(true);
+  //     try {
+  //       const res = await axios.post(
+  //         `${process.env.REACT_APP_BACKEND_API_BASE_URL}invite/get-invitation-details/`,
+  //         {
+  //           token: exactToken,
+  //         }
+  //       );
+  //       console.log("res", res);
+  //       setInviteDetails(res?.data?.data);
+  //     } catch (error) {
+  //       console.log("ertyuio", error);
+  //     } finally {
+  //       setLoadingSec(false);
+  //     }
+  //   }, [exactToken]);
+
+  //   useEffect(() => {
+  //     getInvitationDetails();
+  //   }, [getInvitationDetails]);
+
+  // Fetch States
   useEffect(() => {
-    getInvitationDetails();
-  }, [getInvitationDetails]);
+    const fetchStates = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_API_BASE_URL}states/`
+        );
+        setStates(response.data.data.states);
+      } catch (err) {
+        setError("Error fetching states");
+      }
+    };
+    fetchStates();
+  }, []);
+
+  // Fetch Districts when a state is selected
+  useEffect(() => {
+    if (selectedState) {
+      const fetchDistricts = async () => {
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_BACKEND_API_BASE_URL}states/${selectedState}/districts/`
+          );
+          setDistricts(response.data.data.districts); // adjust if structure is different
+        } catch (err) {
+          setError("Error fetching districts");
+        }
+      };
+      fetchDistricts();
+    }
+  }, [selectedState]);
+
+  // Fetch Colleges when a district is selected
+  useEffect(() => {
+    if (selectedDistrict) {
+      const fetchColleges = async () => {
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_BACKEND_API_BASE_URL}districts/${selectedDistrict}/colleges/`
+          );
+          setColleges(response.data.data.colleges); // adjust if structure is different
+        } catch (err) {
+          setError("Error fetching colleges");
+        }
+      };
+      fetchColleges();
+    }
+  }, [selectedDistrict]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,29 +130,31 @@ const InviteMemberForm = () => {
       username: userName,
       mobile_number: mobile,
       name: name,
-      email: inviteDetails?.email,
-      role: inviteDetails?.role,
-      college: inviteDetails?.college_id,
+      email: email,
+      role: role,
+      college: selectedCollege,
       password: password,
       confirm_password: confirmPassword,
-      invited_by_email: inviteDetails?.invited_by,
     };
-    // const headers = {
-    //   Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Add the Bearer token here
-    //   "Content-Type": "application/json",
-    // };
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Add the Bearer token here
+      "Content-Type": "application/json",
+    };
 
     try {
       await axios.post(
-        "http://172.29.27.115:8001/api/register/member/",
-        formData
-        // {
-        //   headers,
-        // }
+        `${process.env.REACT_APP_BACKEND_API_BASE_URL}register-first-squad-member/`,
+        formData,
+        {
+          headers,
+        }
       );
       setSuccess("Registeration successfully!");
       setName("");
       setUserName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
       setMobile("+91");
       navigate("/member_page");
     } catch (error) {
@@ -116,7 +169,7 @@ const InviteMemberForm = () => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Invitation Member</h2>
+      <h2 className={styles.title}>Add Member</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
         {error && <p className={styles.error}>{error}</p>}
         {success && <p className={styles.success}>{success}</p>}
@@ -207,13 +260,13 @@ const InviteMemberForm = () => {
           <input
             type="text"
             id="role"
-            defaultValue={inviteDetails?.role?.replace(/_/g, " ")}
+            defaultValue={role?.replace(/_/g, " ")}
             disabled
             className={styles.input}
             // required
           />
         </div>
-        <div className={styles.inputGroup}>
+        {/* <div className={styles.inputGroup}>
           <label htmlFor="name" className={styles.label}>
             College:
           </label>
@@ -225,17 +278,62 @@ const InviteMemberForm = () => {
             className={styles.input}
             // required
           />
-        </div>
+        </div> */}
+
+        {/* State Selector */}
+        <select
+          className={styles.formSelectInput}
+          onChange={(e) => setSelectedState(e.target.value)}
+        >
+          <option value="">Select a State</option>
+          {states.map((state) => (
+            <option key={state.value} value={state.value}>
+              {state.name}
+            </option>
+          ))}
+        </select>
+
+        {/* District Selector */}
+        {/* {districts.length > 0 && ( */}
+        <select
+          disabled={districts.length > 0 ? false : true}
+          className={styles.formSelectInput}
+          onChange={(e) => setSelectedDistrict(e.target.value)}
+        >
+          <option value="">Select a District</option>
+          {districts.map((district) => (
+            <option key={district.value} value={district.value}>
+              {district.name}
+            </option>
+          ))}
+        </select>
+        {/* )} */}
+        {/* collage Selector */}
+        {/* {colleges.length > 0 && ( */}
+        <select
+          disabled={colleges.length > 0 ? false : true}
+          className={styles.formSelectInput}
+          onChange={(e) => setSelectedCollege(e.target.value)}
+        >
+          <option value="">Select a collage</option>
+          {colleges.map((collage) => (
+            <option key={collage.value} value={collage.value}>
+              {collage.name}
+            </option>
+          ))}
+        </select>
+        {/* )} */}
+
         <div className={styles.inputGroup}>
           <label htmlFor="name" className={styles.label}>
-            Invite By:
+            Email
           </label>
           <input
             type="text"
-            id="inviteBy"
-            defaultValue={inviteDetails?.invited_by}
-            disabled
+            id="email"
+            value={email}
             className={styles.input}
+            onChange={(e) => setEmail(e.target.value)}
             // required
           />
         </div>
@@ -247,4 +345,4 @@ const InviteMemberForm = () => {
   );
 };
 
-export default InviteMemberForm;
+export default AddMemberForm;

@@ -6,7 +6,8 @@ import { useAuth } from "../../../context/AuthContext";
 import { getDeviceId, getPlatform } from "../../../utils/deviceUtils";
 import styles from "./Login.module.css"; // Assume this CSS module contains your styles
 import UGCLOGO from "./ugc_logo.png";
-import C3ILOGO from "./c3.png";
+// import C3ILOGO from "./c3.png";
+import IITLOGO from "../../../assets/iitk-logo.svg";
 import { notifySuccess, notifyError } from "../../../utils/toastUtil";
 // import
 
@@ -104,8 +105,8 @@ const Login = () => {
           Forgot Password?
         </button>
         <div className={styles.ClogoPlaceholder}>
-          <img src={C3ILOGO} alt="C3iHub Logo" />
-          <p>A Product of C3iHub</p>
+          <img src={IITLOGO} alt="C3iHub Logo" />
+          <p>A Product of C3iHub IITK</p>
         </div>
       </div>
     </div>

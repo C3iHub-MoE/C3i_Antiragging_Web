@@ -105,13 +105,18 @@ const UgcDashboard = () => {
   // Fetch active sos when a college is selected
 
   useEffect(() => {
-    if (colleges.length > 0) {
-      const selectedCollegeId = selectedCollege.value; // or however you select one
-
+    if (colleges?.length > 0) {
+      console.log("sfgf", selectedCollege);
       const fetchActiveSOS = async () => {
+        console.log("s", selectedCollege);
         try {
+          const headers = {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Add the Bearer token here
+            "Content-Type": "application/json",
+          };
           const response = await axios.get(
-            `${process.env.REACT_APP_BACKEND_API_BASE_URL}/sos/active-sos/?college=${selectedCollegeId}`
+            `${process.env.REACT_APP_BACKEND_API_BASE_URL}sos/active-sos/?college=${selectedCollege}`,
+            { headers }
           );
           setActiveSOS(response.data.data.sos); // adjust if structure differs
         } catch (err) {
@@ -132,7 +137,7 @@ const UgcDashboard = () => {
         {/* State Selector */}
         <select
           className={
-            districts.length > 0 ? "input-select" : "input-select-normal"
+            districts?.length > 0 ? "input-select" : "input-select-normal"
           }
           onChange={(e) => setSelectedState(e.target.value)}
         >
@@ -145,13 +150,13 @@ const UgcDashboard = () => {
         </select>
 
         {/* District Selector */}
-        {districts.length > 0 && (
+        {districts?.length > 0 && (
           <select
             className="input-select"
             onChange={(e) => setSelectedDistrict(e.target.value)}
           >
             <option value="">Select a District</option>
-            {districts.map((district) => (
+            {districts?.map((district) => (
               <option key={district.value} value={district.value}>
                 {district.name}
               </option>
@@ -159,13 +164,13 @@ const UgcDashboard = () => {
           </select>
         )}
         {/* collage Selector */}
-        {colleges.length > 0 && (
+        {colleges?.length > 0 && (
           <select
             className="input-select"
             onChange={(e) => setSelectedCollege(e.target.value)}
           >
             <option value="">Select a collage</option>
-            {colleges.map((collage) => (
+            {colleges?.map((collage) => (
               <option key={collage.value} value={collage.value}>
                 {collage.name}
               </option>
@@ -184,13 +189,13 @@ const UgcDashboard = () => {
             gap: "5rem",
           }}
         >
-          <h3>Total Colleges: {colleges.length}</h3>
-          <h3>Active SOS for College:{activeSOS.length}</h3>
+          <h3>Total Colleges: {colleges?.length}</h3>
+          <h3>Active SOS for College:{activeSOS?.length}</h3>
         </div>
 
         {error ? (
           <div className="error-wrraper">
-            {colleges.length >= 0 ? (
+            {colleges?.length >= 0 ? (
               "No collages found please select state"
             ) : (
               <p style={{ color: "red" }}>{error}</p>
@@ -198,8 +203,8 @@ const UgcDashboard = () => {
           </div>
         ) : (
           <div className="collages-wrapper">
-            {colleges.length > 0 ? (
-              colleges.map((college, index) => (
+            {colleges?.length > 0 ? (
+              colleges?.map((college, index) => (
                 <p className="collages-wrapper-card" key={index}>
                   {college.name}
                 </p>
@@ -218,12 +223,12 @@ const UgcDashboard = () => {
         <div className="cards-section">
           <div className="card">
             {" "}
-            <h3>Total Alerts:</h3> <p>{sosHistory.length}</p>
+            <h3>Total Alerts:</h3> <p>{sosHistory?.length}</p>
           </div>
           <div className="card">
             <h3>Resolved: </h3>
             <p>
-              {sosHistory.filter((s) => s.resolution_details.resolved).length}
+              {sosHistory?.filter((s) => s.resolution_details.resolved)?.length}
             </p>
           </div>
 
@@ -233,7 +238,7 @@ const UgcDashboard = () => {
               {
                 sosHistory.filter(
                   (s) => s.evidence_details.video.error !== "null"
-                ).length
+                )?.length
               }
             </p>
           </div>

@@ -66,10 +66,10 @@ export const useMemberList = () => {
   const navigate = useNavigate();
 
   const fetchMembers = useCallback(async () => {
-    if (!user?.college) {
-      setError("User's college information is not available.");
-      return;
-    }
+    // if (!user?.college) {
+    //   setError("User's college information is not available.");
+    //   return;
+    // }
 
     setLoading(true);
     setError(null);
