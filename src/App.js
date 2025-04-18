@@ -32,95 +32,112 @@ import ChangePasswordPage from "./pages/UserProfile/ChangePassword";
 import SosBarChart from "./pages/adminDashboard/SosBarChart";
 import InviteMemberForm from "./pages/invitationMemberForm/InviteMemberForm";
 import AddMemberForm from "./pages/addMemberForm/addMemberForm";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   // const user = "member";
   return (
-    <Routes>
-      {/* Public Routes */}
-      <Route
-        path="/login"
-        element={
-          <PublicRoute>
-            <Login />
-          </PublicRoute>
-        }
+    <>
+      <ToastContainer
+        position="top-center"
+        // autoClose={3000}
+        // hideProgressBar={false}
+        theme="light"
+        // progress="undefined"
+        className="toast-container"
       />
-      <Route
-        path="/verifyAccount"
-        element={
-          // <PublicRoute>
-          <VerifyAccount />
-          // </PublicRoute>
-        }
-      />
+      <Routes>
+        {/* Public Routes */}
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/verifyAccount"
+          element={
+            // <PublicRoute>
+            <VerifyAccount />
+            // </PublicRoute>
+          }
+        />
 
-      <Route
-        path="/logout"
-        element={
-          <ProtectedRoute>
-            <Logout />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/reset-password"
-        element={
-          <PublicRoute>
-            <ResetPassword />
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/invitation-member"
-        element={
-          // <ProtectedRoute>
-          <InviteMemberForm />
-          // </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/logout"
+          element={
+            <ProtectedRoute>
+              <Logout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reset-password"
+          element={
+            <PublicRoute>
+              <ResetPassword />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/invitation-member"
+          element={
+            // <ProtectedRoute>
+            <InviteMemberForm />
+            // </ProtectedRoute>
+          }
+        />
 
-      <Route
-        path="*"
-        element={
-          <ProtectedRoute>
-            <Layout>
-              <Routes>
-                <Route index element={<UserDashboard />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                {/* <Route path="/invitation-mail" element={<InvitationForm />} /> */}
-                <Route path="/member-registration" element={<UserRegister />} />
-                <Route path="/sos-history" element={<SOSPage />} />
-                <Route path="/student/:id" element={<StudentProfile />} />
-                <Route
-                  path="/pending-students"
-                  element={<PendingStudentsPage />}
-                />
-                <Route path="/complaints" element={<StudentComplaintsPage />} />
-                <Route path="/students" element={<StudentsPage />} />
-                <Route
-                  path="/create-student"
-                  element={<NewStudentRegister />}
-                />
-                <Route path="/member_page" element={<MembersPage />} />
-                <Route path="/contact" element={<ContactUs />} />
-                <Route path="/invite" element={<InvitationForm />} />
-                <Route path="/add-member" element={<AddMemberForm />} />
-                <Route
-                  path="/changePassword"
-                  element={<ChangePasswordPage />}
-                />
-                <Route path="/bar" element={<SosBarChart />} />
+        <Route
+          path="*"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <Routes>
+                  <Route index element={<UserDashboard />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  {/* <Route path="/invitation-mail" element={<InvitationForm />} /> */}
+                  <Route
+                    path="/member-registration"
+                    element={<UserRegister />}
+                  />
+                  <Route path="/sos-history" element={<SOSPage />} />
+                  <Route path="/student/:id" element={<StudentProfile />} />
+                  <Route
+                    path="/pending-students"
+                    element={<PendingStudentsPage />}
+                  />
+                  <Route
+                    path="/complaints"
+                    element={<StudentComplaintsPage />}
+                  />
+                  <Route path="/students" element={<StudentsPage />} />
+                  <Route
+                    path="/create-student"
+                    element={<NewStudentRegister />}
+                  />
+                  <Route path="/member_page" element={<MembersPage />} />
+                  <Route path="/contact" element={<ContactUs />} />
+                  <Route path="/invite" element={<InvitationForm />} />
+                  <Route path="/add-member" element={<AddMemberForm />} />
+                  <Route
+                    path="/changePassword"
+                    element={<ChangePasswordPage />}
+                  />
+                  <Route path="/bar" element={<SosBarChart />} />
 
-                <Route path="*" element={<Error />} />
-              </Routes>
-            </Layout>
-          </ProtectedRoute>
-        }
-      >
-        {/* Routes under Layout */}
-      </Route>
-    </Routes>
+                  <Route path="*" element={<Error />} />
+                </Routes>
+              </Layout>
+            </ProtectedRoute>
+          }
+        >
+          {/* Routes under Layout */}
+        </Route>
+      </Routes>
+    </>
   );
 }
 

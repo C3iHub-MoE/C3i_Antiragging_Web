@@ -1,7 +1,12 @@
-import React from 'react';
-import { Layout, Card, Typography, Row, Col } from 'antd';
-import { PhoneOutlined, MailOutlined, EnvironmentOutlined } from '@ant-design/icons';
-import styles from './ContactUs.module.css'; // Import the CSS module
+import React from "react";
+import { Layout, Card, Typography, Row, Col } from "antd";
+import {
+  PhoneOutlined,
+  MailOutlined,
+  EnvironmentOutlined,
+  GlobalOutlined,
+} from "@ant-design/icons";
+import styles from "./ContactUs.module.css"; // Import the CSS module
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -16,7 +21,11 @@ const ContactUs = () => {
               <Title level={3} className={styles.contactTitle}>
                 University Grants Commission (UGC)
               </Title>
-              <Text strong>Address:</Text>
+              <Text strong>
+                {" "}
+                <EnvironmentOutlined className={styles.iconStyle} />
+                Address:
+              </Text>
               <p className={styles.contactText}>
                 Bahadur Shah Zafar Marg,
                 <br />
@@ -42,10 +51,19 @@ const ContactUs = () => {
 
             <Col span={24}>
               <Text strong className={styles.contactText}>
-                <EnvironmentOutlined className={styles.iconStyle} />
-                Location:
+                <GlobalOutlined className={styles.iconStyle} />
+                Website:
               </Text>
-              <p className={styles.contactText}>Bahadur Shah Zafar Marg, New Delhi - 110002</p>
+              <p>
+                <a
+                  href="https://www.antiragging.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.contactText}
+                >
+                  www.antiragging.in
+                </a>
+              </p>
             </Col>
           </Row>
         </Card>

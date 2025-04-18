@@ -104,10 +104,10 @@ const Login = () => {
         <button onClick={handleForgotPassword} className={styles.forgotButton}>
           Forgot Password?
         </button>
-        <div className={styles.ClogoPlaceholder}>
+        {/* <div className={styles.ClogoPlaceholder}>
           <img src={IITLOGO} alt="C3iHub Logo" />
           <p>A Product of C3iHub IITK</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
