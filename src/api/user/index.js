@@ -108,10 +108,14 @@ export const AccountVerifyOtp = async (payload, signal) => {
 };
 
 export const ChangePassword = async (payload, signal) => {
+  const headers = {
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Add the Bearer token here
+    "Content-Type": "application/json",
+  };
   const response = await apiClient.post(
     Constants.API_URLS.Change_Password,
     payload,
-    { signal }
+    { headers }
   );
   // console.log("resonsjhv".response.data);
   return response.data?.data;
